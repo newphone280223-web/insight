@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💙 JEE Lecture Series • Google Sheets Powered</title>
+    <title>💙 JEE Lecture Search • Google Sheets Powered</title>
     <style>
         * {
             margin: 0;
@@ -50,32 +50,60 @@
             font-weight: 500;
         }
 
+        .search-section {
+            text-align: center;
+            margin: 40px 0 30px;
+        }
+
+        .main-search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .main-search-box input {
+            width: 100%;
+            padding: 20px 30px 20px 60px;
+            border: 3px solid #d1d9e8;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-search-box input:focus {
+            border-color: #2563eb;
+            outline: none;
+            box-shadow: 0 15px 30px -8px rgba(37, 99, 235, 0.3);
+        }
+
+        .main-search-icon {
+            position: absolute;
+            left: 25px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #2563eb;
+        }
+
+        .search-hint {
+            margin-top: 15px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
         .controls {
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
+            align-items: center;
         }
 
-        .search-box {
+        .results-info {
             flex: 1;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 15px 20px 15px 50px;
-            border: 2px solid #d1d9e8;
-            border-radius: 40px;
-            font-size: 1rem;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
+            color: #2563eb;
+            font-weight: 500;
         }
 
         .filter-buttons {
@@ -91,6 +119,12 @@
             background: white;
             cursor: pointer;
             font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            border-color: #2563eb;
+            background: #f0f7ff;
         }
 
         .filter-btn.active {
@@ -113,6 +147,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
+            transition: opacity 0.3s;
+        }
+
+        .video-grid.hidden {
+            display: none;
         }
 
         .video-card {
@@ -218,6 +257,44 @@
             margin-left: auto;
         }
 
+        .welcome-screen {
+            text-align: center;
+            padding: 60px 20px;
+            color: #6b7280;
+        }
+
+        .welcome-screen h2 {
+            font-size: 2rem;
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+
+        .welcome-screen p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .search-examples {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .example-tag {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .example-tag:hover {
+            background: #2563eb;
+            color: white;
+        }
+
         .loading {
             text-align: center;
             padding: 60px;
@@ -301,34 +378,57 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>💙 JEE Complete Lecture Series</h1>
+            <h1>💙 JEE Lecture Search</h1>
             <div>
                 <span class="badge" id="videoCount">Loading...</span>
                 <span class="sheets-status" id="sheetsStatus">📊 Loading from Google Sheets...</span>
             </div>
         </div>
 
-        <div class="controls">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Search lectures by title or channel...">
+        <div class="search-section">
+            <div class="main-search-box">
+                <span class="main-search-icon">🔍</span>
+                <input type="text" id="mainSearchInput" placeholder="Search for JEE lectures..." autofocus>
             </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">📋 All</button>
-                <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
-                <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
-                <button class="filter-btn" data-filter="maths">📐 Mathematics</button>
+            <div class="search-hint">
+                Type any topic, chapter, or channel name to find lectures
             </div>
         </div>
 
-        <div class="stats">
-            <span>📺 <span id="totalVideos">0</span> lectures</span>
-            <span>⏱️ <span id="totalHours">0</span> hours</span>
-            <span>🎥 <span id="totalChannels">0</span> channels</span>
+        <!-- This appears when no search is performed -->
+        <div id="welcomeScreen" class="welcome-screen">
+            <h2>📚 Welcome to JEE Lecture Search</h2>
+            <p>Start typing in the search box above to find lectures</p>
+            <div class="search-examples">
+                <span class="example-tag" onclick="searchExample('thermodynamics')">🔥 Thermodynamics</span>
+                <span class="example-tag" onclick="searchExample('calculus')">📐 Calculus</span>
+                <span class="example-tag" onclick="searchExample('organic chemistry')">🧪 Organic Chemistry</span>
+                <span class="example-tag" onclick="searchExample('mechanics')">⚙️ Mechanics</span>
+                <span class="example-tag" onclick="searchExample('physics galaxy')">📺 Physics Galaxy</span>
+            </div>
         </div>
 
-        <div id="videoGrid" class="video-grid">
-            <div class="loading">Loading videos from Google Sheets...</div>
+        <!-- Results section - hidden by default -->
+        <div id="resultsSection" style="display: none;">
+            <div class="controls">
+                <div class="results-info" id="resultsInfo"></div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-filter="all">📋 All Results</button>
+                    <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
+                    <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
+                    <button class="filter-btn" data-filter="maths">📐 Mathematics</button>
+                </div>
+            </div>
+
+            <div class="stats">
+                <span>📺 <span id="totalVideos">0</span> lectures</span>
+                <span>⏱️ <span id="totalHours">0</span> hours</span>
+                <span>🎥 <span id="totalChannels">0</span> channels</span>
+            </div>
+
+            <div id="videoGrid" class="video-grid">
+                <!-- Videos will be loaded here -->
+            </div>
         </div>
 
         <div class="footer">
@@ -356,7 +456,10 @@
         let searchTerm = '';
 
         const videoGrid = document.getElementById('videoGrid');
-        const searchInput = document.getElementById('searchInput');
+        const mainSearchInput = document.getElementById('mainSearchInput');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const resultsSection = document.getElementById('resultsSection');
+        const resultsInfo = document.getElementById('resultsInfo');
         const filterButtons = document.querySelectorAll('.filter-btn');
         const videoModal = document.getElementById('videoModal');
         const youtubePlayer = document.getElementById('youtubePlayer');
@@ -379,35 +482,33 @@
                 const headers = rows[0];
                 console.log("Headers:", headers);
                 
-                // Convert to objects - MATCHING YOUR COLUMN ORDER:
-                // id, title, channel, duration, order, subject
+                // Convert to objects - id, title, channel, duration, order, subject
                 allVideos = rows.slice(1).map((row, index) => {
-                    if (row.length < 6) return null; // Need all 6 columns
+                    if (row.length < 6) return null;
                     
                     return {
-                        id: row[0],              // Column A: id
-                        title: row[1],            // Column B: title
-                        channel: row[2],           // Column C: channel
-                        duration: row[3],          // Column D: duration
-                        order: parseInt(row[4]) || index + 1,  // Column E: order
-                        subject: (row[5] || '').toLowerCase()  // Column F: subject
+                        id: row[0],
+                        title: row[1],
+                        channel: row[2],
+                        duration: row[3],
+                        order: parseInt(row[4]) || index + 1,
+                        subject: (row[5] || '').toLowerCase()
                     };
-                }).filter(v => v && v.id); // Remove null entries
+                }).filter(v => v && v.id);
                 
                 // Sort by order
                 allVideos.sort((a, b) => a.order - b.order);
                 
                 console.log(`✅ Loaded ${allVideos.length} videos from Google Sheets`);
-                console.log(`✅ Found ${getUniqueChannels().length} unique channels`);
                 
                 sheetsStatus.textContent = `✅ Live from Google Sheets (${allVideos.length} videos)`;
                 
-                displayVideos();
-                updateStats();
+                // Update video count badge
+                document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
                 
             } catch (error) {
                 console.error('Error loading from Sheets:', error);
-                videoGrid.innerHTML = `<div class="empty-state">❌ Error loading from Google Sheets: ${error.message}</div>`;
+                welcomeScreen.innerHTML = `<div style="color: red;">❌ Error loading data: ${error.message}</div>`;
                 sheetsStatus.textContent = '❌ Connection failed';
             }
         }
@@ -421,47 +522,59 @@
         }
 
         function formatDuration(duration) {
-            // Handle different duration formats
             if (!duration) return "?";
-            
-            // If it's already in MM:SS or HH:MM:SS format
-            if (duration.includes(':')) {
-                return duration;
-            }
-            
-            // If it's a number (seconds)
+            if (duration.includes(':')) return duration;
             if (!isNaN(duration)) {
                 const seconds = parseInt(duration);
                 const hours = Math.floor(seconds / 3600);
                 const minutes = Math.floor((seconds % 3600) / 60);
                 const secs = seconds % 60;
-                
                 if (hours > 0) {
                     return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
                 } else {
                     return `${minutes}:${secs.toString().padStart(2, '0')}`;
                 }
             }
-            
             return duration;
         }
 
-        function displayVideos() {
-            let videosToShow = allVideos.filter(video => {
-                // Filter by subject
-                if (currentFilter !== 'all' && video.subject !== currentFilter) return false;
-                
-                // Search in both title AND channel name
-                if (searchTerm) {
-                    const term = searchTerm.toLowerCase();
-                    const titleMatch = video.title.toLowerCase().includes(term);
-                    const channelMatch = video.channel ? video.channel.toLowerCase().includes(term) : false;
-                    return titleMatch || channelMatch;
-                }
-                
-                return true;
+        function performSearch() {
+            searchTerm = mainSearchInput.value.trim();
+            
+            if (searchTerm === '') {
+                // Hide results, show welcome screen
+                welcomeScreen.style.display = 'block';
+                resultsSection.style.display = 'none';
+                return;
+            }
+            
+            // Filter videos based on search term
+            let searchResults = allVideos.filter(video => {
+                const term = searchTerm.toLowerCase();
+                return video.title.toLowerCase().includes(term) || 
+                       (video.channel && video.channel.toLowerCase().includes(term));
             });
+            
+            // Further filter by subject if not 'all'
+            if (currentFilter !== 'all') {
+                searchResults = searchResults.filter(v => v.subject === currentFilter);
+            }
+            
+            // Update UI
+            welcomeScreen.style.display = 'none';
+            resultsSection.style.display = 'block';
+            
+            // Update results info
+            resultsInfo.textContent = `Found ${searchResults.length} results for "${searchTerm}"`;
+            
+            // Update stats
+            updateStats(searchResults);
+            
+            // Display videos
+            displayVideos(searchResults);
+        }
 
+        function displayVideos(videosToShow) {
             if (videosToShow.length === 0) {
                 videoGrid.innerHTML = '<div class="empty-state">No matching videos found</div>';
                 return;
@@ -490,23 +603,12 @@
             `).join('');
         }
 
-        function playVideo(videoId) {
-            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-            videoModal.classList.add('active');
-        }
-
-        function closeVideoModal() {
-            videoModal.classList.remove('active');
-            youtubePlayer.src = '';
-        }
-
-        function updateStats() {
-            document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
-            document.getElementById('totalVideos').textContent = allVideos.length;
+        function updateStats(videos) {
+            document.getElementById('totalVideos').textContent = videos.length;
             
             // Calculate total hours
             let totalMinutes = 0;
-            allVideos.forEach(video => {
+            videos.forEach(video => {
                 if (video.duration) {
                     const duration = video.duration.toString();
                     if (duration.includes(':')) {
@@ -523,21 +625,37 @@
             });
             document.getElementById('totalHours').textContent = Math.round(totalMinutes / 60);
             
-            // Show total channels
-            document.getElementById('totalChannels').textContent = getUniqueChannels().length;
+            // Count unique channels in results
+            const uniqueChannels = new Set(videos.map(v => v.channel).filter(c => c));
+            document.getElementById('totalChannels').textContent = uniqueChannels.size;
         }
 
-        searchInput.addEventListener('input', (e) => {
-            searchTerm = e.target.value;
-            displayVideos();
-        });
+        function playVideo(videoId) {
+            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            videoModal.classList.add('active');
+        }
+
+        function closeVideoModal() {
+            videoModal.classList.remove('active');
+            youtubePlayer.src = '';
+        }
+
+        function searchExample(term) {
+            mainSearchInput.value = term;
+            performSearch();
+        }
+
+        // Event Listeners
+        mainSearchInput.addEventListener('input', performSearch);
 
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
-                displayVideos();
+                if (mainSearchInput.value.trim() !== '') {
+                    performSearch();
+                }
             });
         });
 
@@ -557,6 +675,7 @@
 
         window.playVideo = playVideo;
         window.closeVideoModal = closeVideoModal;
+        window.searchExample = searchExample;
 
         // Start loading
         loadVideos();
