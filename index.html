@@ -178,6 +178,8 @@
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
+            gap: 10px;
+            line-height: 1.4;
         }
 
         .duration {
@@ -186,11 +188,34 @@
             background: #dbeafe;
             padding: 4px 8px;
             border-radius: 20px;
+            white-space: nowrap;
         }
 
         .video-meta {
-            font-size: 0.8rem;
-            color: #6b7280;
+            font-size: 0.85rem;
+            color: #4b5563;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .channel-icon {
+            font-size: 1rem;
+        }
+
+        .channel-name {
+            font-weight: 500;
+            color: #2563eb;
+        }
+
+        .subject-tag {
+            background: #f1f5f9;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: auto;
         }
 
         .loading {
@@ -264,6 +289,13 @@
             font-size: 0.8rem;
             margin-left: 10px;
         }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #6b7280;
+            grid-column: 1 / -1;
+        }
     </style>
 </head>
 <body>
@@ -279,19 +311,20 @@
         <div class="controls">
             <div class="search-box">
                 <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Search lectures...">
+                <input type="text" id="searchInput" placeholder="Search lectures by title or channel...">
             </div>
             <div class="filter-buttons">
                 <button class="filter-btn active" data-filter="all">📋 All</button>
                 <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
                 <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
-                <button class="filter-btn" data-filter="maths">📐 Maths</button>
+                <button class="filter-btn" data-filter="maths">📐 Mathematics</button>
             </div>
         </div>
 
         <div class="stats">
             <span>📺 <span id="totalVideos">0</span> lectures</span>
             <span>⏱️ <span id="totalHours">0</span> hours</span>
+            <span>🎥 <span id="totalChannels">0</span> channels</span>
         </div>
 
         <div id="videoGrid" class="video-grid">
@@ -344,17 +377,20 @@
                 
                 // First row is headers
                 const headers = rows[0];
+                console.log("Headers:", headers);
                 
-                // Convert to objects
+                // Convert to objects - MATCHING YOUR COLUMN ORDER:
+                // id, title, channel, duration, order, subject
                 allVideos = rows.slice(1).map((row, index) => {
-                    if (row.length < 5) return null; // Skip invalid rows
+                    if (row.length < 6) return null; // Need all 6 columns
                     
                     return {
-                        id: row[0],
-                        title: row[1],
-                        subject: row[2].toLowerCase(),
-                        duration: row[3],
-                        order: parseInt(row[4]) || index + 1
+                        id: row[0],              // Column A: id
+                        title: row[1],            // Column B: title
+                        channel: row[2],           // Column C: channel
+                        duration: row[3],          // Column D: duration
+                        order: parseInt(row[4]) || index + 1,  // Column E: order
+                        subject: (row[5] || '').toLowerCase()  // Column F: subject
                     };
                 }).filter(v => v && v.id); // Remove null entries
                 
@@ -362,6 +398,8 @@
                 allVideos.sort((a, b) => a.order - b.order);
                 
                 console.log(`✅ Loaded ${allVideos.length} videos from Google Sheets`);
+                console.log(`✅ Found ${getUniqueChannels().length} unique channels`);
+                
                 sheetsStatus.textContent = `✅ Live from Google Sheets (${allVideos.length} videos)`;
                 
                 displayVideos();
@@ -374,10 +412,53 @@
             }
         }
 
+        function getUniqueChannels() {
+            const channels = new Set();
+            allVideos.forEach(video => {
+                if (video.channel) channels.add(video.channel);
+            });
+            return Array.from(channels);
+        }
+
+        function formatDuration(duration) {
+            // Handle different duration formats
+            if (!duration) return "?";
+            
+            // If it's already in MM:SS or HH:MM:SS format
+            if (duration.includes(':')) {
+                return duration;
+            }
+            
+            // If it's a number (seconds)
+            if (!isNaN(duration)) {
+                const seconds = parseInt(duration);
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                const secs = seconds % 60;
+                
+                if (hours > 0) {
+                    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                } else {
+                    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+                }
+            }
+            
+            return duration;
+        }
+
         function displayVideos() {
             let videosToShow = allVideos.filter(video => {
+                // Filter by subject
                 if (currentFilter !== 'all' && video.subject !== currentFilter) return false;
-                if (searchTerm && !video.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+                
+                // Search in both title AND channel name
+                if (searchTerm) {
+                    const term = searchTerm.toLowerCase();
+                    const titleMatch = video.title.toLowerCase().includes(term);
+                    const channelMatch = video.channel ? video.channel.toLowerCase().includes(term) : false;
+                    return titleMatch || channelMatch;
+                }
+                
                 return true;
             });
 
@@ -389,16 +470,20 @@
             videoGrid.innerHTML = videosToShow.map(video => `
                 <div class="video-card" onclick="playVideo('${video.id}')">
                     <div class="thumbnail">
-                        <img src="https://img.youtube.com/vi/${video.id}/sddefault.jpg" alt="${video.title}">
+                        <img src="https://img.youtube.com/vi/${video.id}/sddefault.jpg" 
+                             alt="${video.title}"
+                             onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
                         <div class="play-button"></div>
                     </div>
                     <div class="video-info">
                         <div class="video-title">
                             ${video.title}
-                            <span class="duration">${video.duration}</span>
+                            <span class="duration">${formatDuration(video.duration)}</span>
                         </div>
                         <div class="video-meta">
-                            <span>📺 ${video.subject}</span>
+                            <span class="channel-icon">📺</span>
+                            <span class="channel-name" title="${video.channel}">${video.channel || 'Unknown Channel'}</span>
+                            <span class="subject-tag">${video.subject}</span>
                         </div>
                     </div>
                 </div>
@@ -406,7 +491,7 @@
         }
 
         function playVideo(videoId) {
-            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
             videoModal.classList.add('active');
         }
 
@@ -419,16 +504,27 @@
             document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
             document.getElementById('totalVideos').textContent = allVideos.length;
             
+            // Calculate total hours
             let totalMinutes = 0;
             allVideos.forEach(video => {
                 if (video.duration) {
-                    const parts = video.duration.split(':');
-                    if (parts.length === 2) {
-                        totalMinutes += parseInt(parts[0]) + (parseInt(parts[1]) / 60);
+                    const duration = video.duration.toString();
+                    if (duration.includes(':')) {
+                        const parts = duration.split(':');
+                        if (parts.length === 2) {
+                            totalMinutes += parseInt(parts[0]) * 60 + parseInt(parts[1]);
+                        } else if (parts.length === 3) {
+                            totalMinutes += parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2]);
+                        }
+                    } else if (!isNaN(duration)) {
+                        totalMinutes += parseInt(duration) / 60;
                     }
                 }
             });
             document.getElementById('totalHours').textContent = Math.round(totalMinutes / 60);
+            
+            // Show total channels
+            document.getElementById('totalChannels').textContent = getUniqueChannels().length;
         }
 
         searchInput.addEventListener('input', (e) => {
@@ -443,6 +539,20 @@
                 currentFilter = btn.dataset.filter;
                 displayVideos();
             });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeVideoModal();
+            }
+        });
+
+        // Keyboard shortcut: ESC to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeVideoModal();
+            }
         });
 
         window.playVideo = playVideo;
