@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💠 JEE Nexus • Dark Blue Edition</title>
+    <title>💙 JEE Lecture Series • White & Blue Edition</title>
     <style>
         * {
             margin: 0;
@@ -13,27 +13,27 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0b0e18 0%, #0a0c14 100%);
+            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0fa 100%);
             min-height: 100vh;
             padding: 30px 20px;
-            color: #e0e5f0;
+            color: #1e2b4f;
             line-height: 1.6;
         }
 
-        /* Dark blue container */
+        /* White & Blue Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(10, 15, 30, 0.7);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 48px 48px 32px 32px;
             padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 10, 30, 0.8), 
-                        inset 0 1px 2px rgba(70, 130, 200, 0.2);
-            border: 1px solid rgba(30, 60, 120, 0.3);
+            box-shadow: 0 25px 50px -12px rgba(0, 40, 100, 0.25), 
+                        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(70, 130, 200, 0.2);
         }
 
-        /* Header with blue tones */
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -42,13 +42,13 @@
             gap: 20px;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 2px solid #1e2a4a;
+            border-bottom: 2px solid #cbd5e1;
         }
 
         .title-section h1 {
             font-size: 2.5rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #6d8fd1, #2a4b9a);
+            background: linear-gradient(135deg, #2563eb, #1e3a8a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -58,27 +58,27 @@
 
         .title-section .subtitle {
             font-size: 1.1rem;
-            color: #8aa3d1;
+            color: #4b5563;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
         .blue-badge {
-            background: #14233c;
+            background: #dbeafe;
             padding: 8px 16px;
             border-radius: 100px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #8fb1ff;
+            color: #1e3a8a;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            border: 1px solid #2a3f66;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border: 1px solid #bfdbfe;
         }
 
-        /* Controls bar */
+        /* Controls */
         .controls {
             display: flex;
             gap: 15px;
@@ -96,18 +96,18 @@
         .search-box input {
             width: 100%;
             padding: 15px 20px 15px 50px;
-            border: 2px solid #1e2f4a;
+            border: 2px solid #d1d9e8;
             border-radius: 40px;
             font-size: 1rem;
-            background: rgba(5, 10, 25, 0.9);
+            background: white;
             transition: all 0.3s ease;
-            color: #e0e5f0;
+            color: #1e2b4f;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #3a6fd1;
-            box-shadow: 0 0 0 4px rgba(58, 111, 209, 0.2);
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
         .search-icon {
@@ -116,7 +116,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.2rem;
-            color: #3a6fd1;
+            color: #2563eb;
         }
 
         .filter-buttons {
@@ -127,12 +127,12 @@
 
         .filter-btn {
             padding: 12px 24px;
-            border: 2px solid #1e2f4a;
+            border: 2px solid #d1d9e8;
             border-radius: 40px;
-            background: rgba(10, 20, 40, 0.7);
+            background: white;
             cursor: pointer;
             font-weight: 500;
-            color: #a0b5e0;
+            color: #1e2b4f;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -140,17 +140,17 @@
         }
 
         .filter-btn:hover, .filter-btn.active {
-            background: #1e3a8a;
-            border-color: #3a6fd1;
+            background: #2563eb;
+            border-color: #2563eb;
             color: white;
-            box-shadow: 0 0 15px rgba(58, 111, 209, 0.5);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
         .add-video-btn {
             padding: 12px 28px;
-            background: linear-gradient(135deg, #1e3a8a, #0f2b63);
+            background: linear-gradient(135deg, #2563eb, #1e3a8a);
             color: white;
-            border: 1px solid #3a6fd1;
+            border: none;
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
@@ -158,28 +158,27 @@
             align-items: center;
             gap: 10px;
             transition: all 0.2s ease;
-            box-shadow: 0 8px 15px rgba(0, 20, 80, 0.4);
+            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3);
         }
 
         .add-video-btn:hover {
-            background: linear-gradient(135deg, #2a4ab0, #1a3a8a);
+            background: linear-gradient(135deg, #1e4fcf, #153b7a);
             transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(30, 60, 150, 0.5);
-            border-color: #6d9eff;
+            box-shadow: 0 12px 20px rgba(37, 99, 235, 0.4);
         }
 
-        /* Stats bar */
+        /* Stats */
         .stats {
             display: flex;
             gap: 25px;
             margin-bottom: 25px;
-            color: #8aa3d1;
+            color: #4b5563;
             font-size: 0.95rem;
-            background: #0c1428;
+            background: #f8fafc;
             padding: 12px 20px;
             border-radius: 40px;
             width: fit-content;
-            border: 1px solid #1e2f4a;
+            border: 1px solid #d1d9e8;
         }
 
         .stat-item {
@@ -191,26 +190,36 @@
         /* Video grid */
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
             margin-top: 20px;
         }
 
-        /* Video card - dark theme */
+        /* Video card */
         .video-card {
-            background: #0f172f;
-            border-radius: 28px;
+            background: white;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 1px solid #1e2f5a;
+            border: 1px solid #e2e8f0;
             animation: fadeIn 0.5s ease;
+            cursor: pointer;
         }
 
         .video-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 25px 40px -12px #1e3a8a;
-            border-color: #3a6fd1;
+            transform: translateY(-6px);
+            box-shadow: 0 20px 30px -8px rgba(37, 99, 235, 0.3);
+            border-color: #2563eb;
+        }
+
+        .video-card.expanded {
+            grid-column: span 2;
+            grid-row: span 1;
+            transform: scale(1.02);
+            box-shadow: 0 30px 40px -12px #2563eb;
+            border: 2px solid #2563eb;
+            z-index: 10;
         }
 
         @keyframes fadeIn {
@@ -219,7 +228,7 @@
         }
 
         .youtube {
-            background-color: #050a15;
+            background-color: #000;
             position: relative;
             padding-top: 56.25%;
             overflow: hidden;
@@ -231,7 +240,7 @@
             width: 100%;
             top: -16.84%;
             left: 0;
-            opacity: 0.8;
+            opacity: 0.9;
             position: absolute;
             transition: opacity 0.3s ease;
         }
@@ -241,10 +250,10 @@
         }
 
         .youtube .play-button {
-            width: 70px;
-            height: 50px;
+            width: 60px;
+            height: 45px;
             background: linear-gradient(135deg, #2563eb, #1e3a8a);
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
             z-index: 2;
             opacity: 0.9;
             border-radius: 12px;
@@ -253,7 +262,6 @@
             left: 50%;
             transform: translate3d(-50%, -50%, 0);
             transition: all 0.2s ease;
-            cursor: pointer;
         }
 
         .youtube:hover .play-button {
@@ -265,7 +273,7 @@
         .youtube .play-button:before {
             content: "";
             border-style: solid;
-            border-width: 12px 0 12px 20px;
+            border-width: 10px 0 10px 18px;
             border-color: transparent transparent transparent #fff;
             position: absolute;
             top: 50%;
@@ -282,24 +290,36 @@
         }
 
         .video-info {
-            padding: 20px;
-            background: #0f172f;
+            padding: 16px;
+            background: white;
         }
 
         .video-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #d6e2ff;
+            color: #1e2b4f;
             line-height: 1.4;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .video-title .duration {
+            font-size: 0.85rem;
+            color: #2563eb;
+            background: #dbeafe;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 500;
         }
 
         .video-meta {
             display: flex;
             gap: 12px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            color: #7e96c7;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            color: #6b7280;
         }
 
         .video-meta span {
@@ -308,65 +328,21 @@
             gap: 4px;
         }
 
-        .video-tags {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
-        }
-
-        .tag {
-            background: #1e2a4a;
-            padding: 5px 12px;
-            border-radius: 30px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #a0b9ff;
-            border: 1px solid #2a3f6a;
-        }
-
         .progress-bar {
-            height: 6px;
-            background: #1e2a4a;
+            height: 4px;
+            background: #e2e8f0;
             border-radius: 10px;
             overflow: hidden;
-            margin-top: 10px;
         }
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #2563eb, #4f8cff);
+            background: linear-gradient(90deg, #2563eb, #3b82f6);
             width: 0%;
             border-radius: 10px;
         }
 
-        .card-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: 15px;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        .video-card:hover .card-actions {
-            opacity: 1;
-        }
-
-        .action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 5px;
-            font-size: 1.1rem;
-            color: #7e96c7;
-            transition: color 0.2s ease;
-        }
-
-        .action-btn:hover {
-            color: #3b82f6;
-        }
-
-        /* Add video modal - dark theme */
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -374,7 +350,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(5px);
             z-index: 1000;
             justify-content: center;
@@ -386,17 +362,17 @@
         }
 
         .modal-content {
-            background: #0f172f;
+            background: white;
             border-radius: 40px;
             padding: 35px;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
-            border: 1px solid #1e3a8a;
+            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.3);
+            border: 1px solid #bfdbfe;
         }
 
         .modal-content h2 {
-            color: #d6e2ff;
+            color: #1e3a8a;
             margin-bottom: 20px;
             font-size: 1.8rem;
         }
@@ -407,18 +383,18 @@
             width: 100%;
             padding: 15px;
             margin-bottom: 15px;
-            border: 2px solid #1e2f4a;
+            border: 2px solid #d1d9e8;
             border-radius: 20px;
             font-size: 1rem;
-            background: #0a1020;
-            color: #e0e5f0;
+            background: white;
+            color: #1e2b4f;
         }
 
         .modal-content input:focus,
         .modal-content select:focus,
         .modal-content textarea:focus {
             outline: none;
-            border-color: #3a6fd1;
+            border-color: #2563eb;
         }
 
         .modal-content textarea {
@@ -442,27 +418,25 @@
         }
 
         .save-btn {
-            background: linear-gradient(135deg, #1e3a8a, #0f2b63);
+            background: #2563eb;
             color: white;
-            border: 1px solid #3a6fd1;
         }
 
         .cancel-btn {
-            background: #1e2a4a;
-            color: #a0b5e0;
-            border: 1px solid #2a3f6a;
+            background: #e2e8f0;
+            color: #1e2b4f;
         }
 
         .save-btn:hover, .cancel-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(30, 60, 150, 0.3);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
         }
 
-        /* Empty state - dark theme */
+        /* Empty state */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #7e96c7;
+            color: #6b7280;
         }
 
         .empty-state p {
@@ -474,52 +448,14 @@
         .footer {
             margin-top: 50px;
             text-align: center;
-            color: #4a5f8c;
+            color: #6b7280;
             font-size: 0.9rem;
             padding-top: 20px;
-            border-top: 1px dashed #1e2f4a;
+            border-top: 1px dashed #cbd5e1;
         }
 
         .footer span {
-            color: #3a6fd1;
-        }
-
-        /* Loading animation */
-        .loading {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border: 3px solid #1e2f4a;
-            border-top-color: #3a6fd1;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Scrollbar styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0a1020;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #1e3a8a;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb;
-        }
-
-        /* Blue glow for active elements */
-        .glow-text {
-            text-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+            color: #2563eb;
         }
     </style>
 </head>
@@ -528,14 +464,13 @@
         <!-- Header -->
         <div class="header">
             <div class="title-section">
-                <h1>💠 JEE Nexus</h1>
+                <h1>💙 JEE Complete Lecture Series</h1>
                 <div class="subtitle">
-                    <span>⚡</span> Deep focus • Dark mode • Zero distractions
+                    <span>📚</span> 65 lectures • 600+ hours of content
                 </div>
             </div>
             <div class="blue-badge">
-                <span>📘</span> 5 lectures today
-                <span>🎯</span> JEE 2026
+                <span>🎯</span> JEE 2026 • Complete Syllabus
             </div>
         </div>
 
@@ -560,17 +495,17 @@
                 </button>
             </div>
             <button class="add-video-btn" id="addVideoBtn">
-                <span>➕</span> Add Lecture
+                <span>➕</span> Add Custom Lecture
             </button>
         </div>
 
         <!-- Stats -->
         <div class="stats">
             <div class="stat-item">
-                <span>📺</span> <span id="totalVideos">0</span> lectures
+                <span>📺</span> <span id="totalVideos">65</span> lectures
             </div>
             <div class="stat-item">
-                <span>⏱️</span> <span id="totalHours">0</span> hours of content
+                <span>⏱️</span> <span id="totalHours">0</span> hours total
             </div>
             <div class="stat-item">
                 <span>📊</span> <span id="completionRate">0</span>% completed
@@ -582,14 +517,14 @@
 
         <!-- Footer -->
         <div class="footer">
-            Made with <span>💙</span> for JEE aspirants • Study deep, study dark
+            Made with <span>💙</span> for JEE aspirants • Complete lecture series
         </div>
     </div>
 
     <!-- Add Video Modal -->
     <div class="modal" id="videoModal">
         <div class="modal-content">
-            <h2>➕ Add New Lecture</h2>
+            <h2>➕ Add Custom Lecture</h2>
             <input type="text" id="videoUrl" placeholder="YouTube URL or Video ID">
             <input type="text" id="videoTitle" placeholder="Lecture title">
             <select id="videoSubject">
@@ -606,33 +541,81 @@
     </div>
 
     <script>
-        // Lecture database
-        let lectures = [
-            {
-                id: 'k5NoAjpuXww',
-                title: 'Rotational Motion - Complete Guide',
-                subject: 'physics',
-                duration: '45:30',
-                notes: 'Important for JEE Advanced',
-                watched: false
-            },
-            {
-                id: 'dQw4w9WgXcQ',
-                title: 'Organic Chemistry Basics',
-                subject: 'chemistry',
-                duration: '52:15',
-                notes: 'Must watch before moving to advanced topics',
-                watched: false
-            },
-            {
-                id: 'jNQXAC9IVRw',
-                title: 'Calculus - Limits & Continuity',
-                subject: 'maths',
-                duration: '38:20',
-                notes: 'Foundation for differentiation',
-                watched: false
-            }
+        // Complete lecture database with all 65 videos
+        const lectureData = [
+            { id: 'k5NoAjpuXww', duration: '11:56', subject: 'physics', title: 'Rotational Motion Part 1' },
+            { id: 'UsHUxG90f_4', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 2' },
+            { id: 'FSlOdXN7leo', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 3' },
+            { id: '_lLwOvc0j70', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 4' },
+            { id: '7MhOKcIhxdA', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 5' },
+            { id: 'HYJWvFvi7as', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 6' },
+            { id: 'Puc8FdewOsw', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 7' },
+            { id: 'hHirgsaeMGQ', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 8' },
+            { id: 'regtj2Z7Wao', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 9' },
+            { id: 'C2BMigCeREc', duration: '11:52', subject: 'physics', title: 'Rotational Motion Part 10' },
+            { id: 'uZHX8sOELJw', duration: '11:49', subject: 'physics', title: 'Rotational Motion Part 11' },
+            { id: 'tvGfHpEOzjs', duration: '11:46', subject: 'physics', title: 'Rotational Motion Part 12' },
+            { id: 'WD_altOi5js', duration: '11:46', subject: 'physics', title: 'Rotational Motion Part 13' },
+            { id: 'ZufEZX40W3o', duration: '11:45', subject: 'physics', title: 'Rotational Motion Part 14' },
+            { id: 'v7o5yNPicZQ', duration: '11:30', subject: 'physics', title: 'Rotational Motion Part 15' },
+            { id: 'GLEZZdGwuXU', duration: '11:27', subject: 'physics', title: 'Rotational Motion Part 16' },
+            { id: 'YH2pTwKYSrY', duration: '11:22', subject: 'physics', title: 'Rotational Motion Part 17' },
+            { id: 'GOEq8xJBeyA', duration: '11:16', subject: 'physics', title: 'Rotational Motion Part 18' },
+            { id: 'ZujpN1B9bz0', duration: '11:15', subject: 'physics', title: 'Rotational Motion Part 19' },
+            { id: 'MBaVDfrW7n0', duration: '11:14', subject: 'physics', title: 'Rotational Motion Part 20' },
+            { id: 'Uc6Y3fBZrvY', duration: '11:09', subject: 'physics', title: 'Rotational Motion Part 21' },
+            { id: 'FC9yN9E9IAs', duration: '10:58', subject: 'physics', title: 'Rotational Motion Part 22' },
+            { id: 'BxML7V2GG4c', duration: '10:57', subject: 'physics', title: 'Rotational Motion Part 23' },
+            { id: 'UI8Sb7dgSGo', duration: '10:51', subject: 'physics', title: 'Rotational Motion Part 24' },
+            { id: 'qVFXj7Xok5Y', duration: '10:51', subject: 'physics', title: 'Rotational Motion Part 25' },
+            { id: 'XNejTlN9Lc4', duration: '10:44', subject: 'physics', title: 'Rotational Motion Part 26' },
+            { id: 'kyG9dH681Ao', duration: '10:42', subject: 'physics', title: 'Rotational Motion Part 27' },
+            { id: 'V76QPpoWVwA', duration: '10:41', subject: 'physics', title: 'Rotational Motion Part 28' },
+            { id: 'o60h6_9HM3s', duration: '10:39', subject: 'physics', title: 'Rotational Motion Part 29' },
+            { id: 'i5FAg5Nmito', duration: '10:32', subject: 'physics', title: 'Rotational Motion Part 30' },
+            { id: '5M53eu3UI3U', duration: '10:25', subject: 'physics', title: 'Rotational Motion Part 31' },
+            { id: 'cjoRcywyRv0', duration: '10:22', subject: 'physics', title: 'Rotational Motion Part 32' },
+            { id: 'V9vUxNVaqOw', duration: '10:16', subject: 'physics', title: 'Rotational Motion Part 33' },
+            { id: 'fBZTrlapyiY', duration: '10:10', subject: 'physics', title: 'Rotational Motion Part 34' },
+            { id: 'zL_7hG1kJdM', duration: '10:02', subject: 'physics', title: 'Rotational Motion Part 35' },
+            { id: 'm5GZ4X9qrl0', duration: '10:01', subject: 'physics', title: 'Rotational Motion Part 36' },
+            { id: 'CRj8PVlsXzc', duration: '10:01', subject: 'physics', title: 'Rotational Motion Part 37' },
+            { id: '_dl8ELKSeOE', duration: '9:55', subject: 'physics', title: 'Rotational Motion Part 38' },
+            { id: 'B3yFILY36i8', duration: '9:48', subject: 'physics', title: 'Rotational Motion Part 39' },
+            { id: 'I4kB3onwjpw', duration: '9:36', subject: 'physics', title: 'Rotational Motion Part 40' },
+            { id: 'JY24andAvME', duration: '9:19', subject: 'physics', title: 'Rotational Motion Part 41' },
+            { id: 'yBJuiYbjc1w', duration: '9:15', subject: 'physics', title: 'Rotational Motion Part 42' },
+            { id: 'Z3ueGhx2sDc', duration: '9:07', subject: 'physics', title: 'Rotational Motion Part 43' },
+            { id: 'wDzTxpOG9VI', duration: '9:02', subject: 'physics', title: 'Rotational Motion Part 44' },
+            { id: 'hY9zZrYuDVk', duration: '9:01', subject: 'physics', title: 'Rotational Motion Part 45' },
+            { id: '5I7EvZRNfaA', duration: '8:59', subject: 'physics', title: 'Rotational Motion Part 46' },
+            { id: '2jI6fHacUNI', duration: '8:58', subject: 'physics', title: 'Rotational Motion Part 47' },
+            { id: 'RD9O7JYlyQU', duration: '8:52', subject: 'physics', title: 'Rotational Motion Part 48' },
+            { id: 'aPwqkZCBouU', duration: '8:48', subject: 'physics', title: 'Rotational Motion Part 49' },
+            { id: 'NwCmoh7Vd9g', duration: '8:47', subject: 'physics', title: 'Rotational Motion Part 50' },
+            { id: 'u_9r9WSVFE4', duration: '8:45', subject: 'physics', title: 'Rotational Motion Part 51' },
+            { id: '2Od_ytPaALQ', duration: '8:43', subject: 'physics', title: 'Rotational Motion Part 52' },
+            { id: 'k16UI-Uu-60', duration: '8:41', subject: 'physics', title: 'Rotational Motion Part 53' },
+            { id: 'JAvi2K_DbbI', duration: '8:34', subject: 'physics', title: 'Rotational Motion Part 54' },
+            { id: 'zPdlRbwkBkk', duration: '8:33', subject: 'physics', title: 'Rotational Motion Part 55' },
+            { id: 'WkTpkOoThRw', duration: '8:31', subject: 'physics', title: 'Rotational Motion Part 56' },
+            { id: 'yFyg75_OzBE', duration: '8:29', subject: 'physics', title: 'Rotational Motion Part 57' },
+            { id: 'KVvLiWhqDDA', duration: '8:28', subject: 'physics', title: 'Rotational Motion Part 58' },
+            { id: 'kw12nrsktnc', duration: '8:24', subject: 'physics', title: 'Rotational Motion Part 59' },
+            { id: '72T8RfBU0ME', duration: '8:20', subject: 'physics', title: 'Rotational Motion Part 60' },
+            { id: 'fBqJdix2NjE', duration: '8:19', subject: 'physics', title: 'Rotational Motion Part 61' },
+            { id: 'UCdxT4d8k5c', duration: '8:18', subject: 'physics', title: 'Rotational Motion Part 62' },
+            { id: 'dpMC_f8A8HI', duration: '8:14', subject: 'physics', title: 'Rotational Motion Part 63' },
+            { id: 'pi0bAxOGHIo', duration: '8:08', subject: 'physics', title: 'Rotational Motion Part 64' },
+            { id: 'mpFEnSQpJ9Q', duration: '8:06', subject: 'physics', title: 'Rotational Motion Part 65' }
         ];
+
+        // Initialize lectures with watched status
+        let lectures = lectureData.map(lecture => ({
+            ...lecture,
+            notes: '',
+            watched: false
+        }));
 
         const videoGrid = document.getElementById('videoGrid');
         const searchInput = document.getElementById('searchInput');
@@ -641,8 +624,19 @@
         
         let currentFilter = 'all';
         let searchTerm = '';
+        let expandedCardId = null;
 
-        // Load and display videos
+        // Calculate total hours
+        function calculateTotalHours() {
+            let totalMinutes = 0;
+            lectures.forEach(lecture => {
+                const [mins, secs] = lecture.duration.split(':').map(Number);
+                totalMinutes += mins + (secs/60);
+            });
+            return Math.round(totalMinutes / 60);
+        }
+
+        // Display videos
         function displayVideos() {
             const filtered = lectures.filter(lecture => {
                 if (currentFilter !== 'all' && lecture.subject !== currentFilter) return false;
@@ -655,7 +649,7 @@
                     <div class="empty-state">
                         <span style="font-size: 3rem;">📚</span>
                         <p>No lectures found</p>
-                        <p style="font-size: 0.9rem;">Click "Add Lecture" to start your study session</p>
+                        <p style="font-size: 0.9rem;">Try a different search or filter</p>
                     </div>
                 `;
                 updateStats();
@@ -663,39 +657,75 @@
             }
 
             videoGrid.innerHTML = filtered.map(lecture => `
-                <div class="video-card" data-id="${lecture.id}" data-subject="${lecture.subject}">
-                    <div class="youtube" data-embed="${lecture.id}">
+                <div class="video-card ${expandedCardId === lecture.id ? 'expanded' : ''}" 
+                     data-id="${lecture.id}" 
+                     data-subject="${lecture.subject}"
+                     onclick="handleCardClick(event, '${lecture.id}')">
+                    <div class="youtube" data-embed="${lecture.id}" onclick="event.stopPropagation(); playVideo(this, '${lecture.id}')">
                         <img src="https://img.youtube.com/vi/${lecture.id}/sddefault.jpg" alt="Thumbnail">
                         <div class="play-button"></div>
                     </div>
                     <div class="video-info">
-                        <h3 class="video-title">${lecture.title}</h3>
-                        <div class="video-meta">
-                            <span>⏱️ ${lecture.duration || '—'}</span>
-                            <span>📺 ${getSubjectIcon(lecture.subject)} ${lecture.subject}</span>
+                        <div class="video-title">
+                            ${lecture.title}
+                            <span class="duration">${lecture.duration}</span>
                         </div>
-                        <div class="video-tags">
-                            ${lecture.notes ? `<span class="tag">📝 Notes saved</span>` : ''}
-                            ${lecture.watched ? '<span class="tag">✅ Watched</span>' : '<span class="tag">⏳ New</span>'}
+                        <div class="video-meta">
+                            <span>📺 ${lecture.subject}</span>
+                            ${lecture.notes ? '<span>📝 Notes</span>' : ''}
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill" style="width: ${lecture.watched ? '100' : '0'}%"></div>
-                        </div>
-                        <div class="card-actions">
-                            <button class="action-btn" onclick="toggleWatched('${lecture.id}')" title="Mark watched">✅</button>
-                            <button class="action-btn" onclick="editLecture('${lecture.id}')" title="Edit notes">✏️</button>
-                            <button class="action-btn" onclick="deleteLecture('${lecture.id}')" title="Remove">🗑️</button>
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            document.querySelectorAll('.youtube').forEach(container => {
-                container.addEventListener('click', function() {
-                    playVideo(this);
-                });
-            });
+            updateStats();
+        }
 
+        function handleCardClick(event, id) {
+            // Don't expand if clicking on play button or iframe
+            if (event.target.closest('.youtube') || event.target.closest('iframe')) {
+                return;
+            }
+            
+            // Toggle expansion
+            if (expandedCardId === id) {
+                expandedCardId = null;
+            } else {
+                expandedCardId = id;
+            }
+            displayVideos();
+            
+            // Scroll to expanded card
+            if (expandedCardId) {
+                setTimeout(() => {
+                    const expandedCard = document.querySelector(`.video-card[data-id="${id}"]`);
+                    if (expandedCard) {
+                        expandedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }, 100);
+            }
+        }
+
+        function playVideo(container, id) {
+            const embedId = container.dataset.embed;
+            
+            // Mark as watched
+            const lecture = lectures.find(l => l.id === id);
+            if (lecture) {
+                lecture.watched = true;
+            }
+            
+            const iframe = document.createElement('iframe');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('src', `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1`);
+            container.innerHTML = '';
+            container.appendChild(iframe);
+            
             updateStats();
         }
 
@@ -708,48 +738,43 @@
             return icons[subject] || '📚';
         }
 
-        function playVideo(container) {
-            const embedId = container.dataset.embed;
-            const iframe = document.createElement('iframe');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('src', `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1`);
-            container.innerHTML = '';
-            container.appendChild(iframe);
-        }
-
         function updateStats() {
             document.getElementById('totalVideos').textContent = lectures.length;
+            
+            const totalHours = calculateTotalHours();
+            document.getElementById('totalHours').textContent = totalHours;
             
             const watchedCount = lectures.filter(l => l.watched).length;
             const completion = lectures.length ? Math.round((watchedCount / lectures.length) * 100) : 0;
             document.getElementById('completionRate').textContent = completion;
             
+            // Update filter button counts
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 const filter = btn.dataset.filter;
                 if (filter === 'all') {
-                    btn.innerHTML = `<span>📋</span> All <span style="font-size:0.8rem; color:#3a6fd1;">(${lectures.length})</span>`;
+                    btn.innerHTML = `<span>📋</span> All <span style="font-size:0.8rem; color:#2563eb;">(${lectures.length})</span>`;
                 } else {
                     const count = lectures.filter(l => l.subject === filter).length;
                     const icon = getSubjectIcon(filter);
-                    btn.innerHTML = `${btn.innerHTML.split('<span>')[0]}<span>${icon}</span> ${filter.charAt(0).toUpperCase() + filter.slice(1)} <span style="font-size:0.8rem; color:#3a6fd1;">(${count})</span>`;
+                    btn.innerHTML = `${btn.innerHTML.split('<span>')[0]}<span>${icon}</span> ${filter.charAt(0).toUpperCase() + filter.slice(1)} <span style="font-size:0.8rem; color:#2563eb;">(${count})</span>`;
                 }
             });
         }
 
-        // Search functionality
+        // Search
         searchInput.addEventListener('input', (e) => {
             searchTerm = e.target.value;
+            expandedCardId = null; // Collapse expanded card when searching
             displayVideos();
         });
 
-        // Filter functionality
+        // Filter
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
+                expandedCardId = null; // Collapse expanded card when filtering
                 displayVideos();
             });
         });
@@ -797,34 +822,8 @@
 
         window.addVideo = addVideo;
         window.closeModal = closeModal;
-
-        // Video actions
-        window.toggleWatched = (id) => {
-            const lecture = lectures.find(l => l.id === id);
-            if (lecture) {
-                lecture.watched = !lecture.watched;
-                displayVideos();
-            }
-        };
-
-        window.editLecture = (id) => {
-            const lecture = lectures.find(l => l.id === id);
-            if (lecture) {
-                document.getElementById('videoUrl').value = lecture.id;
-                document.getElementById('videoTitle').value = lecture.title;
-                document.getElementById('videoSubject').value = lecture.subject;
-                document.getElementById('videoNotes').value = lecture.notes || '';
-                openModal();
-                lectures = lectures.filter(l => l.id !== id);
-            }
-        };
-
-        window.deleteLecture = (id) => {
-            if (confirm('Remove this lecture from your list?')) {
-                lectures = lectures.filter(l => l.id !== id);
-                displayVideos();
-            }
-        };
+        window.playVideo = playVideo;
+        window.handleCardClick = handleCardClick;
 
         document.getElementById('addVideoBtn').addEventListener('click', openModal);
 
@@ -832,6 +831,7 @@
             if (e.target === modal) closeModal();
         });
 
+        // Initialize
         displayVideos();
     </script>
 </body>
