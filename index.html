@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📖 JEE Study Nook • Cozy Lecture Hall</title>
+    <title>💠 JEE Nexus • Dark Blue Edition</title>
     <style>
         * {
             margin: 0;
@@ -13,27 +13,27 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #fbf3e0 0%, #f8e9d0 100%);
+            background: linear-gradient(135deg, #0b0e18 0%, #0a0c14 100%);
             min-height: 100vh;
             padding: 30px 20px;
-            color: #3a2c1b;
+            color: #e0e5f0;
             line-height: 1.6;
         }
 
-        /* Cozy container */
+        /* Dark blue container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 250, 240, 0.7);
+            background: rgba(10, 15, 30, 0.7);
             backdrop-filter: blur(10px);
             border-radius: 48px 48px 32px 32px;
             padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(255, 245, 220, 0.6);
+            box-shadow: 0 25px 50px -12px rgba(0, 10, 30, 0.8), 
+                        inset 0 1px 2px rgba(70, 130, 200, 0.2);
+            border: 1px solid rgba(30, 60, 120, 0.3);
         }
 
-        /* Header with cozy vibes */
+        /* Header with blue tones */
         .header {
             display: flex;
             justify-content: space-between;
@@ -42,13 +42,13 @@
             gap: 20px;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 2px dashed #d4b48c;
+            border-bottom: 2px solid #1e2a4a;
         }
 
         .title-section h1 {
             font-size: 2.5rem;
             font-weight: 600;
-            background: linear-gradient(135deg, #5e3c23, #8b5e3c);
+            background: linear-gradient(135deg, #6d8fd1, #2a4b9a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -58,24 +58,24 @@
 
         .title-section .subtitle {
             font-size: 1.1rem;
-            color: #7a5a3a;
+            color: #8aa3d1;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .cozy-badge {
-            background: #e6d5b8;
+        .blue-badge {
+            background: #14233c;
             padding: 8px 16px;
             border-radius: 100px;
             font-size: 0.9rem;
             font-weight: 500;
-            color: #5e3c23;
+            color: #8fb1ff;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #f0e0c0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #2a3f66;
         }
 
         /* Controls bar */
@@ -96,18 +96,18 @@
         .search-box input {
             width: 100%;
             padding: 15px 20px 15px 50px;
-            border: 2px solid #e6d5b8;
+            border: 2px solid #1e2f4a;
             border-radius: 40px;
             font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(5, 10, 25, 0.9);
             transition: all 0.3s ease;
-            color: #3a2c1b;
+            color: #e0e5f0;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #b88b4a;
-            box-shadow: 0 0 0 4px rgba(184, 139, 74, 0.1);
+            border-color: #3a6fd1;
+            box-shadow: 0 0 0 4px rgba(58, 111, 209, 0.2);
         }
 
         .search-icon {
@@ -116,7 +116,7 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.2rem;
-            color: #b88b4a;
+            color: #3a6fd1;
         }
 
         .filter-buttons {
@@ -127,12 +127,12 @@
 
         .filter-btn {
             padding: 12px 24px;
-            border: 2px solid #e6d5b8;
+            border: 2px solid #1e2f4a;
             border-radius: 40px;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(10, 20, 40, 0.7);
             cursor: pointer;
             font-weight: 500;
-            color: #5e3c23;
+            color: #a0b5e0;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -140,16 +140,17 @@
         }
 
         .filter-btn:hover, .filter-btn.active {
-            background: #b88b4a;
-            border-color: #b88b4a;
+            background: #1e3a8a;
+            border-color: #3a6fd1;
             color: white;
+            box-shadow: 0 0 15px rgba(58, 111, 209, 0.5);
         }
 
         .add-video-btn {
             padding: 12px 28px;
-            background: #5e3c23;
+            background: linear-gradient(135deg, #1e3a8a, #0f2b63);
             color: white;
-            border: none;
+            border: 1px solid #3a6fd1;
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
@@ -157,13 +158,14 @@
             align-items: center;
             gap: 10px;
             transition: all 0.2s ease;
-            box-shadow: 0 8px 15px rgba(94, 60, 35, 0.2);
+            box-shadow: 0 8px 15px rgba(0, 20, 80, 0.4);
         }
 
         .add-video-btn:hover {
-            background: #7a4f2e;
+            background: linear-gradient(135deg, #2a4ab0, #1a3a8a);
             transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(94, 60, 35, 0.3);
+            box-shadow: 0 12px 20px rgba(30, 60, 150, 0.5);
+            border-color: #6d9eff;
         }
 
         /* Stats bar */
@@ -171,12 +173,13 @@
             display: flex;
             gap: 25px;
             margin-bottom: 25px;
-            color: #7a5a3a;
+            color: #8aa3d1;
             font-size: 0.95rem;
-            background: #f4e8d8;
+            background: #0c1428;
             padding: 12px 20px;
             border-radius: 40px;
             width: fit-content;
+            border: 1px solid #1e2f4a;
         }
 
         .stat-item {
@@ -193,20 +196,21 @@
             margin-top: 20px;
         }
 
-        /* Video card */
+        /* Video card - dark theme */
         .video-card {
-            background: #fffcf5;
+            background: #0f172f;
             border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 15px 30px -10px rgba(94, 60, 35, 0.15);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.7);
             transition: all 0.3s ease;
-            border: 1px solid #f0e0d0;
+            border: 1px solid #1e2f5a;
             animation: fadeIn 0.5s ease;
         }
 
         .video-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 25px 40px -12px #5e3c23;
+            box-shadow: 0 25px 40px -12px #1e3a8a;
+            border-color: #3a6fd1;
         }
 
         @keyframes fadeIn {
@@ -215,7 +219,7 @@
         }
 
         .youtube {
-            background-color: #1a1a1a;
+            background-color: #050a15;
             position: relative;
             padding-top: 56.25%;
             overflow: hidden;
@@ -239,8 +243,8 @@
         .youtube .play-button {
             width: 70px;
             height: 50px;
-            background: linear-gradient(135deg, #ff6b6b, #ff4757);
-            box-shadow: 0 10px 25px rgba(255, 71, 87, 0.4);
+            background: linear-gradient(135deg, #2563eb, #1e3a8a);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.5);
             z-index: 2;
             opacity: 0.9;
             border-radius: 12px;
@@ -255,7 +259,7 @@
         .youtube:hover .play-button {
             transform: translate3d(-50%, -50%, 0) scale(1.1);
             opacity: 1;
-            background: linear-gradient(135deg, #ff4757, #ff6b6b);
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
         }
 
         .youtube .play-button:before {
@@ -279,13 +283,14 @@
 
         .video-info {
             padding: 20px;
+            background: #0f172f;
         }
 
         .video-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #3a2c1b;
+            color: #d6e2ff;
             line-height: 1.4;
         }
 
@@ -294,7 +299,7 @@
             gap: 12px;
             margin-bottom: 15px;
             font-size: 0.9rem;
-            color: #8b7a60;
+            color: #7e96c7;
         }
 
         .video-meta span {
@@ -311,17 +316,18 @@
         }
 
         .tag {
-            background: #f0e6d8;
+            background: #1e2a4a;
             padding: 5px 12px;
             border-radius: 30px;
             font-size: 0.8rem;
             font-weight: 500;
-            color: #5e3c23;
+            color: #a0b9ff;
+            border: 1px solid #2a3f6a;
         }
 
         .progress-bar {
             height: 6px;
-            background: #e6d5b8;
+            background: #1e2a4a;
             border-radius: 10px;
             overflow: hidden;
             margin-top: 10px;
@@ -329,7 +335,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #b88b4a, #d4a05e);
+            background: linear-gradient(90deg, #2563eb, #4f8cff);
             width: 0%;
             border-radius: 10px;
         }
@@ -352,15 +358,15 @@
             cursor: pointer;
             padding: 5px;
             font-size: 1.1rem;
-            color: #8b7a60;
+            color: #7e96c7;
             transition: color 0.2s ease;
         }
 
         .action-btn:hover {
-            color: #5e3c23;
+            color: #3b82f6;
         }
 
-        /* Add video modal */
+        /* Add video modal - dark theme */
         .modal {
             display: none;
             position: fixed;
@@ -368,7 +374,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(5px);
             z-index: 1000;
             justify-content: center;
@@ -380,17 +386,17 @@
         }
 
         .modal-content {
-            background: #fffcf5;
+            background: #0f172f;
             border-radius: 40px;
             padding: 35px;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 30px 60px rgba(94, 60, 35, 0.3);
-            border: 1px solid #f0e0d0;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+            border: 1px solid #1e3a8a;
         }
 
         .modal-content h2 {
-            color: #5e3c23;
+            color: #d6e2ff;
             margin-bottom: 20px;
             font-size: 1.8rem;
         }
@@ -401,10 +407,18 @@
             width: 100%;
             padding: 15px;
             margin-bottom: 15px;
-            border: 2px solid #e6d5b8;
+            border: 2px solid #1e2f4a;
             border-radius: 20px;
             font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
+            background: #0a1020;
+            color: #e0e5f0;
+        }
+
+        .modal-content input:focus,
+        .modal-content select:focus,
+        .modal-content textarea:focus {
+            outline: none;
+            border-color: #3a6fd1;
         }
 
         .modal-content textarea {
@@ -428,25 +442,27 @@
         }
 
         .save-btn {
-            background: #5e3c23;
+            background: linear-gradient(135deg, #1e3a8a, #0f2b63);
             color: white;
+            border: 1px solid #3a6fd1;
         }
 
         .cancel-btn {
-            background: #e6d5b8;
-            color: #5e3c23;
+            background: #1e2a4a;
+            color: #a0b5e0;
+            border: 1px solid #2a3f6a;
         }
 
         .save-btn:hover, .cancel-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(30, 60, 150, 0.3);
         }
 
-        /* Empty state */
+        /* Empty state - dark theme */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
-            color: #8b7a60;
+            color: #7e96c7;
         }
 
         .empty-state p {
@@ -458,14 +474,14 @@
         .footer {
             margin-top: 50px;
             text-align: center;
-            color: #8b7a60;
+            color: #4a5f8c;
             font-size: 0.9rem;
             padding-top: 20px;
-            border-top: 1px dashed #d4b48c;
+            border-top: 1px dashed #1e2f4a;
         }
 
         .footer span {
-            color: #b88b4a;
+            color: #3a6fd1;
         }
 
         /* Loading animation */
@@ -473,8 +489,8 @@
             display: inline-block;
             width: 30px;
             height: 30px;
-            border: 3px solid #e6d5b8;
-            border-top-color: #b88b4a;
+            border: 3px solid #1e2f4a;
+            border-top-color: #3a6fd1;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -482,20 +498,43 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a1020;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e3a8a;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2563eb;
+        }
+
+        /* Blue glow for active elements */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Cozy Header -->
+        <!-- Header -->
         <div class="header">
             <div class="title-section">
-                <h1>📖 JEE Study Nook</h1>
+                <h1>💠 JEE Nexus</h1>
                 <div class="subtitle">
-                    <span>☕</span> Your cozy lecture hall • distraction-free zone
+                    <span>⚡</span> Deep focus • Dark mode • Zero distractions
                 </div>
             </div>
-            <div class="cozy-badge">
-                <span>📚</span> 5 lectures today
+            <div class="blue-badge">
+                <span>📘</span> 5 lectures today
                 <span>🎯</span> JEE 2026
             </div>
         </div>
@@ -543,7 +582,7 @@
 
         <!-- Footer -->
         <div class="footer">
-            Made with <span>❤️</span> for JEE aspirants • Study cozy, study smart
+            Made with <span>💙</span> for JEE aspirants • Study deep, study dark
         </div>
     </div>
 
@@ -606,12 +645,8 @@
         // Load and display videos
         function displayVideos() {
             const filtered = lectures.filter(lecture => {
-                // Filter by subject
                 if (currentFilter !== 'all' && lecture.subject !== currentFilter) return false;
-                
-                // Filter by search
                 if (searchTerm && !lecture.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
-                
                 return true;
             });
 
@@ -655,7 +690,6 @@
                 </div>
             `).join('');
 
-            // Add click handlers for video playback
             document.querySelectorAll('.youtube').forEach(container => {
                 container.addEventListener('click', function() {
                     playVideo(this);
@@ -692,14 +726,14 @@
             const completion = lectures.length ? Math.round((watchedCount / lectures.length) * 100) : 0;
             document.getElementById('completionRate').textContent = completion;
             
-            // Update filter badge counts
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 const filter = btn.dataset.filter;
                 if (filter === 'all') {
-                    btn.innerHTML = `<span>📋</span> All <span style="font-size:0.8rem; color:#b88b4a;">(${lectures.length})</span>`;
+                    btn.innerHTML = `<span>📋</span> All <span style="font-size:0.8rem; color:#3a6fd1;">(${lectures.length})</span>`;
                 } else {
                     const count = lectures.filter(l => l.subject === filter).length;
-                    btn.innerHTML = `${btn.innerHTML.split('<span>')[0]}<span>${getSubjectIcon(filter)}</span> ${filter} <span style="font-size:0.8rem; color:#b88b4a;">(${count})</span>`;
+                    const icon = getSubjectIcon(filter);
+                    btn.innerHTML = `${btn.innerHTML.split('<span>')[0]}<span>${icon}</span> ${filter.charAt(0).toUpperCase() + filter.slice(1)} <span style="font-size:0.8rem; color:#3a6fd1;">(${count})</span>`;
                 }
             });
         }
@@ -738,7 +772,6 @@
             const subject = document.getElementById('videoSubject').value;
             const notes = document.getElementById('videoNotes').value;
 
-            // Extract video ID from URL
             let videoId = url;
             if (url.includes('youtube.com/watch?v=')) {
                 videoId = url.split('v=')[1]?.split('&')[0];
@@ -782,8 +815,6 @@
                 document.getElementById('videoSubject').value = lecture.subject;
                 document.getElementById('videoNotes').value = lecture.notes || '';
                 openModal();
-                
-                // Remove old and add as new
                 lectures = lectures.filter(l => l.id !== id);
             }
         };
@@ -795,15 +826,12 @@
             }
         };
 
-        // Event listener for add button
         document.getElementById('addVideoBtn').addEventListener('click', openModal);
 
-        // Close modal when clicking outside
         modal.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
         });
 
-        // Initialize
         displayVideos();
     </script>
 </body>
