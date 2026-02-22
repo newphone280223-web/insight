@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JEE Lectures - Lazy Load</title>
+    <style>
+        body { font-family: Arial; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
+        .youtube {
+            background-color: #000;
+            position: relative;
+            padding-top: 56.25%;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        .youtube img {
+            width: 100%;
+            top: -16.84%;
+            left: 0;
+            opacity: 0.7;
+            position: absolute;
+        }
+        .youtube .play-button {
+            width: 90px;
+            height: 60px;
+            background-color: #333;
+            box-shadow: 0 0 30px rgba(0,0,0,0.6);
+            z-index: 1;
+            opacity: 0.8;
+            border-radius: 6px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+        }
+        .youtube .play-button:before {
+            content: "";
+            border-style: solid;
+            border-width: 15px 0 15px 26.0px;
+            border-color: transparent transparent transparent #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+        }
+        .youtube iframe {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>📚 JEE Lectures (Lazy Loaded)</h1>
+    <div class="video-grid" id="videoGrid"></div>
+
+    <script>
+        // Your video IDs from the crawler
+        const videoIds = [
+            'k5NoAjpuXww',  // Replace with your actual IDs
+           
+        ];
+
+        const videoGrid = document.getElementById('videoGrid');
+
+        videoIds.forEach(id => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'youtube';
+            wrapper.dataset.embed = id;
+
+            // Load thumbnail
+            const img = new Image();
+            img.src = `https://img.youtube.com/vi/${id}/sddefault.jpg`;
+            img.alt = 'Video thumbnail';
+            wrapper.appendChild(img);
+
+            // Add play button
+            const playBtn = document.createElement('div');
+            playBtn.className = 'play-button';
+            wrapper.appendChild(playBtn);
+
+            // Click handler
+            wrapper.addEventListener('click', function() {
+                const iframe = document.createElement('iframe');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.setAttribute('src', 
+                    `https://www.youtube.com/embed/${this.dataset.embed}?autoplay=1&rel=0`);
+                this.innerHTML = '';
+                this.appendChild(iframe);
+            });
+
+            videoGrid.appendChild(wrapper);
+        });
+    </script>
+</body>
+</html>
