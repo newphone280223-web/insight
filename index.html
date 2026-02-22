@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💙 JEE Lecture Search • Google Sheets Powered</title>
+    <title>💙 JEE Complete Learning Suite • Video + Notes + Tools</title>
     <style>
         * {
             margin: 0;
@@ -13,36 +13,44 @@
 
         body {
             font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #f0f5ff 0%, #e6f0fa 100%);
-            padding: 30px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             background: white;
-            border-radius: 48px;
-            padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 40, 100, 0.25);
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
 
+        /* ========== HEADER ========== */
         .header {
+            background: white;
+            padding: 20px 30px;
+            border-bottom: 2px solid #e2e8f0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #cbd5e1;
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             background: linear-gradient(135deg, #2563eb, #1e3a8a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .badge {
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .stats-badge {
             background: #dbeafe;
             padding: 8px 16px;
             border-radius: 100px;
@@ -50,9 +58,18 @@
             font-weight: 500;
         }
 
+        .sheets-status {
+            background: #0f9d58;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* ========== SEARCH SECTION ========== */
         .search-section {
-            text-align: center;
-            margin: 40px 0 30px;
+            padding: 30px;
+            background: #f8fafc;
         }
 
         .main-search-box {
@@ -86,22 +103,44 @@
             color: #2563eb;
         }
 
-        .search-hint {
-            margin-top: 15px;
-            color: #6b7280;
-            font-size: 0.9rem;
+        .search-examples {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .example-tag {
+            background: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #d1d9e8;
+        }
+
+        .example-tag:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        /* ========== MAIN CONTENT (Video Grid) ========== */
+        .main-content {
+            padding: 30px;
         }
 
         .controls {
             display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .results-info {
-            flex: 1;
             color: #2563eb;
             font-weight: 500;
         }
@@ -113,18 +152,12 @@
         }
 
         .filter-btn {
-            padding: 12px 24px;
+            padding: 10px 20px;
             border: 2px solid #d1d9e8;
             border-radius: 40px;
             background: white;
             cursor: pointer;
             font-weight: 500;
-            transition: all 0.2s;
-        }
-
-        .filter-btn:hover {
-            border-color: #2563eb;
-            background: #f0f7ff;
         }
 
         .filter-btn.active {
@@ -136,180 +169,91 @@
         .stats {
             display: flex;
             gap: 20px;
-            margin-bottom: 25px;
             background: #f8fafc;
             padding: 12px 20px;
             border-radius: 40px;
             width: fit-content;
+            margin-bottom: 25px;
         }
 
         .video-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 25px;
-            transition: opacity 0.3s;
-        }
-
-        .video-grid.hidden {
-            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .video-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             border: 1px solid #e2e8f0;
         }
 
         .video-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 30px -8px rgba(37, 99, 235, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
             border-color: #2563eb;
         }
 
         .thumbnail {
-            background-color: #000;
             position: relative;
             padding-top: 56.25%;
-            overflow: hidden;
+            background: #000;
         }
 
         .thumbnail img {
-            width: 100%;
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
-        .play-button {
-            width: 60px;
-            height: 45px;
+        .play-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
             background: #2563eb;
-            border-radius: 12px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.9;
-        }
-
-        .play-button:before {
-            content: "";
-            border-style: solid;
-            border-width: 10px 0 10px 18px;
-            border-color: transparent transparent transparent white;
-            position: absolute;
-            top: 50%;
-            left: 55%;
-            transform: translate(-50%, -50%);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
         }
 
         .video-info {
-            padding: 16px;
+            padding: 15px;
         }
 
         .video-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
-            gap: 10px;
-            line-height: 1.4;
         }
 
         .duration {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #2563eb;
             background: #dbeafe;
-            padding: 4px 8px;
-            border-radius: 20px;
-            white-space: nowrap;
+            padding: 2px 6px;
+            border-radius: 12px;
         }
 
-        .video-meta {
+        .channel-name {
             font-size: 0.85rem;
             color: #4b5563;
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-            flex-wrap: wrap;
+            gap: 4px;
+            margin-top: 5px;
         }
 
-        .channel-icon {
-            font-size: 1rem;
-        }
-
-        .channel-name {
-            font-weight: 500;
-            color: #2563eb;
-        }
-
-        .subject-tag {
-            background: #f1f5f9;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            margin-left: auto;
-        }
-
-        .welcome-screen {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6b7280;
-        }
-
-        .welcome-screen h2 {
-            font-size: 2rem;
-            color: #2563eb;
-            margin-bottom: 20px;
-        }
-
-        .welcome-screen p {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-        }
-
-        .search-examples {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .example-tag {
-            background: #f1f5f9;
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .example-tag:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px;
-            font-size: 1.2rem;
-            color: #2563eb;
-        }
-
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            color: #6b7280;
-            padding-top: 20px;
-            border-top: 1px dashed #cbd5e1;
-        }
-
+        /* ========== VIDEO PLAYER MODAL (ENHANCED) ========== */
         .modal {
             display: none;
             position: fixed;
@@ -317,54 +261,310 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            padding: 20px;
         }
 
         .modal.active {
+            display: block;
+        }
+
+        .modal-header {
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: white;
         }
 
-        .modal-content {
-            width: 90%;
-            max-width: 1000px;
-            background: black;
-            border-radius: 20px;
+        .close-modal {
+            font-size: 40px;
+            cursor: pointer;
+            color: white;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #2563eb;
+        }
+
+        .player-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 20px;
+            height: calc(100vh - 100px);
+        }
+
+        /* Video Player Section */
+        .video-player-section {
+            background: #000;
+            border-radius: 16px;
             overflow: hidden;
-        }
-
-        .video-container {
             position: relative;
-            padding-top: 56.25%;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-wrapper {
+            position: relative;
             width: 100%;
             height: 100%;
         }
 
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
-            color: white;
-            cursor: pointer;
-            z-index: 1001;
+        #youtubePlayer {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .sheets-status {
-            background: #0f9d58;
+        /* Picture-in-Picture Support */
+        .pip-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
             color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-left: 10px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 1px solid white;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .pip-button:hover {
+            background: #2563eb;
+        }
+
+        /* Background Audio Mode */
+        .audio-mode {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            border: 1px solid white;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .audio-mode.active {
+            background: #4CAF50;
+        }
+
+        /* Side Panel - Video Info & Study Tools */
+        .side-panel {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .video-details {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .video-details h2 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .meta-row {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            color: #4b5563;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .channel-card {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .channel-icon-large {
+            width: 50px;
+            height: 50px;
+            background: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Study Tools Section */
+        .study-tools {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .tools-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tool-button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .tool-button:hover {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+
+        /* Notes Section */
+        .notes-section {
+            margin-top: 20px;
+        }
+
+        .notes-section h4 {
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            height: 150px;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: inherit;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .notes-textarea:focus {
+            border-color: #2563eb;
+            outline: none;
+        }
+
+        .notes-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .notes-actions button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .notes-actions button:last-child {
+            background: #10b981;
+        }
+
+        /* Bookmarks Section */
+        .bookmarks-list {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .bookmark-item {
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .bookmark-time {
+            color: #2563eb;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .bookmark-note {
+            font-size: 0.9rem;
+            color: #4b5563;
+        }
+
+        .delete-bookmark {
+            color: #ef4444;
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+
+        /* Screenshot Preview */
+        .screenshot-preview {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none;
+            z-index: 2000;
+        }
+
+        .screenshot-preview.active {
+            display: block;
+        }
+
+        .screenshot-preview img {
+            max-width: 300px;
+            border-radius: 4px;
+        }
+
+        .welcome-screen {
+            text-align: center;
+            padding: 60px;
+            color: #6b7280;
         }
 
         .empty-state {
@@ -373,119 +573,197 @@
             color: #6b7280;
             grid-column: 1 / -1;
         }
+
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #2563eb;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>💙 JEE Lecture Search</h1>
-            <div>
-                <span class="badge" id="videoCount">Loading...</span>
-                <span class="sheets-status" id="sheetsStatus">📊 Loading from Google Sheets...</span>
+            <h1>💙 JEE Complete Learning Suite</h1>
+            <div class="header-right">
+                <span class="stats-badge" id="videoCount">Loading...</span>
+                <span class="sheets-status" id="sheetsStatus">📊 Google Sheets</span>
             </div>
         </div>
 
         <div class="search-section">
             <div class="main-search-box">
                 <span class="main-search-icon">🔍</span>
-                <input type="text" id="mainSearchInput" placeholder="Search for JEE lectures..." autofocus>
+                <input type="text" id="mainSearchInput" placeholder="Search lectures, topics, or channels...">
             </div>
-            <div class="search-hint">
-                Type any topic, chapter, or channel name to find lectures
-            </div>
-        </div>
-
-        <!-- This appears when no search is performed -->
-        <div id="welcomeScreen" class="welcome-screen">
-            <h2>📚 Welcome to JEE Lecture Search</h2>
-            <p>Start typing in the search box above to find lectures</p>
             <div class="search-examples">
                 <span class="example-tag" onclick="searchExample('thermodynamics')">🔥 Thermodynamics</span>
                 <span class="example-tag" onclick="searchExample('calculus')">📐 Calculus</span>
                 <span class="example-tag" onclick="searchExample('organic chemistry')">🧪 Organic Chemistry</span>
                 <span class="example-tag" onclick="searchExample('mechanics')">⚙️ Mechanics</span>
-                <span class="example-tag" onclick="searchExample('physics galaxy')">📺 Physics Galaxy</span>
+                <span class="example-tag" onclick="searchExample('physics wallah')">📺 Physics Wallah</span>
             </div>
         </div>
 
-        <!-- Results section - hidden by default -->
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="welcome-screen">
+            <h2>📚 Welcome to Your JEE Study Suite</h2>
+            <p>Start typing in the search box above to find lectures</p>
+            <p style="margin-top: 20px; color: #2563eb;">Features: Picture-in-Picture • Background Audio • Notes • Bookmarks • Screenshots</p>
+        </div>
+
+        <!-- Results Section -->
         <div id="resultsSection" style="display: none;">
-            <div class="controls">
-                <div class="results-info" id="resultsInfo"></div>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" data-filter="all">📋 All Results</button>
-                    <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
-                    <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
-                    <button class="filter-btn" data-filter="maths">📐 Mathematics</button>
+            <div class="main-content">
+                <div class="controls">
+                    <div class="results-info" id="resultsInfo"></div>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">📋 All</button>
+                        <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
+                        <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
+                        <button class="filter-btn" data-filter="maths">📐 Maths</button>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <span>📺 <span id="totalVideos">0</span> lectures</span>
+                    <span>⏱️ <span id="totalHours">0</span> hours</span>
+                    <span>🎥 <span id="totalChannels">0</span> channels</span>
+                </div>
+
+                <div id="videoGrid" class="video-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Video Player Modal -->
+    <div class="modal" id="videoModal">
+        <div class="modal-header">
+            <h2 style="color: white;">🎓 Learning Mode</h2>
+            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
+        </div>
+        
+        <div class="player-container">
+            <!-- Video Player Section -->
+            <div class="video-player-section">
+                <div class="video-wrapper">
+                    <iframe id="youtubePlayer" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+                    
+                    <!-- Picture-in-Picture Button -->
+                    <div class="pip-button" onclick="togglePictureInPicture()">
+                        <span>📺</span> Picture in Picture
+                    </div>
+                    
+                    <!-- Background Audio Mode -->
+                    <div class="audio-mode" id="audioModeBtn" onclick="toggleAudioMode()">
+                        <span>🎧</span> Background Audio
+                    </div>
                 </div>
             </div>
 
-            <div class="stats">
-                <span>📺 <span id="totalVideos">0</span> lectures</span>
-                <span>⏱️ <span id="totalHours">0</span> hours</span>
-                <span>🎥 <span id="totalChannels">0</span> channels</span>
-            </div>
+            <!-- Side Panel - Video Info & Study Tools -->
+            <div class="side-panel">
+                <!-- Video Details -->
+                <div class="video-details" id="currentVideoDetails">
+                    <h2 id="currentVideoTitle">Video Title</h2>
+                    <div class="meta-row">
+                        <span class="meta-item">⏱️ <span id="currentDuration">0:00</span></span>
+                        <span class="meta-item">📺 <span id="currentSubject">physics</span></span>
+                    </div>
+                    
+                    <!-- Channel Info -->
+                    <div class="channel-card">
+                        <div class="channel-icon-large">📺</div>
+                        <div>
+                            <h3 id="currentChannel">Channel Name</h3>
+                            <p style="color: #4b5563; font-size: 0.9rem;">YouTube Channel</p>
+                        </div>
+                    </div>
+                </div>
 
-            <div id="videoGrid" class="video-grid">
-                <!-- Videos will be loaded here -->
-            </div>
-        </div>
+                <!-- Study Tools -->
+                <div class="study-tools">
+                    <div class="tools-header">
+                        <h3>📝 Study Tools</h3>
+                        <span>⚡ Active</span>
+                    </div>
+                    
+                    <div class="tools-grid">
+                        <button class="tool-button" onclick="takeScreenshot()">
+                            <span>📸</span> Screenshot
+                        </button>
+                        <button class="tool-button" onclick="addBookmark()">
+                            <span>🔖</span> Bookmark
+                        </button>
+                        <button class="tool-button" onclick="saveNote()">
+                            <span>📝</span> Save Note
+                        </button>
+                        <button class="tool-button" onclick="exportNotes()">
+                            <span>📥</span> Export
+                        </button>
+                    </div>
 
-        <div class="footer">
-            Made with <span>💙</span> for JEE aspirants • Data updates automatically from Google Sheets
+                    <!-- Notes Section -->
+                    <div class="notes-section">
+                        <h4>📋 Your Notes</h4>
+                        <textarea id="videoNotes" class="notes-textarea" placeholder="Type your notes here while watching..."></textarea>
+                        <div class="notes-actions">
+                            <button onclick="saveNote()">💾 Save Note</button>
+                            <button onclick="clearNote()">🗑️ Clear</button>
+                        </div>
+                    </div>
+
+                    <!-- Bookmarks List -->
+                    <div class="bookmarks-section">
+                        <h4>🔖 Bookmarks</h4>
+                        <div id="bookmarksList" class="bookmarks-list">
+                            <!-- Bookmarks will appear here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Video Player Modal -->
-    <div class="modal" id="videoModal">
-        <span class="close-modal" onclick="closeVideoModal()">&times;</span>
-        <div class="modal-content">
-            <div class="video-container">
-                <iframe id="youtubePlayer" frameborder="0" allowfullscreen></iframe>
-            </div>
-        </div>
+    <!-- Screenshot Preview -->
+    <div id="screenshotPreview" class="screenshot-preview">
+        <img id="screenshotImg" src="" alt="Screenshot">
     </div>
 
     <script>
-        // 🔥 YOUR GOOGLE SHEETS CSV URL
+        // ========== CONFIGURATION ==========
         const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTOtCn2wNDwJahM8yPjAKnDfaB3DDHoNHOxylyq9mtC6nN59y4ES07jd2MFjmqYm9ml750slTZc_JAh/pub?output=csv";
 
         // Global variables
         let allVideos = [];
         let currentFilter = 'all';
         let searchTerm = '';
+        let currentVideoId = '';
+        let currentVideoDetails = {};
+        let bookmarks = JSON.parse(localStorage.getItem('jeeBookmarks') || '[]');
+        let audioModeActive = false;
 
+        // DOM Elements
         const videoGrid = document.getElementById('videoGrid');
         const mainSearchInput = document.getElementById('mainSearchInput');
         const welcomeScreen = document.getElementById('welcomeScreen');
         const resultsSection = document.getElementById('resultsSection');
-        const resultsInfo = document.getElementById('resultsInfo');
-        const filterButtons = document.querySelectorAll('.filter-btn');
         const videoModal = document.getElementById('videoModal');
         const youtubePlayer = document.getElementById('youtubePlayer');
-        const sheetsStatus = document.getElementById('sheetsStatus');
+        const audioModeBtn = document.getElementById('audioModeBtn');
 
-        // Load videos from Google Sheets
+        // ========== LOAD VIDEOS FROM GOOGLE SHEETS ==========
         async function loadVideos() {
             try {
-                sheetsStatus.textContent = '📊 Fetching from Sheets...';
-                
                 const response = await fetch(SHEET_URL);
                 const csvText = await response.text();
                 
-                // Parse CSV
                 const rows = csvText.split('\n').map(row => 
                     row.split(',').map(cell => cell.replace(/^"|"$/g, '').trim())
                 );
                 
-                // First row is headers
-                const headers = rows[0];
-                console.log("Headers:", headers);
-                
-                // Convert to objects - id, title, channel, duration, order, subject
                 allVideos = rows.slice(1).map((row, index) => {
                     if (row.length < 6) return null;
-                    
                     return {
                         id: row[0],
                         title: row[1],
@@ -496,107 +774,64 @@
                     };
                 }).filter(v => v && v.id);
                 
-                // Sort by order
                 allVideos.sort((a, b) => a.order - b.order);
-                
-                console.log(`✅ Loaded ${allVideos.length} videos from Google Sheets`);
-                
-                sheetsStatus.textContent = `✅ Live from Google Sheets (${allVideos.length} videos)`;
-                
-                // Update video count badge
                 document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
+                document.getElementById('sheetsStatus').textContent = `✅ ${allVideos.length} videos`;
                 
             } catch (error) {
-                console.error('Error loading from Sheets:', error);
-                welcomeScreen.innerHTML = `<div style="color: red;">❌ Error loading data: ${error.message}</div>`;
-                sheetsStatus.textContent = '❌ Connection failed';
+                console.error('Error:', error);
+                document.getElementById('sheetsStatus').textContent = '❌ Error';
             }
         }
 
-        function getUniqueChannels() {
-            const channels = new Set();
-            allVideos.forEach(video => {
-                if (video.channel) channels.add(video.channel);
-            });
-            return Array.from(channels);
-        }
-
-        function formatDuration(duration) {
-            if (!duration) return "?";
-            if (duration.includes(':')) return duration;
-            if (!isNaN(duration)) {
-                const seconds = parseInt(duration);
-                const hours = Math.floor(seconds / 3600);
-                const minutes = Math.floor((seconds % 3600) / 60);
-                const secs = seconds % 60;
-                if (hours > 0) {
-                    return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-                } else {
-                    return `${minutes}:${secs.toString().padStart(2, '0')}`;
-                }
-            }
-            return duration;
-        }
-
+        // ========== SEARCH FUNCTIONALITY ==========
         function performSearch() {
             searchTerm = mainSearchInput.value.trim();
             
             if (searchTerm === '') {
-                // Hide results, show welcome screen
                 welcomeScreen.style.display = 'block';
                 resultsSection.style.display = 'none';
                 return;
             }
             
-            // Filter videos based on search term
-            let searchResults = allVideos.filter(video => {
+            let results = allVideos.filter(video => {
                 const term = searchTerm.toLowerCase();
                 return video.title.toLowerCase().includes(term) || 
                        (video.channel && video.channel.toLowerCase().includes(term));
             });
             
-            // Further filter by subject if not 'all'
             if (currentFilter !== 'all') {
-                searchResults = searchResults.filter(v => v.subject === currentFilter);
+                results = results.filter(v => v.subject === currentFilter);
             }
             
-            // Update UI
             welcomeScreen.style.display = 'none';
             resultsSection.style.display = 'block';
             
-            // Update results info
-            resultsInfo.textContent = `Found ${searchResults.length} results for "${searchTerm}"`;
-            
-            // Update stats
-            updateStats(searchResults);
-            
-            // Display videos
-            displayVideos(searchResults);
+            document.getElementById('resultsInfo').textContent = `Found ${results.length} results for "${searchTerm}"`;
+            updateStats(results);
+            displayVideos(results);
         }
 
-        function displayVideos(videosToShow) {
-            if (videosToShow.length === 0) {
-                videoGrid.innerHTML = '<div class="empty-state">No matching videos found</div>';
+        function displayVideos(videos) {
+            if (videos.length === 0) {
+                videoGrid.innerHTML = '<div class="empty-state">No videos found</div>';
                 return;
             }
 
-            videoGrid.innerHTML = videosToShow.map(video => `
-                <div class="video-card" onclick="playVideo('${video.id}')">
+            videoGrid.innerHTML = videos.map(video => `
+                <div class="video-card" onclick="openVideoPlayer('${video.id}', '${video.title.replace(/'/g, "\\'")}', '${video.channel.replace(/'/g, "\\'")}', '${video.duration}', '${video.subject}')">
                     <div class="thumbnail">
                         <img src="https://img.youtube.com/vi/${video.id}/sddefault.jpg" 
-                             alt="${video.title}"
                              onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
-                        <div class="play-button"></div>
+                        <span class="play-badge">▶ Play</span>
                     </div>
                     <div class="video-info">
                         <div class="video-title">
                             ${video.title}
-                            <span class="duration">${formatDuration(video.duration)}</span>
+                            <span class="duration">${video.duration}</span>
                         </div>
-                        <div class="video-meta">
-                            <span class="channel-icon">📺</span>
-                            <span class="channel-name" title="${video.channel}">${video.channel || 'Unknown Channel'}</span>
-                            <span class="subject-tag">${video.subject}</span>
+                        <div class="channel-name">
+                            <span>📺</span> ${video.channel || 'Unknown'}
                         </div>
                     </div>
                 </div>
@@ -606,40 +841,212 @@
         function updateStats(videos) {
             document.getElementById('totalVideos').textContent = videos.length;
             
-            // Calculate total hours
             let totalMinutes = 0;
-            videos.forEach(video => {
-                if (video.duration) {
-                    const duration = video.duration.toString();
-                    if (duration.includes(':')) {
-                        const parts = duration.split(':');
-                        if (parts.length === 2) {
-                            totalMinutes += parseInt(parts[0]) * 60 + parseInt(parts[1]);
-                        } else if (parts.length === 3) {
-                            totalMinutes += parseInt(parts[0]) * 3600 + parseInt(parts[1]) * 60 + parseInt(parts[2]);
-                        }
-                    } else if (!isNaN(duration)) {
-                        totalMinutes += parseInt(duration) / 60;
+            videos.forEach(v => {
+                if (v.duration) {
+                    const parts = v.duration.split(':');
+                    if (parts.length === 2) {
+                        totalMinutes += parseInt(parts[0]) * 60 + parseInt(parts[1]);
                     }
                 }
             });
             document.getElementById('totalHours').textContent = Math.round(totalMinutes / 60);
             
-            // Count unique channels in results
             const uniqueChannels = new Set(videos.map(v => v.channel).filter(c => c));
             document.getElementById('totalChannels').textContent = uniqueChannels.size;
         }
 
-        function playVideo(videoId) {
+        // ========== VIDEO PLAYER FUNCTIONS ==========
+        function openVideoPlayer(videoId, title, channel, duration, subject) {
+            currentVideoId = videoId;
+            currentVideoDetails = { title, channel, duration, subject };
+            
             youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            
+            document.getElementById('currentVideoTitle').textContent = title;
+            document.getElementById('currentChannel').textContent = channel;
+            document.getElementById('currentDuration').textContent = duration;
+            document.getElementById('currentSubject').textContent = subject;
+            
             videoModal.classList.add('active');
+            loadBookmarksForVideo(videoId);
         }
 
         function closeVideoModal() {
             videoModal.classList.remove('active');
             youtubePlayer.src = '';
+            if (audioModeActive) {
+                toggleAudioMode();
+            }
         }
 
+        // ========== PICTURE-IN-PICTURE ==========
+        async function togglePictureInPicture() {
+            try {
+                if (document.pictureInPictureElement) {
+                    await document.exitPictureInPicture();
+                } else {
+                    // Note: This works with video elements, but for iframes we need a different approach
+                    // For YouTube iframe, we can request PiP on the video element inside
+                    const video = document.querySelector('video');
+                    if (video) {
+                        await video.requestPictureInPicture();
+                    } else {
+                        alert('Click on the video first to enable Picture-in-Picture');
+                    }
+                }
+            } catch (error) {
+                console.error('PiP error:', error);
+            }
+        }
+
+        // ========== BACKGROUND AUDIO MODE ==========
+        function toggleAudioMode() {
+            audioModeActive = !audioModeActive;
+            const btn = document.getElementById('audioModeBtn');
+            
+            if (audioModeActive) {
+                btn.classList.add('active');
+                btn.innerHTML = '<span>🎧</span> Audio Mode ON';
+                // Minimize video quality for audio-only
+                youtubePlayer.src = youtubePlayer.src.replace('autoplay=1', 'autoplay=1&vq=small');
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '<span>🎧</span> Background Audio';
+                // Restore video quality
+                youtubePlayer.src = youtubePlayer.src.replace('&vq=small', '');
+            }
+        }
+
+        // ========== SCREENSHOT FUNCTION ==========
+        function takeScreenshot() {
+            const videoElement = document.querySelector('video');
+            if (!videoElement) {
+                alert('Please wait for video to load');
+                return;
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
+            canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            
+            const screenshot = canvas.toDataURL('image/png');
+            
+            // Show preview
+            const preview = document.getElementById('screenshotPreview');
+            const img = document.getElementById('screenshotImg');
+            img.src = screenshot;
+            preview.classList.add('active');
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => preview.classList.remove('active'), 3000);
+            
+            // Download option
+            const link = document.createElement('a');
+            link.download = `jee-screenshot-${Date.now()}.png`;
+            link.href = screenshot;
+            link.click();
+        }
+
+        // ========== BOOKMARK FUNCTIONS ==========
+        function addBookmark() {
+            const videoElement = document.querySelector('video');
+            const currentTime = videoElement ? videoElement.currentTime : 0;
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = Math.floor(currentTime % 60);
+            const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            
+            const bookmark = {
+                videoId: currentVideoId,
+                videoTitle: currentVideoDetails.title,
+                time: currentTime,
+                timeStr: timeStr,
+                note: '',
+                timestamp: Date.now()
+            };
+            
+            bookmarks.push(bookmark);
+            localStorage.setItem('jeeBookmarks', JSON.stringify(bookmarks));
+            loadBookmarksForVideo(currentVideoId);
+        }
+
+        function loadBookmarksForVideo(videoId) {
+            const videoBookmarks = bookmarks.filter(b => b.videoId === videoId);
+            const list = document.getElementById('bookmarksList');
+            
+            if (videoBookmarks.length === 0) {
+                list.innerHTML = '<p style="color: #6b7280;">No bookmarks yet</p>';
+                return;
+            }
+            
+            list.innerHTML = videoBookmarks.map((b, index) => `
+                <div class="bookmark-item">
+                    <div>
+                        <span class="bookmark-time" onclick="seekToTime(${b.time})">⏱️ ${b.timeStr}</span>
+                        <div class="bookmark-note">${b.note || 'No note'}</div>
+                    </div>
+                    <span class="delete-bookmark" onclick="deleteBookmark(${index})">✕</span>
+                </div>
+            `).join('');
+        }
+
+        function seekToTime(seconds) {
+            const video = document.querySelector('video');
+            if (video) {
+                video.currentTime = seconds;
+            }
+        }
+
+        function deleteBookmark(index) {
+            bookmarks.splice(index, 1);
+            localStorage.setItem('jeeBookmarks', JSON.stringify(bookmarks));
+            loadBookmarksForVideo(currentVideoId);
+        }
+
+        // ========== NOTES FUNCTIONS ==========
+        function saveNote() {
+            const noteText = document.getElementById('videoNotes').value;
+            if (!noteText.trim()) return;
+            
+            // Save to localStorage with video ID
+            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
+            notes[currentVideoId] = {
+                text: noteText,
+                videoTitle: currentVideoDetails.title,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('jeeNotes', JSON.stringify(notes));
+            
+            alert('Note saved!');
+        }
+
+        function clearNote() {
+            document.getElementById('videoNotes').value = '';
+            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
+            delete notes[currentVideoId];
+            localStorage.setItem('jeeNotes', JSON.stringify(notes));
+        }
+
+        function exportNotes() {
+            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
+            const bookmarksData = bookmarks;
+            
+            const exportData = {
+                notes: notes,
+                bookmarks: bookmarksData,
+                exportDate: new Date().toISOString()
+            };
+            
+            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `jee-study-data-${Date.now()}.json`;
+            a.click();
+        }
+
+        // ========== UTILITY FUNCTIONS ==========
         function searchExample(term) {
             mainSearchInput.value = term;
             performSearch();
@@ -648,9 +1055,9 @@
         // Event Listeners
         mainSearchInput.addEventListener('input', performSearch);
 
-        filterButtons.forEach(btn => {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                filterButtons.forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
                 if (mainSearchInput.value.trim() !== '') {
@@ -659,26 +1066,39 @@
             });
         });
 
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === videoModal) {
-                closeVideoModal();
-            }
-        });
-
-        // Keyboard shortcut: ESC to close modal
+        // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && videoModal.classList.contains('active')) {
                 closeVideoModal();
             }
         });
 
-        window.playVideo = playVideo;
+        // Load saved notes when opening video
+        document.getElementById('videoModal').addEventListener('transitionend', () => {
+            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
+            if (notes[currentVideoId]) {
+                document.getElementById('videoNotes').value = notes[currentVideoId].text;
+            } else {
+                document.getElementById('videoNotes').value = '';
+            }
+        });
+
+        // Initialize
+        loadVideos();
+
+        // Expose functions to global scope
+        window.openVideoPlayer = openVideoPlayer;
         window.closeVideoModal = closeVideoModal;
         window.searchExample = searchExample;
-
-        // Start loading
-        loadVideos();
+        window.togglePictureInPicture = togglePictureInPicture;
+        window.toggleAudioMode = toggleAudioMode;
+        window.takeScreenshot = takeScreenshot;
+        window.addBookmark = addBookmark;
+        window.saveNote = saveNote;
+        window.clearNote = clearNote;
+        window.exportNotes = exportNotes;
+        window.seekToTime = seekToTime;
+        window.deleteBookmark = deleteBookmark;
     </script>
 </body>
 </html>
