@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💙 JEE Complete Learning Suite • Video + Notes + Tools</title>
+    <title>💙 JEE Complete Learning Suite • All Features</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* ========== DARK MODE VARIABLES ========== */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #1e293b;
+            --text-secondary: #4b5563;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border: #e2e8f0;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --border: #475569;
+            --card-bg: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.5);
         }
 
         body {
@@ -21,17 +49,18 @@
         .container {
             max-width: 1600px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg-primary);
             border-radius: 32px;
             overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px var(--shadow);
+            color: var(--text-primary);
         }
 
         /* ========== HEADER ========== */
         .header {
-            background: white;
+            background: var(--bg-primary);
             padding: 20px 30px;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -39,7 +68,7 @@
 
         .header h1 {
             font-size: 2rem;
-            background: linear-gradient(135deg, #2563eb, #1e3a8a);
+            background: linear-gradient(135deg, var(--accent), #1e3a8a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -50,11 +79,29 @@
             align-items: center;
         }
 
+        .dark-mode-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            border-radius: 40px;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dark-mode-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
         .stats-badge {
-            background: #dbeafe;
+            background: var(--bg-secondary);
             padding: 8px 16px;
             border-radius: 100px;
-            color: #1e3a8a;
+            color: var(--text-primary);
             font-weight: 500;
         }
 
@@ -69,7 +116,8 @@
         /* ========== SEARCH SECTION ========== */
         .search-section {
             padding: 30px;
-            background: #f8fafc;
+            background: var(--bg-secondary);
+            position: relative;
         }
 
         .main-search-box {
@@ -81,17 +129,18 @@
         .main-search-box input {
             width: 100%;
             padding: 20px 30px 20px 60px;
-            border: 3px solid #d1d9e8;
+            border: 3px solid var(--border);
             border-radius: 60px;
             font-size: 1.2rem;
             transition: all 0.3s;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         .main-search-box input:focus {
-            border-color: #2563eb;
+            border-color: var(--accent);
             outline: none;
-            box-shadow: 0 15px 30px -8px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 15px 30px -8px var(--accent);
         }
 
         .main-search-icon {
@@ -100,7 +149,46 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.5rem;
-            color: #2563eb;
+            color: var(--accent);
+        }
+
+        /* Autocomplete Dropdown */
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border: 2px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 100;
+            display: none;
+        }
+
+        .autocomplete-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .autocomplete-item:hover {
+            background: var(--bg-secondary);
+        }
+
+        .autocomplete-item .match-highlight {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .autocomplete-item .channel-tag {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
         }
 
         .search-examples {
@@ -112,21 +200,21 @@
         }
 
         .example-tag {
-            background: white;
+            background: var(--bg-primary);
             padding: 8px 16px;
             border-radius: 30px;
             cursor: pointer;
             transition: all 0.2s;
-            border: 1px solid #d1d9e8;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
         }
 
         .example-tag:hover {
-            background: #2563eb;
+            background: var(--accent);
             color: white;
-            border-color: #2563eb;
         }
 
-        /* ========== MAIN CONTENT (Video Grid) ========== */
+        /* ========== MAIN CONTENT ========== */
         .main-content {
             padding: 30px;
         }
@@ -141,7 +229,7 @@
         }
 
         .results-info {
-            color: #2563eb;
+            color: var(--accent);
             font-weight: 500;
         }
 
@@ -153,27 +241,29 @@
 
         .filter-btn {
             padding: 10px 20px;
-            border: 2px solid #d1d9e8;
+            border: 2px solid var(--border);
             border-radius: 40px;
-            background: white;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             cursor: pointer;
             font-weight: 500;
         }
 
         .filter-btn.active {
-            background: #2563eb;
-            border-color: #2563eb;
+            background: var(--accent);
+            border-color: var(--accent);
             color: white;
         }
 
         .stats {
             display: flex;
             gap: 20px;
-            background: #f8fafc;
+            background: var(--bg-secondary);
             padding: 12px 20px;
             border-radius: 40px;
             width: fit-content;
             margin-bottom: 25px;
+            color: var(--text-primary);
         }
 
         .video-grid {
@@ -183,19 +273,19 @@
         }
 
         .video-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px var(--shadow);
             cursor: pointer;
             transition: all 0.3s;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
         }
 
         .video-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.3);
-            border-color: #2563eb;
+            box-shadow: 0 10px 25px -5px var(--accent);
+            border-color: var(--accent);
         }
 
         .thumbnail {
@@ -217,7 +307,7 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: #2563eb;
+            background: var(--accent);
             color: white;
             padding: 4px 8px;
             border-radius: 20px;
@@ -234,26 +324,27 @@
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
+            color: var(--text-primary);
         }
 
         .duration {
             font-size: 0.8rem;
-            color: #2563eb;
-            background: #dbeafe;
+            color: var(--accent);
+            background: var(--bg-secondary);
             padding: 2px 6px;
             border-radius: 12px;
         }
 
         .channel-name {
             font-size: 0.85rem;
-            color: #4b5563;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             gap: 4px;
             margin-top: 5px;
         }
 
-        /* ========== VIDEO PLAYER MODAL (ENHANCED) ========== */
+        /* ========== VIDEO PLAYER MODAL ========== */
         .modal {
             display: none;
             position: fixed;
@@ -286,7 +377,7 @@
         }
 
         .close-modal:hover {
-            color: #2563eb;
+            color: var(--accent);
         }
 
         .player-container {
@@ -296,7 +387,6 @@
             height: calc(100vh - 100px);
         }
 
-        /* Video Player Section */
         .video-player-section {
             background: #000;
             border-radius: 16px;
@@ -316,7 +406,6 @@
             border: none;
         }
 
-        /* Picture-in-Picture Support */
         .pip-button {
             position: absolute;
             bottom: 20px;
@@ -331,14 +420,12 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s;
         }
 
         .pip-button:hover {
-            background: #2563eb;
+            background: var(--accent);
         }
 
-        /* Background Audio Mode */
         .audio-mode {
             position: absolute;
             bottom: 20px;
@@ -359,19 +446,20 @@
             background: #4CAF50;
         }
 
-        /* Side Panel - Video Info & Study Tools */
+        /* ========== SIDE PANEL ========== */
         .side-panel {
-            background: white;
+            background: var(--bg-primary);
             border-radius: 16px;
             padding: 20px;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
             gap: 20px;
+            color: var(--text-primary);
         }
 
         .video-details {
-            background: #f8fafc;
+            background: var(--bg-secondary);
             padding: 20px;
             border-radius: 12px;
         }
@@ -379,27 +467,21 @@
         .video-details h2 {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #1e293b;
+            color: var(--text-primary);
         }
 
         .meta-row {
             display: flex;
             gap: 15px;
             margin: 15px 0;
-            color: #4b5563;
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: var(--text-secondary);
         }
 
         .channel-card {
-            background: white;
+            background: var(--bg-primary);
             padding: 15px;
             border-radius: 12px;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
             display: flex;
             align-items: center;
             gap: 15px;
@@ -409,7 +491,7 @@
         .channel-icon-large {
             width: 50px;
             height: 50px;
-            background: #2563eb;
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -418,9 +500,42 @@
             font-size: 24px;
         }
 
-        /* Study Tools Section */
+        /* ========== SPEED CONTROL ========== */
+        .speed-control {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .speed-control h3 {
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .speed-buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 5px;
+        }
+
+        .speed-btn {
+            padding: 8px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .speed-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* ========== STUDY TOOLS ========== */
         .study-tools {
-            background: #f8fafc;
+            background: var(--bg-secondary);
             padding: 20px;
             border-radius: 12px;
         }
@@ -443,45 +558,147 @@
             padding: 12px;
             border: none;
             border-radius: 8px;
-            background: white;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
             justify-content: center;
-            transition: all 0.3s;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
         }
 
         .tool-button:hover {
-            background: #2563eb;
+            background: var(--accent);
             color: white;
-            border-color: #2563eb;
         }
 
-        /* Notes Section */
+        /* ========== PROGRESS TRACKING ========== */
+        .progress-section {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .progress-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: var(--bg-tertiary);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #4CAF50);
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+
+        .subject-breakdown {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .subject-progress {
+            text-align: center;
+        }
+
+        .subject-progress .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .subject-progress .value {
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+
+        /* ========== FLASHCARDS ========== */
+        .flashcard-section {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .flashcard {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            margin: 15px 0;
+            border: 2px solid var(--border);
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .flashcard:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .flashcard-question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .flashcard-answer {
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .flashcard-btn {
+            padding: 8px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        .flashcard-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ========== NOTES & BOOKMARKS ========== */
         .notes-section {
             margin-top: 20px;
-        }
-
-        .notes-section h4 {
-            margin-bottom: 10px;
-            color: #1e293b;
         }
 
         .notes-textarea {
             width: 100%;
             height: 150px;
             padding: 12px;
-            border: 2px solid #e2e8f0;
+            border: 2px solid var(--border);
             border-radius: 8px;
             font-family: inherit;
             resize: vertical;
             margin-bottom: 10px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
 
         .notes-textarea:focus {
-            border-color: #2563eb;
+            border-color: var(--accent);
             outline: none;
         }
 
@@ -494,17 +711,12 @@
             padding: 8px 16px;
             border: none;
             border-radius: 6px;
-            background: #2563eb;
+            background: var(--accent);
             color: white;
             cursor: pointer;
             flex: 1;
         }
 
-        .notes-actions button:last-child {
-            background: #10b981;
-        }
-
-        /* Bookmarks Section */
         .bookmarks-list {
             margin-top: 15px;
             max-height: 200px;
@@ -512,72 +724,93 @@
         }
 
         .bookmark-item {
-            background: white;
+            background: var(--bg-primary);
             padding: 10px;
             border-radius: 6px;
             margin-bottom: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid #e2e8f0;
+            border: 1px solid var(--border);
         }
 
         .bookmark-time {
-            color: #2563eb;
+            color: var(--accent);
             font-weight: bold;
             cursor: pointer;
         }
 
-        .bookmark-note {
-            font-size: 0.9rem;
-            color: #4b5563;
-        }
-
-        .delete-bookmark {
-            color: #ef4444;
-            cursor: pointer;
-            padding: 2px 6px;
-        }
-
-        /* Screenshot Preview */
+        /* ========== SCREENSHOT PREVIEW ========== */
         .screenshot-preview {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            background: white;
-            border-radius: 8px;
-            padding: 10px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            display: none;
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
             z-index: 2000;
+            width: 320px;
+            border: 3px solid var(--accent);
+            display: none;
+            color: var(--text-primary);
         }
 
         .screenshot-preview.active {
             display: block;
         }
 
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .preview-header h4 {
+            color: var(--accent);
+            margin: 0;
+        }
+
         .screenshot-preview img {
-            max-width: 300px;
-            border-radius: 4px;
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 2px solid var(--border);
+        }
+
+        .preview-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .preview-actions button {
+            flex: 1;
+            padding: 8px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
         .welcome-screen {
             text-align: center;
             padding: 60px;
-            color: #6b7280;
+            color: var(--text-secondary);
         }
 
         .empty-state {
             text-align: center;
             padding: 60px;
-            color: #6b7280;
+            color: var(--text-secondary);
             grid-column: 1 / -1;
         }
 
         .loading {
             text-align: center;
             padding: 60px;
-            color: #2563eb;
+            color: var(--accent);
         }
     </style>
 </head>
@@ -586,6 +819,9 @@
         <div class="header">
             <h1>💙 JEE Complete Learning Suite</h1>
             <div class="header-right">
+                <button class="dark-mode-btn" onclick="toggleDarkMode()">
+                    <span>🌙</span> Dark Mode
+                </button>
                 <span class="stats-badge" id="videoCount">Loading...</span>
                 <span class="sheets-status" id="sheetsStatus">📊 Google Sheets</span>
             </div>
@@ -595,6 +831,7 @@
             <div class="main-search-box">
                 <span class="main-search-icon">🔍</span>
                 <input type="text" id="mainSearchInput" placeholder="Search lectures, topics, or channels...">
+                <div id="autocompleteDropdown" class="autocomplete-dropdown"></div>
             </div>
             <div class="search-examples">
                 <span class="example-tag" onclick="searchExample('thermodynamics')">🔥 Thermodynamics</span>
@@ -609,6 +846,7 @@
         <div id="welcomeScreen" class="welcome-screen">
             <h2>📚 Welcome to Your JEE Study Suite</h2>
             <p>Start typing in the search box above to find lectures</p>
+            <p style="margin-top: 20px; color: var(--accent);">Features: Picture-in-Picture • Background Audio • Notes • Bookmarks • Screenshots • Dark Mode • Progress Tracking • Flashcards • Speed Control • Autocomplete</p>
         </div>
 
         <!-- Results Section -->
@@ -648,19 +886,17 @@
                 <div class="video-wrapper">
                     <iframe id="youtubePlayer" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
                     
-                    <!-- Picture-in-Picture Button -->
                     <div class="pip-button" onclick="togglePictureInPicture()">
                         <span>📺</span> Picture in Picture
                     </div>
                     
-                    <!-- Background Audio Mode -->
                     <div class="audio-mode" id="audioModeBtn" onclick="toggleAudioMode()">
                         <span>🎧</span> Background Audio
                     </div>
                 </div>
             </div>
 
-            <!-- Side Panel - Video Info & Study Tools -->
+            <!-- Side Panel -->
             <div class="side-panel">
                 <!-- Video Details -->
                 <div class="video-details" id="currentVideoDetails">
@@ -670,13 +906,59 @@
                         <span class="meta-item">📺 <span id="currentSubject">physics</span></span>
                     </div>
                     
-                    <!-- Channel Info -->
                     <div class="channel-card">
                         <div class="channel-icon-large">📺</div>
                         <div>
                             <h3 id="currentChannel">Channel Name</h3>
-                            <p style="color: #4b5563; font-size: 0.9rem;">YouTube Channel</p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">YouTube Channel</p>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Speed Control -->
+                <div class="speed-control">
+                    <h3>⏩ Playback Speed</h3>
+                    <div class="speed-buttons">
+                        <button class="speed-btn" onclick="setPlaybackSpeed(0.75)">0.75x</button>
+                        <button class="speed-btn active" onclick="setPlaybackSpeed(1.0)">1x</button>
+                        <button class="speed-btn" onclick="setPlaybackSpeed(1.25)">1.25x</button>
+                        <button class="speed-btn" onclick="setPlaybackSpeed(1.5)">1.5x</button>
+                        <button class="speed-btn" onclick="setPlaybackSpeed(2.0)">2x</button>
+                    </div>
+                </div>
+
+                <!-- Progress Tracking -->
+                <div class="progress-section">
+                    <h3>📊 Your Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="overallProgress" style="width: 0%;"></div>
+                    </div>
+                    <p id="progressText">0% of JEE syllabus covered</p>
+                    <div class="subject-breakdown" id="subjectBreakdown">
+                        <div class="subject-progress">
+                            <div class="label">Physics</div>
+                            <div class="value" id="physicsProgress">0/0</div>
+                        </div>
+                        <div class="subject-progress">
+                            <div class="label">Chemistry</div>
+                            <div class="value" id="chemistryProgress">0/0</div>
+                        </div>
+                        <div class="subject-progress">
+                            <div class="label">Maths</div>
+                            <div class="value" id="mathsProgress">0/0</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flashcards -->
+                <div class="flashcard-section">
+                    <h3>🎴 Quick Revision Flashcards</h3>
+                    <div class="flashcard" onclick="flipFlashcard()">
+                        <div id="flashcardContent" class="flashcard-question">What is the formula for Kinetic Energy?</div>
+                    </div>
+                    <div class="flashcard-controls">
+                        <button class="flashcard-btn" onclick="prevFlashcard()">← Previous</button>
+                        <button class="flashcard-btn" onclick="nextFlashcard()">Next →</button>
                     </div>
                 </div>
 
@@ -684,7 +966,6 @@
                 <div class="study-tools">
                     <div class="tools-header">
                         <h3>📝 Study Tools</h3>
-                        <span>⚡ Active</span>
                     </div>
                     
                     <div class="tools-grid">
@@ -715,9 +996,7 @@
                     <!-- Bookmarks List -->
                     <div class="bookmarks-section">
                         <h4>🔖 Bookmarks</h4>
-                        <div id="bookmarksList" class="bookmarks-list">
-                            <!-- Bookmarks will appear here -->
-                        </div>
+                        <div id="bookmarksList" class="bookmarks-list"></div>
                     </div>
                 </div>
             </div>
@@ -726,7 +1005,15 @@
 
     <!-- Screenshot Preview -->
     <div id="screenshotPreview" class="screenshot-preview">
+        <div class="preview-header">
+            <h4>Screenshot Captured!</h4>
+            <button onclick="closeScreenshotPreview()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">✕</button>
+        </div>
         <img id="screenshotImg" src="" alt="Screenshot">
+        <div class="preview-actions">
+            <button onclick="downloadScreenshot()">💾 Download</button>
+            <button onclick="copyScreenshotToClipboard()">📋 Copy</button>
+        </div>
     </div>
 
     <script>
@@ -741,6 +1028,16 @@
         let currentVideoDetails = {};
         let bookmarks = JSON.parse(localStorage.getItem('jeeBookmarks') || '[]');
         let audioModeActive = false;
+        let watchedVideos = JSON.parse(localStorage.getItem('jeeWatchedVideos') || '{}');
+        let flashcards = [
+            { q: "What is the formula for Kinetic Energy?", a: "KE = ½ mv²" },
+            { q: "What is Newton's Second Law?", a: "F = ma" },
+            { q: "What is the value of Avogadro's Number?", a: "6.022 × 10²³" },
+            { q: "What is the formula for Potential Energy?", a: "PE = mgh" },
+            { q: "What is the Pythagorean Theorem?", a: "a² + b² = c²" }
+        ];
+        let currentFlashcardIndex = 0;
+        let showAnswer = false;
 
         // DOM Elements
         const videoGrid = document.getElementById('videoGrid');
@@ -749,9 +1046,9 @@
         const resultsSection = document.getElementById('resultsSection');
         const videoModal = document.getElementById('videoModal');
         const youtubePlayer = document.getElementById('youtubePlayer');
-        const audioModeBtn = document.getElementById('audioModeBtn');
+        const autocompleteDropdown = document.getElementById('autocompleteDropdown');
 
-        // ========== LOAD VIDEOS FROM GOOGLE SHEETS ==========
+        // ========== LOAD VIDEOS ==========
         async function loadVideos() {
             try {
                 const response = await fetch(SHEET_URL);
@@ -776,14 +1073,75 @@
                 allVideos.sort((a, b) => a.order - b.order);
                 document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
                 document.getElementById('sheetsStatus').textContent = `✅ ${allVideos.length} videos`;
+                updateProgressStats();
                 
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('sheetsStatus').textContent = '❌ Error';
             }
         }
 
-        // ========== SEARCH FUNCTIONALITY ==========
+        // ========== DARK MODE ==========
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.dark-mode-btn');
+            const isDark = document.body.classList.contains('dark-mode');
+            btn.innerHTML = isDark ? '<span>☀️</span> Light Mode' : '<span>🌙</span> Dark Mode';
+            localStorage.setItem('darkMode', isDark);
+        }
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.querySelector('.dark-mode-btn').innerHTML = '<span>☀️</span> Light Mode';
+        }
+
+        // ========== AUTOCOMPLETE ==========
+        function setupAutocomplete() {
+            mainSearchInput.addEventListener('input', () => {
+                const term = mainSearchInput.value.toLowerCase();
+                if (term.length < 2) {
+                    autocompleteDropdown.style.display = 'none';
+                    return;
+                }
+                
+                const matches = allVideos
+                    .filter(v => v.title.toLowerCase().includes(term) || 
+                                (v.channel && v.channel.toLowerCase().includes(term)))
+                    .slice(0, 5);
+                
+                if (matches.length > 0) {
+                    autocompleteDropdown.innerHTML = matches.map(v => `
+                        <div class="autocomplete-item" onclick="selectAutocomplete('${v.id}')">
+                            <span>
+                                <span class="match-highlight">${v.title.substring(0, term.length)}</span>
+                                ${v.title.substring(term.length)}
+                            </span>
+                            <span class="channel-tag">${v.channel || ''}</span>
+                        </div>
+                    `).join('');
+                    autocompleteDropdown.style.display = 'block';
+                } else {
+                    autocompleteDropdown.style.display = 'none';
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!autocompleteDropdown.contains(e.target) && e.target !== mainSearchInput) {
+                    autocompleteDropdown.style.display = 'none';
+                }
+            });
+        }
+
+        function selectAutocomplete(videoId) {
+            const video = allVideos.find(v => v.id === videoId);
+            if (video) {
+                mainSearchInput.value = video.title;
+                autocompleteDropdown.style.display = 'none';
+                performSearch();
+            }
+        }
+
+        // ========== SEARCH FUNCTION ==========
         function performSearch() {
             searchTerm = mainSearchInput.value.trim();
             
@@ -855,7 +1213,7 @@
             document.getElementById('totalChannels').textContent = uniqueChannels.size;
         }
 
-        // ========== VIDEO PLAYER FUNCTIONS ==========
+        // ========== VIDEO PLAYER ==========
         function openVideoPlayer(videoId, title, channel, duration, subject) {
             currentVideoId = videoId;
             currentVideoDetails = { title, channel, duration, subject };
@@ -869,6 +1227,9 @@
             
             videoModal.classList.add('active');
             loadBookmarksForVideo(videoId);
+            
+            // Mark as watched for progress tracking
+            markVideoWatched(videoId, subject);
         }
 
         function closeVideoModal() {
@@ -885,13 +1246,9 @@
                 if (document.pictureInPictureElement) {
                     await document.exitPictureInPicture();
                 } else {
-                    // Note: This works with video elements, but for iframes we need a different approach
-                    // For YouTube iframe, we can request PiP on the video element inside
                     const video = document.querySelector('video');
                     if (video) {
                         await video.requestPictureInPicture();
-                    } else {
-                        alert('Click on the video first to enable Picture-in-Picture');
                     }
                 }
             } catch (error) {
@@ -899,7 +1256,7 @@
             }
         }
 
-        // ========== BACKGROUND AUDIO MODE ==========
+        // ========== AUDIO MODE ==========
         function toggleAudioMode() {
             audioModeActive = !audioModeActive;
             const btn = document.getElementById('audioModeBtn');
@@ -907,48 +1264,153 @@
             if (audioModeActive) {
                 btn.classList.add('active');
                 btn.innerHTML = '<span>🎧</span> Audio Mode ON';
-                // Minimize video quality for audio-only
-                youtubePlayer.src = youtubePlayer.src.replace('autoplay=1', 'autoplay=1&vq=small');
             } else {
                 btn.classList.remove('active');
                 btn.innerHTML = '<span>🎧</span> Background Audio';
-                // Restore video quality
-                youtubePlayer.src = youtubePlayer.src.replace('&vq=small', '');
             }
         }
 
-        // ========== SCREENSHOT FUNCTION ==========
+        // ========== SPEED CONTROL ==========
+        function setPlaybackSpeed(speed) {
+            const video = document.querySelector('video');
+            if (video) {
+                video.playbackRate = speed;
+                document.querySelectorAll('.speed-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent.includes(speed + 'x')) {
+                        btn.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // ========== PROGRESS TRACKING ==========
+        function markVideoWatched(videoId, subject) {
+            watchedVideos[videoId] = { watched: true, subject, timestamp: Date.now() };
+            localStorage.setItem('jeeWatchedVideos', JSON.stringify(watchedVideos));
+            updateProgressStats();
+        }
+
+        function updateProgressStats() {
+            const physicsVideos = allVideos.filter(v => v.subject === 'physics').length;
+            const chemistryVideos = allVideos.filter(v => v.subject === 'chemistry').length;
+            const mathsVideos = allVideos.filter(v => v.subject === 'maths').length;
+            
+            const physicsWatched = Object.keys(watchedVideos).filter(id => 
+                allVideos.find(v => v.id === id)?.subject === 'physics'
+            ).length;
+            const chemistryWatched = Object.keys(watchedVideos).filter(id => 
+                allVideos.find(v => v.id === id)?.subject === 'chemistry'
+            ).length;
+            const mathsWatched = Object.keys(watchedVideos).filter(id => 
+                allVideos.find(v => v.id === id)?.subject === 'maths'
+            ).length;
+            
+            const totalVideos = allVideos.length;
+            const totalWatched = Object.keys(watchedVideos).length;
+            
+            document.getElementById('overallProgress').style.width = totalVideos ? 
+                `${(totalWatched / totalVideos) * 100}%` : '0%';
+            document.getElementById('progressText').textContent = 
+                `${Math.round((totalWatched / totalVideos) * 100)}% of JEE syllabus covered`;
+            
+            document.getElementById('physicsProgress').textContent = 
+                `${physicsWatched}/${physicsVideos}`;
+            document.getElementById('chemistryProgress').textContent = 
+                `${chemistryWatched}/${chemistryVideos}`;
+            document.getElementById('mathsProgress').textContent = 
+                `${mathsWatched}/${mathsVideos}`;
+        }
+
+        // ========== FLASHCARDS ==========
+        function flipFlashcard() {
+            const content = document.getElementById('flashcardContent');
+            if (!showAnswer) {
+                content.textContent = flashcards[currentFlashcardIndex].a;
+                content.className = 'flashcard-answer';
+            } else {
+                content.textContent = flashcards[currentFlashcardIndex].q;
+                content.className = 'flashcard-question';
+            }
+            showAnswer = !showAnswer;
+        }
+
+        function nextFlashcard() {
+            currentFlashcardIndex = (currentFlashcardIndex + 1) % flashcards.length;
+            showAnswer = false;
+            document.getElementById('flashcardContent').textContent = 
+                flashcards[currentFlashcardIndex].q;
+            document.getElementById('flashcardContent').className = 'flashcard-question';
+        }
+
+        function prevFlashcard() {
+            currentFlashcardIndex = (currentFlashcardIndex - 1 + flashcards.length) % flashcards.length;
+            showAnswer = false;
+            document.getElementById('flashcardContent').textContent = 
+                flashcards[currentFlashcardIndex].q;
+            document.getElementById('flashcardContent').className = 'flashcard-question';
+        }
+
+        // ========== SCREENSHOT ==========
         function takeScreenshot() {
             const videoElement = document.querySelector('video');
             if (!videoElement) {
-                alert('Please wait for video to load');
+                alert('⏳ Please wait for the video to load first');
                 return;
             }
 
             const canvas = document.createElement('canvas');
             canvas.width = videoElement.videoWidth;
             canvas.height = videoElement.videoHeight;
-            canvas.getContext('2d').drawImage(videoElement, 0, 0, canvas.width, canvas.height);
             
-            const screenshot = canvas.toDataURL('image/png');
-            
-            // Show preview
-            const preview = document.getElementById('screenshotPreview');
-            const img = document.getElementById('screenshotImg');
-            img.src = screenshot;
-            preview.classList.add('active');
-            
-            // Auto hide after 3 seconds
-            setTimeout(() => preview.classList.remove('active'), 3000);
-            
-            // Download option
+            try {
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+                
+                const screenshotUrl = canvas.toDataURL('image/png');
+                
+                const preview = document.getElementById('screenshotPreview');
+                const img = document.getElementById('screenshotImg');
+                img.src = screenshotUrl;
+                preview.style.display = 'block';
+                
+                window.lastScreenshot = screenshotUrl;
+                
+                setTimeout(() => {
+                    if (preview.style.display === 'block') {
+                        preview.style.display = 'none';
+                    }
+                }, 5000);
+                
+            } catch (error) {
+                alert('❌ Could not take screenshot. Try using browser\'s built-in screenshot (Ctrl+Shift+S)');
+            }
+        }
+
+        function downloadScreenshot() {
+            if (!window.lastScreenshot) return;
             const link = document.createElement('a');
             link.download = `jee-screenshot-${Date.now()}.png`;
-            link.href = screenshot;
+            link.href = window.lastScreenshot;
             link.click();
         }
 
-        // ========== BOOKMARK FUNCTIONS ==========
+        function copyScreenshotToClipboard() {
+            if (!window.lastScreenshot) return;
+            fetch(window.lastScreenshot)
+                .then(res => res.blob())
+                .then(blob => {
+                    navigator.clipboard.write([
+                        new ClipboardItem({ [blob.type]: blob })
+                    ]).then(() => alert('✅ Copied to clipboard!'));
+                });
+        }
+
+        function closeScreenshotPreview() {
+            document.getElementById('screenshotPreview').style.display = 'none';
+        }
+
+        // ========== BOOKMARKS ==========
         function addBookmark() {
             const videoElement = document.querySelector('video');
             const currentTime = videoElement ? videoElement.currentTime : 0;
@@ -975,17 +1437,14 @@
             const list = document.getElementById('bookmarksList');
             
             if (videoBookmarks.length === 0) {
-                list.innerHTML = '<p style="color: #6b7280;">No bookmarks yet</p>';
+                list.innerHTML = '<p style="color: var(--text-secondary);">No bookmarks yet</p>';
                 return;
             }
             
             list.innerHTML = videoBookmarks.map((b, index) => `
                 <div class="bookmark-item">
-                    <div>
-                        <span class="bookmark-time" onclick="seekToTime(${b.time})">⏱️ ${b.timeStr}</span>
-                        <div class="bookmark-note">${b.note || 'No note'}</div>
-                    </div>
-                    <span class="delete-bookmark" onclick="deleteBookmark(${index})">✕</span>
+                    <span class="bookmark-time" onclick="seekToTime(${b.time})">⏱️ ${b.timeStr}</span>
+                    <span class="delete-bookmark" onclick="deleteBookmark(${index})" style="cursor: pointer;">✕</span>
                 </div>
             `).join('');
         }
@@ -1003,12 +1462,11 @@
             loadBookmarksForVideo(currentVideoId);
         }
 
-        // ========== NOTES FUNCTIONS ==========
+        // ========== NOTES ==========
         function saveNote() {
             const noteText = document.getElementById('videoNotes').value;
             if (!noteText.trim()) return;
             
-            // Save to localStorage with video ID
             const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
             notes[currentVideoId] = {
                 text: noteText,
@@ -1016,7 +1474,6 @@
                 timestamp: Date.now()
             };
             localStorage.setItem('jeeNotes', JSON.stringify(notes));
-            
             alert('Note saved!');
         }
 
@@ -1029,11 +1486,10 @@
 
         function exportNotes() {
             const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
-            const bookmarksData = bookmarks;
-            
             const exportData = {
                 notes: notes,
-                bookmarks: bookmarksData,
+                bookmarks: bookmarks,
+                watchedVideos: watchedVideos,
                 exportDate: new Date().toISOString()
             };
             
@@ -1065,12 +1521,16 @@
             });
         });
 
-        // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && videoModal.classList.contains('active')) {
                 closeVideoModal();
             }
         });
+
+        // Initialize
+        loadVideos();
+        setupAutocomplete();
+        updateProgressStats();
 
         // Load saved notes when opening video
         document.getElementById('videoModal').addEventListener('transitionend', () => {
@@ -1082,23 +1542,28 @@
             }
         });
 
-        // Initialize
-        loadVideos();
-
         // Expose functions to global scope
+        window.toggleDarkMode = toggleDarkMode;
         window.openVideoPlayer = openVideoPlayer;
         window.closeVideoModal = closeVideoModal;
         window.searchExample = searchExample;
         window.togglePictureInPicture = togglePictureInPicture;
         window.toggleAudioMode = toggleAudioMode;
+        window.setPlaybackSpeed = setPlaybackSpeed;
         window.takeScreenshot = takeScreenshot;
+        window.downloadScreenshot = downloadScreenshot;
+        window.copyScreenshotToClipboard = copyScreenshotToClipboard;
+        window.closeScreenshotPreview = closeScreenshotPreview;
         window.addBookmark = addBookmark;
+        window.seekToTime = seekToTime;
+        window.deleteBookmark = deleteBookmark;
         window.saveNote = saveNote;
         window.clearNote = clearNote;
         window.exportNotes = exportNotes;
-        window.seekToTime = seekToTime;
-        window.deleteBookmark = deleteBookmark;
+        window.flipFlashcard = flipFlashcard;
+        window.nextFlashcard = nextFlashcard;
+        window.prevFlashcard = prevFlashcard;
+        window.selectAutocomplete = selectAutocomplete;
     </script>
 </body>
 </html>
-
