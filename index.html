@@ -342,6 +342,99 @@
             border-radius: 10px;
         }
 
+        /* Watch Time Display */
+        .watch-time-display {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .watch-time-display span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* Login Prompt Modal */
+        .login-prompt {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-prompt.active {
+            display: flex;
+        }
+
+        .login-content {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.3);
+            border: 1px solid #bfdbfe;
+        }
+
+        .login-content h2 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .login-content p {
+            color: #4b5563;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .login-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .login-buttons button {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .login-btn {
+            background: #2563eb;
+            color: white;
+        }
+
+        .continue-btn {
+            background: #e2e8f0;
+            color: #1e2b4f;
+        }
+
+        .login-buttons button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
         /* Modal */
         .modal {
             display: none;
@@ -466,11 +559,16 @@
             <div class="title-section">
                 <h1>💙 JEE Complete Lecture Series</h1>
                 <div class="subtitle">
-                    <span>📚</span> 65 lectures • 600+ hours of content
+                    <span>📚</span> <span id="totalLectures">65</span> lectures • 600+ hours of content
                 </div>
             </div>
-            <div class="blue-badge">
-                <span>🎯</span> JEE 2026 • Complete Syllabus
+            <div class="header-right" style="display: flex; gap: 15px; align-items: center;">
+                <div class="watch-time-display" id="watchTimeDisplay">
+                    ⏱️ Session Watch Time: <span id="sessionWatchTime">0 min 0 sec</span>
+                </div>
+                <div class="blue-badge">
+                    <span>🎯</span> JEE 2026 • Complete Syllabus
+                </div>
             </div>
         </div>
 
@@ -536,6 +634,19 @@
             <div class="modal-buttons">
                 <button class="cancel-btn" onclick="closeModal()">Cancel</button>
                 <button class="save-btn" onclick="addVideo()">Save Lecture</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Prompt Modal -->
+    <div class="login-prompt" id="loginPrompt">
+        <div class="login-content">
+            <h2>🔐 Great Progress!</h2>
+            <p>You've watched <span id="promptWatchTime">0 minutes</span> of lectures</p>
+            <p>Sign in to save your progress and continue learning</p>
+            <div class="login-buttons">
+                <button class="login-btn" onclick="handleLogin()">Login / Sign Up</button>
+                <button class="continue-btn" onclick="closeLoginPrompt()">Continue as Guest</button>
             </div>
         </div>
     </div>
@@ -617,10 +728,23 @@
             watched: false
         }));
 
+        // Watch Time Tracking Variables
+        let sessionWatchTime = 0; // in seconds
+        let activeVideoPlayer = null;
+        let activeVideoStartTime = null;
+        let watchTimeInterval = null;
+        let loginPromptShown = false;
+        const LOGIN_PROMPT_THRESHOLD = 300; // Show login prompt after 5 minutes (300 seconds)
+
+        // Check if user is logged in (mock function - replace with actual auth)
+        let isUserLoggedIn = false;
+
         const videoGrid = document.getElementById('videoGrid');
         const searchInput = document.getElementById('searchInput');
         const filterButtons = document.querySelectorAll('.filter-btn');
         const modal = document.getElementById('videoModal');
+        const loginPrompt = document.getElementById('loginPrompt');
+        const sessionWatchTimeDisplay = document.getElementById('sessionWatchTime');
         
         let currentFilter = 'all';
         let searchTerm = '';
@@ -634,6 +758,121 @@
                 totalMinutes += mins + (secs/60);
             });
             return Math.round(totalMinutes / 60);
+        }
+
+        // Format time (seconds to MM:SS)
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins} min ${secs} sec`;
+        }
+
+        // Update watch time display
+        function updateWatchTimeDisplay() {
+            sessionWatchTimeDisplay.textContent = formatTime(sessionWatchTime);
+            
+            // Show login prompt if threshold reached and not logged in and not already shown
+            if (!isUserLoggedIn && !loginPromptShown && sessionWatchTime >= LOGIN_PROMPT_THRESHOLD) {
+                showLoginPrompt();
+            }
+        }
+
+        // Start tracking watch time for a video
+        function startWatchTimeTracking(videoId) {
+            // Stop any existing tracking
+            stopWatchTimeTracking();
+            
+            activeVideoStartTime = Date.now();
+            
+            // Start interval to update watch time every second
+            watchTimeInterval = setInterval(() => {
+                if (activeVideoStartTime) {
+                    const currentTime = Date.now();
+                    const elapsedSeconds = Math.floor((currentTime - activeVideoStartTime) / 1000);
+                    
+                    // Only count if video is actually playing (you can enhance this with YouTube API)
+                    // For now, we'll just count time
+                    sessionWatchTime += elapsedSeconds;
+                    activeVideoStartTime = currentTime; // Reset start time
+                    
+                    updateWatchTimeDisplay();
+                    
+                    // Save to localStorage periodically
+                    saveWatchTimeToStorage();
+                }
+            }, 1000);
+        }
+
+        // Stop tracking watch time
+        function stopWatchTimeTracking() {
+            if (watchTimeInterval) {
+                clearInterval(watchTimeInterval);
+                watchTimeInterval = null;
+            }
+            activeVideoStartTime = null;
+        }
+
+        // Save watch time to localStorage
+        function saveWatchTimeToStorage() {
+            localStorage.setItem('sessionWatchTime', sessionWatchTime.toString());
+        }
+
+        // Load watch time from localStorage
+        function loadWatchTimeFromStorage() {
+            const saved = localStorage.getItem('sessionWatchTime');
+            if (saved) {
+                sessionWatchTime = parseInt(saved);
+                updateWatchTimeDisplay();
+            }
+        }
+
+        // Show login prompt
+        function showLoginPrompt() {
+            if (!isUserLoggedIn && !loginPromptShown) {
+                loginPromptShown = true;
+                document.getElementById('promptWatchTime').textContent = formatTime(sessionWatchTime);
+                loginPrompt.classList.add('active');
+                
+                // Pause any active video tracking when showing prompt
+                stopWatchTimeTracking();
+            }
+        }
+
+        // Close login prompt
+        function closeLoginPrompt() {
+            loginPrompt.classList.remove('active');
+            
+            // Resume tracking if there's an active video
+            if (activeVideoPlayer) {
+                startWatchTimeTracking(activeVideoPlayer);
+            }
+        }
+
+        // Handle login (mock function)
+        function handleLogin() {
+            isUserLoggedIn = true;
+            loginPrompt.classList.remove('active');
+            
+            // Here you would typically:
+            // 1. Redirect to login page
+            // 2. After successful login, send watch time data to server
+            // 3. Associate localStorage data with user account
+            
+            alert('Login functionality would redirect to authentication page.\nWatch time data would be saved to your account.');
+            
+            // Mock: Save to server (you would implement actual API call)
+            saveWatchTimeToServer();
+        }
+
+        // Mock function to save watch time to server
+        function saveWatchTimeToServer() {
+            console.log('Saving watch time to server:', sessionWatchTime, 'seconds');
+            // Here you would make an API call to your backend
+            // fetch('/api/save-watch-time', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify({ watchTime: sessionWatchTime })
+            // });
         }
 
         // Display videos
@@ -718,11 +957,17 @@
                 lecture.watched = true;
             }
             
+            // Set current active video
+            activeVideoPlayer = id;
+            
+            // Start tracking watch time for this video
+            startWatchTimeTracking(id);
+            
             const iframe = document.createElement('iframe');
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allowfullscreen', '');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('src', `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1`);
+            iframe.setAttribute('src', `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`);
             container.innerHTML = '';
             container.appendChild(iframe);
             
@@ -824,6 +1069,8 @@
         window.closeModal = closeModal;
         window.playVideo = playVideo;
         window.handleCardClick = handleCardClick;
+        window.closeLoginPrompt = closeLoginPrompt;
+        window.handleLogin = handleLogin;
 
         document.getElementById('addVideoBtn').addEventListener('click', openModal);
 
@@ -831,9 +1078,30 @@
             if (e.target === modal) closeModal();
         });
 
+        // Handle page visibility change (pause tracking when tab is inactive)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Tab is hidden, pause tracking
+                stopWatchTimeTracking();
+            } else {
+                // Tab is visible again, resume tracking if there's an active video
+                if (activeVideoPlayer) {
+                    startWatchTimeTracking(activeVideoPlayer);
+                }
+            }
+        });
+
+        // Handle before unload to save watch time
+        window.addEventListener('beforeunload', () => {
+            stopWatchTimeTracking();
+            saveWatchTimeToStorage();
+        });
+
+        // Load saved watch time on page load
+        loadWatchTimeFromStorage();
+
         // Initialize
         displayVideos();
     </script>
 </body>
 </html>
-
