@@ -363,6 +363,35 @@
             font-size: 0.9rem;
         }
 
+        /* Video Player Status */
+        .player-status {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-playing {
+            background-color: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-paused {
+            background-color: #f59e0b;
+        }
+
+        .status-stopped {
+            background-color: #6b7280;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
         /* Login Prompt Modal */
         .login-prompt {
             display: none;
@@ -564,7 +593,8 @@
             </div>
             <div class="header-right" style="display: flex; gap: 15px; align-items: center;">
                 <div class="watch-time-display" id="watchTimeDisplay">
-                    ⏱️ Session Watch Time: <span id="sessionWatchTime">0 min 0 sec</span>
+                    <span class="player-status" id="playerStatus"></span>
+                    ⏱️ Watch Time: <span id="sessionWatchTime">0 min 0 sec</span>
                 </div>
                 <div class="blue-badge">
                     <span>🎯</span> JEE 2026 • Complete Syllabus
@@ -651,6 +681,9 @@
         </div>
     </div>
 
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
         // Complete lecture database with all 65 videos
         const lectureData = [
@@ -725,14 +758,19 @@
         let lectures = lectureData.map(lecture => ({
             ...lecture,
             notes: '',
-            watched: false
+            watched: false,
+            watchProgress: 0 // Store watch progress in seconds
         }));
 
-        // Watch Time Tracking Variables
-        let sessionWatchTime = 0; // in seconds
-        let activeVideoPlayer = null;
-        let activeVideoStartTime = null;
+        // YouTube Player Tracking
+        let players = {}; // Store all player instances
+        let activeVideoId = null;
         let watchTimeInterval = null;
+        let lastTrackedTime = 0;
+        let isPlaying = false;
+        
+        // Watch Time Variables
+        let sessionWatchTime = 0; // in seconds
         let loginPromptShown = false;
         const LOGIN_PROMPT_THRESHOLD = 300; // Show login prompt after 5 minutes (300 seconds)
 
@@ -745,71 +783,178 @@
         const modal = document.getElementById('videoModal');
         const loginPrompt = document.getElementById('loginPrompt');
         const sessionWatchTimeDisplay = document.getElementById('sessionWatchTime');
+        const playerStatus = document.getElementById('playerStatus');
         
         let currentFilter = 'all';
         let searchTerm = '';
         let expandedCardId = null;
 
-        // Calculate total hours
-        function calculateTotalHours() {
-            let totalMinutes = 0;
-            lectures.forEach(lecture => {
-                const [mins, secs] = lecture.duration.split(':').map(Number);
-                totalMinutes += mins + (secs/60);
+        // YouTube API Ready
+        function onYouTubeIframeAPIReady() {
+            console.log('YouTube API Ready');
+            // Players will be created when videos are played
+        }
+
+        // Create YouTube Player
+        function createPlayer(containerId, videoId) {
+            return new YT.Player(containerId, {
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'modestbranding': 1,
+                    'enablejsapi': 1
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError,
+                    'onReady': onPlayerReady
+                }
             });
-            return Math.round(totalMinutes / 60);
         }
 
-        // Format time (seconds to MM:SS)
-        function formatTime(seconds) {
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins} min ${secs} sec`;
+        // Player Ready Event
+        function onPlayerReady(event) {
+            console.log('Player ready');
         }
 
-        // Update watch time display
-        function updateWatchTimeDisplay() {
-            sessionWatchTimeDisplay.textContent = formatTime(sessionWatchTime);
+        // Player State Change Event
+        function onPlayerStateChange(event) {
+            const player = event.target;
+            const videoData = player.getVideoData();
+            const videoId = videoData.video_id;
             
-            // Show login prompt if threshold reached and not logged in and not already shown
-            if (!isUserLoggedIn && !loginPromptShown && sessionWatchTime >= LOGIN_PROMPT_THRESHOLD) {
-                showLoginPrompt();
+            // Update player status indicator
+            switch(event.data) {
+                case YT.PlayerState.PLAYING:
+                    console.log('Video playing:', videoId);
+                    playerStatus.className = 'player-status status-playing';
+                    isPlaying = true;
+                    
+                    // Start tracking watch time
+                    if (activeVideoId !== videoId) {
+                        // New video started
+                        activeVideoId = videoId;
+                        lastTrackedTime = Date.now();
+                        startWatchTimeTracking();
+                    } else {
+                        // Resumed from pause
+                        lastTrackedTime = Date.now();
+                    }
+                    break;
+                    
+                case YT.PlayerState.PAUSED:
+                    console.log('Video paused:', videoId);
+                    playerStatus.className = 'player-status status-paused';
+                    isPlaying = false;
+                    
+                    // Stop tracking and accumulate time
+                    stopAndAccumulateWatchTime();
+                    break;
+                    
+                case YT.PlayerState.ENDED:
+                    console.log('Video ended:', videoId);
+                    playerStatus.className = 'player-status status-stopped';
+                    isPlaying = false;
+                    
+                    // Mark as fully watched
+                    const lecture = lectures.find(l => l.id === videoId);
+                    if (lecture) {
+                        lecture.watched = true;
+                        displayVideos();
+                    }
+                    
+                    // Stop tracking
+                    stopAndAccumulateWatchTime();
+                    activeVideoId = null;
+                    break;
+                    
+                case YT.PlayerState.BUFFERING:
+                    console.log('Video buffering:', videoId);
+                    // Pause tracking during buffering
+                    if (isPlaying) {
+                        stopAndAccumulateWatchTime();
+                    }
+                    break;
             }
         }
 
-        // Start tracking watch time for a video
-        function startWatchTimeTracking(videoId) {
-            // Stop any existing tracking
-            stopWatchTimeTracking();
+        // Player Error Event
+        function onPlayerError(event) {
+            console.error('Player error:', event.data);
+            playerStatus.className = 'player-status status-stopped';
+            isPlaying = false;
+            stopAndAccumulateWatchTime();
+        }
+
+        // Start tracking watch time
+        function startWatchTimeTracking() {
+            if (watchTimeInterval) {
+                clearInterval(watchTimeInterval);
+            }
             
-            activeVideoStartTime = Date.now();
-            
-            // Start interval to update watch time every second
             watchTimeInterval = setInterval(() => {
-                if (activeVideoStartTime) {
-                    const currentTime = Date.now();
-                    const elapsedSeconds = Math.floor((currentTime - activeVideoStartTime) / 1000);
+                if (isPlaying && lastTrackedTime > 0) {
+                    const now = Date.now();
+                    const elapsedSeconds = (now - lastTrackedTime) / 1000;
                     
-                    // Only count if video is actually playing (you can enhance this with YouTube API)
-                    // For now, we'll just count time
+                    // Add to session watch time
                     sessionWatchTime += elapsedSeconds;
-                    activeVideoStartTime = currentTime; // Reset start time
+                    lastTrackedTime = now;
                     
+                    // Update display
                     updateWatchTimeDisplay();
                     
-                    // Save to localStorage periodically
+                    // Save to storage
                     saveWatchTimeToStorage();
+                    
+                    // Check login prompt threshold
+                    if (!isUserLoggedIn && !loginPromptShown && sessionWatchTime >= LOGIN_PROMPT_THRESHOLD) {
+                        showLoginPrompt();
+                    }
                 }
             }, 1000);
         }
 
-        // Stop tracking watch time
+        // Stop tracking and accumulate time
+        function stopAndAccumulateWatchTime() {
+            if (isPlaying && lastTrackedTime > 0) {
+                const now = Date.now();
+                const elapsedSeconds = (now - lastTrackedTime) / 1000;
+                sessionWatchTime += elapsedSeconds;
+                lastTrackedTime = now;
+                updateWatchTimeDisplay();
+                saveWatchTimeToStorage();
+            }
+            lastTrackedTime = 0;
+        }
+
+        // Stop watch time tracking
         function stopWatchTimeTracking() {
             if (watchTimeInterval) {
                 clearInterval(watchTimeInterval);
                 watchTimeInterval = null;
             }
-            activeVideoStartTime = null;
+            stopAndAccumulateWatchTime();
+        }
+
+        // Format time (seconds to MM:SS or HH:MM:SS)
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.floor(seconds % 60);
+            
+            if (hrs > 0) {
+                return `${hrs}h ${mins}m ${secs}s`;
+            } else {
+                return `${mins} min ${secs} sec`;
+            }
+        }
+
+        // Update watch time display
+        function updateWatchTimeDisplay() {
+            sessionWatchTimeDisplay.textContent = formatTime(sessionWatchTime);
         }
 
         // Save watch time to localStorage
@@ -821,7 +966,7 @@
         function loadWatchTimeFromStorage() {
             const saved = localStorage.getItem('sessionWatchTime');
             if (saved) {
-                sessionWatchTime = parseInt(saved);
+                sessionWatchTime = parseFloat(saved);
                 updateWatchTimeDisplay();
             }
         }
@@ -833,46 +978,32 @@
                 document.getElementById('promptWatchTime').textContent = formatTime(sessionWatchTime);
                 loginPrompt.classList.add('active');
                 
-                // Pause any active video tracking when showing prompt
-                stopWatchTimeTracking();
+                // Pause video if playing
+                if (activeVideoId && players[activeVideoId]) {
+                    players[activeVideoId].pauseVideo();
+                }
             }
         }
 
         // Close login prompt
         function closeLoginPrompt() {
             loginPrompt.classList.remove('active');
-            
-            // Resume tracking if there's an active video
-            if (activeVideoPlayer) {
-                startWatchTimeTracking(activeVideoPlayer);
-            }
         }
 
-        // Handle login (mock function)
+        // Handle login
         function handleLogin() {
-            isUserLoggedIn = true;
-            loginPrompt.classList.remove('active');
-            
-            // Here you would typically:
-            // 1. Redirect to login page
-            // 2. After successful login, send watch time data to server
-            // 3. Associate localStorage data with user account
-            
             alert('Login functionality would redirect to authentication page.\nWatch time data would be saved to your account.');
-            
-            // Mock: Save to server (you would implement actual API call)
-            saveWatchTimeToServer();
+            closeLoginPrompt();
         }
 
-        // Mock function to save watch time to server
-        function saveWatchTimeToServer() {
-            console.log('Saving watch time to server:', sessionWatchTime, 'seconds');
-            // Here you would make an API call to your backend
-            // fetch('/api/save-watch-time', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ watchTime: sessionWatchTime })
-            // });
+        // Calculate total hours
+        function calculateTotalHours() {
+            let totalMinutes = 0;
+            lectures.forEach(lecture => {
+                const [mins, secs] = lecture.duration.split(':').map(Number);
+                totalMinutes += mins + (secs/60);
+            });
+            return Math.round(totalMinutes / 60);
         }
 
         // Display videos
@@ -900,7 +1031,7 @@
                      data-id="${lecture.id}" 
                      data-subject="${lecture.subject}"
                      onclick="handleCardClick(event, '${lecture.id}')">
-                    <div class="youtube" data-embed="${lecture.id}" onclick="event.stopPropagation(); playVideo(this, '${lecture.id}')">
+                    <div class="youtube" id="player-${lecture.id}" data-embed="${lecture.id}" onclick="event.stopPropagation(); playVideo('${lecture.id}')">
                         <img src="https://img.youtube.com/vi/${lecture.id}/sddefault.jpg" alt="Thumbnail">
                         <div class="play-button"></div>
                     </div>
@@ -948,30 +1079,55 @@
             }
         }
 
-        function playVideo(container, id) {
-            const embedId = container.dataset.embed;
+        function playVideo(videoId) {
+            const container = document.getElementById(`player-${videoId}`);
+            if (!container) return;
             
-            // Mark as watched
-            const lecture = lectures.find(l => l.id === id);
-            if (lecture) {
-                lecture.watched = true;
+            // Mark as watched (but not fully, just started)
+            const lecture = lectures.find(l => l.id === videoId);
+            
+            // Stop current video if playing
+            if (activeVideoId && activeVideoId !== videoId && players[activeVideoId]) {
+                players[activeVideoId].pauseVideo();
             }
             
-            // Set current active video
-            activeVideoPlayer = id;
+            // Create player if it doesn't exist
+            if (!players[videoId]) {
+                // Clear container
+                container.innerHTML = '';
+                
+                // Create div for player
+                const playerDiv = document.createElement('div');
+                playerDiv.id = `yt-player-${videoId}`;
+                container.appendChild(playerDiv);
+                
+                // Create player
+                players[videoId] = new YT.Player(playerDiv.id, {
+                    height: '100%',
+                    width: '100%',
+                    videoId: videoId,
+                    playerVars: {
+                        'autoplay': 1,
+                        'controls': 1,
+                        'rel': 0,
+                        'modestbranding': 1,
+                        'enablejsapi': 1
+                    },
+                    events: {
+                        'onStateChange': onPlayerStateChange,
+                        'onError': onPlayerError,
+                        'onReady': (event) => {
+                            console.log('Player ready:', videoId);
+                            event.target.playVideo();
+                        }
+                    }
+                });
+            } else {
+                // Resume existing player
+                players[videoId].playVideo();
+            }
             
-            // Start tracking watch time for this video
-            startWatchTimeTracking(id);
-            
-            const iframe = document.createElement('iframe');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('src', `https://www.youtube.com/embed/${embedId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`);
-            container.innerHTML = '';
-            container.appendChild(iframe);
-            
-            updateStats();
+            activeVideoId = videoId;
         }
 
         function getSubjectIcon(subject) {
@@ -1056,7 +1212,8 @@
                     subject: subject,
                     duration: '—',
                     notes: notes,
-                    watched: false
+                    watched: false,
+                    watchProgress: 0
                 });
                 displayVideos();
                 closeModal();
@@ -1065,10 +1222,32 @@
             }
         }
 
-        window.addVideo = addVideo;
-        window.closeModal = closeModal;
+        // Handle page visibility change
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                // Page hidden, stop tracking
+                if (isPlaying) {
+                    stopAndAccumulateWatchTime();
+                }
+            } else {
+                // Page visible again, resume tracking if playing
+                if (isPlaying && activeVideoId) {
+                    lastTrackedTime = Date.now();
+                }
+            }
+        });
+
+        // Handle before unload
+        window.addEventListener('beforeunload', () => {
+            stopWatchTimeTracking();
+            saveWatchTimeToStorage();
+        });
+
+        // Make functions globally available
         window.playVideo = playVideo;
         window.handleCardClick = handleCardClick;
+        window.addVideo = addVideo;
+        window.closeModal = closeModal;
         window.closeLoginPrompt = closeLoginPrompt;
         window.handleLogin = handleLogin;
 
@@ -1078,30 +1257,14 @@
             if (e.target === modal) closeModal();
         });
 
-        // Handle page visibility change (pause tracking when tab is inactive)
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                // Tab is hidden, pause tracking
-                stopWatchTimeTracking();
-            } else {
-                // Tab is visible again, resume tracking if there's an active video
-                if (activeVideoPlayer) {
-                    startWatchTimeTracking(activeVideoPlayer);
-                }
-            }
-        });
-
-        // Handle before unload to save watch time
-        window.addEventListener('beforeunload', () => {
-            stopWatchTimeTracking();
-            saveWatchTimeToStorage();
-        });
-
-        // Load saved watch time on page load
+        // Load saved watch time
         loadWatchTimeFromStorage();
 
         // Initialize
         displayVideos();
+
+        // Set initial player status
+        playerStatus.className = 'player-status status-stopped';
     </script>
 </body>
 </html>
