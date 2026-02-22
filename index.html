@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💙 JEE Lecture Series • White & Blue Edition</title>
+    <title>💙 JEE Lecture Series • Google Sheets Powered</title>
     <style>
         * {
             margin: 0;
@@ -12,84 +12,53 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: linear-gradient(135deg, #f0f5ff 0%, #e6f0fa 100%);
-            min-height: 100vh;
             padding: 30px 20px;
-            color: #1e2b4f;
-            line-height: 1.6;
         }
 
-        /* White & Blue Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 48px 48px 32px 32px;
+            background: white;
+            border-radius: 48px;
             padding: 30px;
-            box-shadow: 0 25px 50px -12px rgba(0, 40, 100, 0.25), 
-                        inset 0 1px 2px rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(70, 130, 200, 0.2);
+            box-shadow: 0 25px 50px -12px rgba(0, 40, 100, 0.25);
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #cbd5e1;
         }
 
-        .title-section h1 {
+        .header h1 {
             font-size: 2.5rem;
-            font-weight: 600;
             background: linear-gradient(135deg, #2563eb, #1e3a8a);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
         }
 
-        .title-section .subtitle {
-            font-size: 1.1rem;
-            color: #4b5563;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .blue-badge {
+        .badge {
             background: #dbeafe;
             padding: 8px 16px;
             border-radius: 100px;
-            font-size: 0.9rem;
-            font-weight: 500;
             color: #1e3a8a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #bfdbfe;
+            font-weight: 500;
         }
 
-        /* Controls */
         .controls {
             display: flex;
             gap: 15px;
-            flex-wrap: wrap;
             margin-bottom: 30px;
-            align-items: center;
+            flex-wrap: wrap;
         }
 
         .search-box {
             flex: 1;
-            min-width: 250px;
             position: relative;
         }
 
@@ -99,15 +68,6 @@
             border: 2px solid #d1d9e8;
             border-radius: 40px;
             font-size: 1rem;
-            background: white;
-            transition: all 0.3s ease;
-            color: #1e2b4f;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
         .search-icon {
@@ -116,7 +76,6 @@
             top: 50%;
             transform: translateY(-50%);
             font-size: 1.2rem;
-            color: #2563eb;
         }
 
         .filter-buttons {
@@ -132,79 +91,38 @@
             background: white;
             cursor: pointer;
             font-weight: 500;
-            color: #1e2b4f;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        .filter-btn:hover, .filter-btn.active {
+        .filter-btn.active {
             background: #2563eb;
             border-color: #2563eb;
             color: white;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        .add-video-btn {
-            padding: 12px 28px;
-            background: linear-gradient(135deg, #2563eb, #1e3a8a);
-            color: white;
-            border: none;
-            border-radius: 40px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.2s ease;
-            box-shadow: 0 8px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .add-video-btn:hover {
-            background: linear-gradient(135deg, #1e4fcf, #153b7a);
-            transform: translateY(-2px);
-            box-shadow: 0 12px 20px rgba(37, 99, 235, 0.4);
-        }
-
-        /* Stats */
         .stats {
             display: flex;
-            gap: 25px;
+            gap: 20px;
             margin-bottom: 25px;
-            color: #4b5563;
-            font-size: 0.95rem;
             background: #f8fafc;
             padding: 12px 20px;
             border-radius: 40px;
             width: fit-content;
-            border: 1px solid #d1d9e8;
         }
 
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Video grid */
         .video-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
             gap: 25px;
-            margin-top: 20px;
         }
 
-        /* Video card */
         .video-card {
             background: white;
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
             transition: all 0.3s ease;
             border: 1px solid #e2e8f0;
-            animation: fadeIn 0.5s ease;
-            cursor: pointer;
         }
 
         .video-card:hover {
@@ -213,258 +131,83 @@
             border-color: #2563eb;
         }
 
-        .video-card.expanded {
-            grid-column: span 2;
-            grid-row: span 1;
-            transform: scale(1.02);
-            box-shadow: 0 30px 40px -12px #2563eb;
-            border: 2px solid #2563eb;
-            z-index: 10;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .youtube {
+        .thumbnail {
             background-color: #000;
             position: relative;
             padding-top: 56.25%;
             overflow: hidden;
-            cursor: pointer;
-            border-radius: 20px 20px 0 0;
         }
 
-        .youtube img {
-            width: 100%;
-            top: -16.84%;
-            left: 0;
-            opacity: 0.9;
-            position: absolute;
-            transition: opacity 0.3s ease;
-        }
-
-        .video-card:hover .youtube img {
-            opacity: 1;
-        }
-
-        .youtube .play-button {
-            width: 60px;
-            height: 45px;
-            background: linear-gradient(135deg, #2563eb, #1e3a8a);
-            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.4);
-            z-index: 2;
-            opacity: 0.9;
-            border-radius: 12px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate3d(-50%, -50%, 0);
-            transition: all 0.2s ease;
-        }
-
-        .youtube:hover .play-button {
-            transform: translate3d(-50%, -50%, 0) scale(1.1);
-            opacity: 1;
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-        }
-
-        .youtube .play-button:before {
-            content: "";
-            border-style: solid;
-            border-width: 10px 0 10px 18px;
-            border-color: transparent transparent transparent #fff;
-            position: absolute;
-            top: 50%;
-            left: 55%;
-            transform: translate3d(-50%, -50%, 0);
-        }
-
-        .youtube iframe {
-            height: 100%;
+        .thumbnail img {
             width: 100%;
             position: absolute;
             top: 0;
             left: 0;
         }
 
+        .play-button {
+            width: 60px;
+            height: 45px;
+            background: #2563eb;
+            border-radius: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.9;
+        }
+
+        .play-button:before {
+            content: "";
+            border-style: solid;
+            border-width: 10px 0 10px 18px;
+            border-color: transparent transparent transparent white;
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+        }
+
         .video-info {
             padding: 16px;
-            background: white;
         }
 
         .video-title {
             font-size: 1rem;
             font-weight: 600;
             margin-bottom: 8px;
-            color: #1e2b4f;
-            line-height: 1.4;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
 
-        .video-title .duration {
+        .duration {
             font-size: 0.85rem;
             color: #2563eb;
             background: #dbeafe;
             padding: 4px 8px;
             border-radius: 20px;
-            font-weight: 500;
         }
 
         .video-meta {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 10px;
             font-size: 0.8rem;
             color: #6b7280;
         }
 
-        .video-meta span {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .progress-bar {
-            height: 4px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #2563eb, #3b82f6);
-            width: 0%;
-            border-radius: 10px;
-        }
-
-        /* Watch Time Display */
-        .watch-time-display {
-            background: linear-gradient(135deg, #1e3a8a, #2563eb);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 40px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .watch-time-display span {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 4px 12px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-        }
-
-        /* Video Player Status */
-        .player-status {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            margin-right: 5px;
-        }
-
-        .status-playing {
-            background-color: #10b981;
-            box-shadow: 0 0 10px #10b981;
-            animation: pulse 1.5s infinite;
-        }
-
-        .status-paused {
-            background-color: #f59e0b;
-        }
-
-        .status-stopped {
-            background-color: #6b7280;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-
-        /* Login Prompt Modal */
-        .login-prompt {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-prompt.active {
-            display: flex;
-        }
-
-        .login-content {
-            background: white;
-            border-radius: 40px;
-            padding: 40px;
-            max-width: 400px;
-            width: 90%;
+        .loading {
             text-align: center;
-            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.3);
-            border: 1px solid #bfdbfe;
+            padding: 60px;
+            font-size: 1.2rem;
+            color: #2563eb;
         }
 
-        .login-content h2 {
-            color: #1e3a8a;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            color: #6b7280;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
         }
 
-        .login-content p {
-            color: #4b5563;
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        .login-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .login-buttons button {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .login-btn {
-            background: #2563eb;
-            color: white;
-        }
-
-        .continue-btn {
-            background: #e2e8f0;
-            color: #1e2b4f;
-        }
-
-        .login-buttons button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
-        }
-
-        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -472,8 +215,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -484,787 +226,230 @@
         }
 
         .modal-content {
-            background: white;
-            border-radius: 40px;
-            padding: 35px;
-            max-width: 500px;
             width: 90%;
-            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.3);
-            border: 1px solid #bfdbfe;
-        }
-
-        .modal-content h2 {
-            color: #1e3a8a;
-            margin-bottom: 20px;
-            font-size: 1.8rem;
-        }
-
-        .modal-content input,
-        .modal-content select,
-        .modal-content textarea {
-            width: 100%;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 2px solid #d1d9e8;
+            max-width: 1000px;
+            background: black;
             border-radius: 20px;
-            font-size: 1rem;
-            background: white;
-            color: #1e2b4f;
+            overflow: hidden;
         }
 
-        .modal-content input:focus,
-        .modal-content select:focus,
-        .modal-content textarea:focus {
-            outline: none;
-            border-color: #2563eb;
+        .video-container {
+            position: relative;
+            padding-top: 56.25%;
         }
 
-        .modal-content textarea {
-            height: 100px;
-            resize: vertical;
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        .modal-buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-        }
-
-        .modal-buttons button {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-        }
-
-        .save-btn {
-            background: #2563eb;
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
             color: white;
+            cursor: pointer;
+            z-index: 1001;
         }
 
-        .cancel-btn {
-            background: #e2e8f0;
-            color: #1e2b4f;
-        }
-
-        .save-btn:hover, .cancel-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
-        }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6b7280;
-        }
-
-        .empty-state p {
-            font-size: 1.2rem;
-            margin: 15px 0;
-        }
-
-        /* Footer */
-        .footer {
-            margin-top: 50px;
-            text-align: center;
-            color: #6b7280;
-            font-size: 0.9rem;
-            padding-top: 20px;
-            border-top: 1px dashed #cbd5e1;
-        }
-
-        .footer span {
-            color: #2563eb;
+        .sheets-status {
+            background: #0f9d58;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
         <div class="header">
-            <div class="title-section">
-                <h1>💙 JEE Complete Lecture Series</h1>
-                <div class="subtitle">
-                    <span>📚</span> <span id="totalLectures">65</span> lectures • 600+ hours of content
-                </div>
-            </div>
-            <div class="header-right" style="display: flex; gap: 15px; align-items: center;">
-                <div class="watch-time-display" id="watchTimeDisplay">
-                    <span class="player-status" id="playerStatus"></span>
-                    ⏱️ Watch Time: <span id="sessionWatchTime">0 min 0 sec</span>
-                </div>
-                <div class="blue-badge">
-                    <span>🎯</span> JEE 2026 • Complete Syllabus
-                </div>
+            <h1>💙 JEE Complete Lecture Series</h1>
+            <div>
+                <span class="badge" id="videoCount">Loading...</span>
+                <span class="sheets-status" id="sheetsStatus">📊 Loading from Google Sheets...</span>
             </div>
         </div>
 
-        <!-- Controls -->
         <div class="controls">
             <div class="search-box">
                 <span class="search-icon">🔍</span>
                 <input type="text" id="searchInput" placeholder="Search lectures...">
             </div>
             <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all">
-                    <span>📋</span> All
-                </button>
-                <button class="filter-btn" data-filter="physics">
-                    <span>⚛️</span> Physics
-                </button>
-                <button class="filter-btn" data-filter="chemistry">
-                    <span>🧪</span> Chemistry
-                </button>
-                <button class="filter-btn" data-filter="maths">
-                    <span>📐</span> Maths
-                </button>
+                <button class="filter-btn active" data-filter="all">📋 All</button>
+                <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
+                <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
+                <button class="filter-btn" data-filter="maths">📐 Maths</button>
             </div>
-            <button class="add-video-btn" id="addVideoBtn">
-                <span>➕</span> Add Custom Lecture
-            </button>
         </div>
 
-        <!-- Stats -->
         <div class="stats">
-            <div class="stat-item">
-                <span>📺</span> <span id="totalVideos">65</span> lectures
-            </div>
-            <div class="stat-item">
-                <span>⏱️</span> <span id="totalHours">0</span> hours total
-            </div>
-            <div class="stat-item">
-                <span>📊</span> <span id="completionRate">0</span>% completed
-            </div>
+            <span>📺 <span id="totalVideos">0</span> lectures</span>
+            <span>⏱️ <span id="totalHours">0</span> hours</span>
         </div>
 
-        <!-- Video Grid -->
-        <div id="videoGrid" class="video-grid"></div>
+        <div id="videoGrid" class="video-grid">
+            <div class="loading">Loading videos from Google Sheets...</div>
+        </div>
 
-        <!-- Footer -->
         <div class="footer">
-            Made with <span>💙</span> for JEE aspirants
+            Made with <span>💙</span> for JEE aspirants • Data updates automatically from Google Sheets
         </div>
     </div>
 
-    <!-- Add Video Modal -->
+    <!-- Video Player Modal -->
     <div class="modal" id="videoModal">
+        <span class="close-modal" onclick="closeVideoModal()">&times;</span>
         <div class="modal-content">
-            <h2>➕ Add Custom Lecture</h2>
-            <input type="text" id="videoUrl" placeholder="YouTube URL or Video ID">
-            <input type="text" id="videoTitle" placeholder="Lecture title">
-            <select id="videoSubject">
-                <option value="physics">⚛️ Physics</option>
-                <option value="chemistry">🧪 Chemistry</option>
-                <option value="maths">📐 Maths</option>
-            </select>
-            <textarea id="videoNotes" placeholder="Your notes about this lecture..."></textarea>
-            <div class="modal-buttons">
-                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-                <button class="save-btn" onclick="addVideo()">Save Lecture</button>
+            <div class="video-container">
+                <iframe id="youtubePlayer" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
     </div>
-
-    <!-- Login Prompt Modal -->
-    <div class="login-prompt" id="loginPrompt">
-        <div class="login-content">
-            <h2>🔐 Great Progress!</h2>
-            <p>You've watched <span id="promptWatchTime">0 minutes</span> of lectures</p>
-            <p>Sign in to save your progress and continue learning</p>
-            <div class="login-buttons">
-                <button class="login-btn" onclick="handleLogin()">Login / Sign Up</button>
-                <button class="continue-btn" onclick="closeLoginPrompt()">Continue as Guest</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // Complete lecture database with all 65 videos
-        const lectureData = [
-            { id: 'k5NoAjpuXww', duration: '11:56', subject: 'physics', title: 'Rotational Motion Part 1' },
-            { id: 'UsHUxG90f_4', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 2' },
-            { id: 'FSlOdXN7leo', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 3' },
-            { id: '_lLwOvc0j70', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 4' },
-            { id: '7MhOKcIhxdA', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 5' },
-            { id: 'HYJWvFvi7as', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 6' },
-            { id: 'Puc8FdewOsw', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 7' },
-            { id: 'hHirgsaeMGQ', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 8' },
-            { id: 'regtj2Z7Wao', duration: '11:54', subject: 'physics', title: 'Rotational Motion Part 9' },
-            { id: 'C2BMigCeREc', duration: '11:52', subject: 'physics', title: 'Rotational Motion Part 10' },
-            { id: 'uZHX8sOELJw', duration: '11:49', subject: 'physics', title: 'Rotational Motion Part 11' },
-            { id: 'tvGfHpEOzjs', duration: '11:46', subject: 'physics', title: 'Rotational Motion Part 12' },
-            { id: 'WD_altOi5js', duration: '11:46', subject: 'physics', title: 'Rotational Motion Part 13' },
-            { id: 'ZufEZX40W3o', duration: '11:45', subject: 'physics', title: 'Rotational Motion Part 14' },
-            { id: 'v7o5yNPicZQ', duration: '11:30', subject: 'physics', title: 'Rotational Motion Part 15' },
-            { id: 'GLEZZdGwuXU', duration: '11:27', subject: 'physics', title: 'Rotational Motion Part 16' },
-            { id: 'YH2pTwKYSrY', duration: '11:22', subject: 'physics', title: 'Rotational Motion Part 17' },
-            { id: 'GOEq8xJBeyA', duration: '11:16', subject: 'physics', title: 'Rotational Motion Part 18' },
-            { id: 'ZujpN1B9bz0', duration: '11:15', subject: 'physics', title: 'Rotational Motion Part 19' },
-            { id: 'MBaVDfrW7n0', duration: '11:14', subject: 'physics', title: 'Rotational Motion Part 20' },
-            { id: 'Uc6Y3fBZrvY', duration: '11:09', subject: 'physics', title: 'Rotational Motion Part 21' },
-            { id: 'FC9yN9E9IAs', duration: '10:58', subject: 'physics', title: 'Rotational Motion Part 22' },
-            { id: 'BxML7V2GG4c', duration: '10:57', subject: 'physics', title: 'Rotational Motion Part 23' },
-            { id: 'UI8Sb7dgSGo', duration: '10:51', subject: 'physics', title: 'Rotational Motion Part 24' },
-            { id: 'qVFXj7Xok5Y', duration: '10:51', subject: 'physics', title: 'Rotational Motion Part 25' },
-            { id: 'XNejTlN9Lc4', duration: '10:44', subject: 'physics', title: 'Rotational Motion Part 26' },
-            { id: 'kyG9dH681Ao', duration: '10:42', subject: 'physics', title: 'Rotational Motion Part 27' },
-            { id: 'V76QPpoWVwA', duration: '10:41', subject: 'physics', title: 'Rotational Motion Part 28' },
-            { id: 'o60h6_9HM3s', duration: '10:39', subject: 'physics', title: 'Rotational Motion Part 29' },
-            { id: 'i5FAg5Nmito', duration: '10:32', subject: 'physics', title: 'Rotational Motion Part 30' },
-            { id: '5M53eu3UI3U', duration: '10:25', subject: 'physics', title: 'Rotational Motion Part 31' },
-            { id: 'cjoRcywyRv0', duration: '10:22', subject: 'physics', title: 'Rotational Motion Part 32' },
-            { id: 'V9vUxNVaqOw', duration: '10:16', subject: 'physics', title: 'Rotational Motion Part 33' },
-            { id: 'fBZTrlapyiY', duration: '10:10', subject: 'physics', title: 'Rotational Motion Part 34' },
-            { id: 'zL_7hG1kJdM', duration: '10:02', subject: 'physics', title: 'Rotational Motion Part 35' },
-            { id: 'm5GZ4X9qrl0', duration: '10:01', subject: 'physics', title: 'Rotational Motion Part 36' },
-            { id: 'CRj8PVlsXzc', duration: '10:01', subject: 'physics', title: 'Rotational Motion Part 37' },
-            { id: '_dl8ELKSeOE', duration: '9:55', subject: 'physics', title: 'Rotational Motion Part 38' },
-            { id: 'B3yFILY36i8', duration: '9:48', subject: 'physics', title: 'Rotational Motion Part 39' },
-            { id: 'I4kB3onwjpw', duration: '9:36', subject: 'physics', title: 'Rotational Motion Part 40' },
-            { id: 'JY24andAvME', duration: '9:19', subject: 'physics', title: 'Rotational Motion Part 41' },
-            { id: 'yBJuiYbjc1w', duration: '9:15', subject: 'physics', title: 'Rotational Motion Part 42' },
-            { id: 'Z3ueGhx2sDc', duration: '9:07', subject: 'physics', title: 'Rotational Motion Part 43' },
-            { id: 'wDzTxpOG9VI', duration: '9:02', subject: 'physics', title: 'Rotational Motion Part 44' },
-            { id: 'hY9zZrYuDVk', duration: '9:01', subject: 'physics', title: 'Rotational Motion Part 45' },
-            { id: '5I7EvZRNfaA', duration: '8:59', subject: 'physics', title: 'Rotational Motion Part 46' },
-            { id: '2jI6fHacUNI', duration: '8:58', subject: 'physics', title: 'Rotational Motion Part 47' },
-            { id: 'RD9O7JYlyQU', duration: '8:52', subject: 'physics', title: 'Rotational Motion Part 48' },
-            { id: 'aPwqkZCBouU', duration: '8:48', subject: 'physics', title: 'Rotational Motion Part 49' },
-            { id: 'NwCmoh7Vd9g', duration: '8:47', subject: 'physics', title: 'Rotational Motion Part 50' },
-            { id: 'u_9r9WSVFE4', duration: '8:45', subject: 'physics', title: 'Rotational Motion Part 51' },
-            { id: '2Od_ytPaALQ', duration: '8:43', subject: 'physics', title: 'Rotational Motion Part 52' },
-            { id: 'k16UI-Uu-60', duration: '8:41', subject: 'physics', title: 'Rotational Motion Part 53' },
-            { id: 'JAvi2K_DbbI', duration: '8:34', subject: 'physics', title: 'Rotational Motion Part 54' },
-            { id: 'zPdlRbwkBkk', duration: '8:33', subject: 'physics', title: 'Rotational Motion Part 55' },
-            { id: 'WkTpkOoThRw', duration: '8:31', subject: 'physics', title: 'Rotational Motion Part 56' },
-            { id: 'yFyg75_OzBE', duration: '8:29', subject: 'physics', title: 'Rotational Motion Part 57' },
-            { id: 'KVvLiWhqDDA', duration: '8:28', subject: 'physics', title: 'Rotational Motion Part 58' },
-            { id: 'kw12nrsktnc', duration: '8:24', subject: 'physics', title: 'Rotational Motion Part 59' },
-            { id: '72T8RfBU0ME', duration: '8:20', subject: 'physics', title: 'Rotational Motion Part 60' },
-            { id: 'fBqJdix2NjE', duration: '8:19', subject: 'physics', title: 'Rotational Motion Part 61' },
-            { id: 'UCdxT4d8k5c', duration: '8:18', subject: 'physics', title: 'Rotational Motion Part 62' },
-            { id: 'dpMC_f8A8HI', duration: '8:14', subject: 'physics', title: 'Rotational Motion Part 63' },
-            { id: 'pi0bAxOGHIo', duration: '8:08', subject: 'physics', title: 'Rotational Motion Part 64' },
-            { id: 'mpFEnSQpJ9Q', duration: '8:06', subject: 'physics', title: 'Rotational Motion Part 65' }
-        ];
+        // 🔥 YOUR GOOGLE SHEETS CSV URL
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTOtCn2wNDwJahM8yPjAKnDfaB3DDHoNHOxylyq9mtC6nN59y4ES07jd2MFjmqYm9ml750slTZc_JAh/pub?output=csv";
 
-        // Initialize lectures with watched status
-        let lectures = lectureData.map(lecture => ({
-            ...lecture,
-            notes: '',
-            watched: false,
-            watchProgress: 0 // Store watch progress in seconds
-        }));
-
-        // YouTube Player Tracking
-        let players = {}; // Store all player instances
-        let activeVideoId = null;
-        let watchTimeInterval = null;
-        let lastTrackedTime = 0;
-        let isPlaying = false;
-        
-        // Watch Time Variables
-        let sessionWatchTime = 0; // in seconds
-        let loginPromptShown = false;
-        const LOGIN_PROMPT_THRESHOLD = 300; // Show login prompt after 5 minutes (300 seconds)
-
-        // Check if user is logged in (mock function - replace with actual auth)
-        let isUserLoggedIn = false;
+        // Global variables
+        let allVideos = [];
+        let currentFilter = 'all';
+        let searchTerm = '';
 
         const videoGrid = document.getElementById('videoGrid');
         const searchInput = document.getElementById('searchInput');
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const modal = document.getElementById('videoModal');
-        const loginPrompt = document.getElementById('loginPrompt');
-        const sessionWatchTimeDisplay = document.getElementById('sessionWatchTime');
-        const playerStatus = document.getElementById('playerStatus');
-        
-        let currentFilter = 'all';
-        let searchTerm = '';
-        let expandedCardId = null;
+        const videoModal = document.getElementById('videoModal');
+        const youtubePlayer = document.getElementById('youtubePlayer');
+        const sheetsStatus = document.getElementById('sheetsStatus');
 
-        // YouTube API Ready
-        function onYouTubeIframeAPIReady() {
-            console.log('YouTube API Ready');
-            // Players will be created when videos are played
-        }
-
-        // Create YouTube Player
-        function createPlayer(containerId, videoId) {
-            return new YT.Player(containerId, {
-                videoId: videoId,
-                playerVars: {
-                    'autoplay': 1,
-                    'controls': 1,
-                    'rel': 0,
-                    'modestbranding': 1,
-                    'enablejsapi': 1
-                },
-                events: {
-                    'onStateChange': onPlayerStateChange,
-                    'onError': onPlayerError,
-                    'onReady': onPlayerReady
-                }
-            });
-        }
-
-        // Player Ready Event
-        function onPlayerReady(event) {
-            console.log('Player ready');
-        }
-
-        // Player State Change Event
-        function onPlayerStateChange(event) {
-            const player = event.target;
-            const videoData = player.getVideoData();
-            const videoId = videoData.video_id;
-            
-            // Update player status indicator
-            switch(event.data) {
-                case YT.PlayerState.PLAYING:
-                    console.log('Video playing:', videoId);
-                    playerStatus.className = 'player-status status-playing';
-                    isPlaying = true;
-                    
-                    // Start tracking watch time
-                    if (activeVideoId !== videoId) {
-                        // New video started
-                        activeVideoId = videoId;
-                        lastTrackedTime = Date.now();
-                        startWatchTimeTracking();
-                    } else {
-                        // Resumed from pause
-                        lastTrackedTime = Date.now();
-                    }
-                    break;
-                    
-                case YT.PlayerState.PAUSED:
-                    console.log('Video paused:', videoId);
-                    playerStatus.className = 'player-status status-paused';
-                    isPlaying = false;
-                    
-                    // Stop tracking and accumulate time
-                    stopAndAccumulateWatchTime();
-                    break;
-                    
-                case YT.PlayerState.ENDED:
-                    console.log('Video ended:', videoId);
-                    playerStatus.className = 'player-status status-stopped';
-                    isPlaying = false;
-                    
-                    // Mark as fully watched
-                    const lecture = lectures.find(l => l.id === videoId);
-                    if (lecture) {
-                        lecture.watched = true;
-                        displayVideos();
-                    }
-                    
-                    // Stop tracking
-                    stopAndAccumulateWatchTime();
-                    activeVideoId = null;
-                    break;
-                    
-                case YT.PlayerState.BUFFERING:
-                    console.log('Video buffering:', videoId);
-                    // Pause tracking during buffering
-                    if (isPlaying) {
-                        stopAndAccumulateWatchTime();
-                    }
-                    break;
-            }
-        }
-
-        // Player Error Event
-        function onPlayerError(event) {
-            console.error('Player error:', event.data);
-            playerStatus.className = 'player-status status-stopped';
-            isPlaying = false;
-            stopAndAccumulateWatchTime();
-        }
-
-        // Start tracking watch time
-        function startWatchTimeTracking() {
-            if (watchTimeInterval) {
-                clearInterval(watchTimeInterval);
-            }
-            
-            watchTimeInterval = setInterval(() => {
-                if (isPlaying && lastTrackedTime > 0) {
-                    const now = Date.now();
-                    const elapsedSeconds = (now - lastTrackedTime) / 1000;
-                    
-                    // Add to session watch time
-                    sessionWatchTime += elapsedSeconds;
-                    lastTrackedTime = now;
-                    
-                    // Update display
-                    updateWatchTimeDisplay();
-                    
-                    // Save to storage
-                    saveWatchTimeToStorage();
-                    
-                    // Check login prompt threshold
-                    if (!isUserLoggedIn && !loginPromptShown && sessionWatchTime >= LOGIN_PROMPT_THRESHOLD) {
-                        showLoginPrompt();
-                    }
-                }
-            }, 1000);
-        }
-
-        // Stop tracking and accumulate time
-        function stopAndAccumulateWatchTime() {
-            if (isPlaying && lastTrackedTime > 0) {
-                const now = Date.now();
-                const elapsedSeconds = (now - lastTrackedTime) / 1000;
-                sessionWatchTime += elapsedSeconds;
-                lastTrackedTime = now;
-                updateWatchTimeDisplay();
-                saveWatchTimeToStorage();
-            }
-            lastTrackedTime = 0;
-        }
-
-        // Stop watch time tracking
-        function stopWatchTimeTracking() {
-            if (watchTimeInterval) {
-                clearInterval(watchTimeInterval);
-                watchTimeInterval = null;
-            }
-            stopAndAccumulateWatchTime();
-        }
-
-        // Format time (seconds to MM:SS or HH:MM:SS)
-        function formatTime(seconds) {
-            const hrs = Math.floor(seconds / 3600);
-            const mins = Math.floor((seconds % 3600) / 60);
-            const secs = Math.floor(seconds % 60);
-            
-            if (hrs > 0) {
-                return `${hrs}h ${mins}m ${secs}s`;
-            } else {
-                return `${mins} min ${secs} sec`;
-            }
-        }
-
-        // Update watch time display
-        function updateWatchTimeDisplay() {
-            sessionWatchTimeDisplay.textContent = formatTime(sessionWatchTime);
-        }
-
-        // Save watch time to localStorage
-        function saveWatchTimeToStorage() {
-            localStorage.setItem('sessionWatchTime', sessionWatchTime.toString());
-        }
-
-        // Load watch time from localStorage
-        function loadWatchTimeFromStorage() {
-            const saved = localStorage.getItem('sessionWatchTime');
-            if (saved) {
-                sessionWatchTime = parseFloat(saved);
-                updateWatchTimeDisplay();
-            }
-        }
-
-        // Show login prompt
-        function showLoginPrompt() {
-            if (!isUserLoggedIn && !loginPromptShown) {
-                loginPromptShown = true;
-                document.getElementById('promptWatchTime').textContent = formatTime(sessionWatchTime);
-                loginPrompt.classList.add('active');
+        // Load videos from Google Sheets
+        async function loadVideos() {
+            try {
+                sheetsStatus.textContent = '📊 Fetching from Sheets...';
                 
-                // Pause video if playing
-                if (activeVideoId && players[activeVideoId]) {
-                    players[activeVideoId].pauseVideo();
-                }
+                const response = await fetch(SHEET_URL);
+                const csvText = await response.text();
+                
+                // Parse CSV
+                const rows = csvText.split('\n').map(row => 
+                    row.split(',').map(cell => cell.replace(/^"|"$/g, '').trim())
+                );
+                
+                // First row is headers
+                const headers = rows[0];
+                
+                // Convert to objects
+                allVideos = rows.slice(1).map((row, index) => {
+                    if (row.length < 5) return null; // Skip invalid rows
+                    
+                    return {
+                        id: row[0],
+                        title: row[1],
+                        subject: row[2].toLowerCase(),
+                        duration: row[3],
+                        order: parseInt(row[4]) || index + 1
+                    };
+                }).filter(v => v && v.id); // Remove null entries
+                
+                // Sort by order
+                allVideos.sort((a, b) => a.order - b.order);
+                
+                console.log(`✅ Loaded ${allVideos.length} videos from Google Sheets`);
+                sheetsStatus.textContent = `✅ Live from Google Sheets (${allVideos.length} videos)`;
+                
+                displayVideos();
+                updateStats();
+                
+            } catch (error) {
+                console.error('Error loading from Sheets:', error);
+                videoGrid.innerHTML = `<div class="empty-state">❌ Error loading from Google Sheets: ${error.message}</div>`;
+                sheetsStatus.textContent = '❌ Connection failed';
             }
         }
 
-        // Close login prompt
-        function closeLoginPrompt() {
-            loginPrompt.classList.remove('active');
-        }
-
-        // Handle login
-        function handleLogin() {
-            alert('Login functionality would redirect to authentication page.\nWatch time data would be saved to your account.');
-            closeLoginPrompt();
-        }
-
-        // Calculate total hours
-        function calculateTotalHours() {
-            let totalMinutes = 0;
-            lectures.forEach(lecture => {
-                const [mins, secs] = lecture.duration.split(':').map(Number);
-                totalMinutes += mins + (secs/60);
-            });
-            return Math.round(totalMinutes / 60);
-        }
-
-        // Display videos
         function displayVideos() {
-            const filtered = lectures.filter(lecture => {
-                if (currentFilter !== 'all' && lecture.subject !== currentFilter) return false;
-                if (searchTerm && !lecture.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
+            let videosToShow = allVideos.filter(video => {
+                if (currentFilter !== 'all' && video.subject !== currentFilter) return false;
+                if (searchTerm && !video.title.toLowerCase().includes(searchTerm.toLowerCase())) return false;
                 return true;
             });
 
-            if (filtered.length === 0) {
-                videoGrid.innerHTML = `
-                    <div class="empty-state">
-                        <span style="font-size: 3rem;">📚</span>
-                        <p>No lectures found</p>
-                        <p style="font-size: 0.9rem;">Try a different search or filter</p>
-                    </div>
-                `;
-                updateStats();
+            if (videosToShow.length === 0) {
+                videoGrid.innerHTML = '<div class="empty-state">No matching videos found</div>';
                 return;
             }
 
-            videoGrid.innerHTML = filtered.map(lecture => `
-                <div class="video-card ${expandedCardId === lecture.id ? 'expanded' : ''}" 
-                     data-id="${lecture.id}" 
-                     data-subject="${lecture.subject}"
-                     onclick="handleCardClick(event, '${lecture.id}')">
-                    <div class="youtube" id="player-${lecture.id}" data-embed="${lecture.id}" onclick="event.stopPropagation(); playVideo('${lecture.id}')">
-                        <img src="https://img.youtube.com/vi/${lecture.id}/sddefault.jpg" alt="Thumbnail">
+            videoGrid.innerHTML = videosToShow.map(video => `
+                <div class="video-card" onclick="playVideo('${video.id}')">
+                    <div class="thumbnail">
+                        <img src="https://img.youtube.com/vi/${video.id}/sddefault.jpg" alt="${video.title}">
                         <div class="play-button"></div>
                     </div>
                     <div class="video-info">
                         <div class="video-title">
-                            ${lecture.title}
-                            <span class="duration">${lecture.duration}</span>
+                            ${video.title}
+                            <span class="duration">${video.duration}</span>
                         </div>
                         <div class="video-meta">
-                            <span>📺 ${lecture.subject}</span>
-                            ${lecture.notes ? '<span>📝 Notes</span>' : ''}
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: ${lecture.watched ? '100' : '0'}%"></div>
+                            <span>📺 ${video.subject}</span>
                         </div>
                     </div>
                 </div>
             `).join('');
-
-            updateStats();
-        }
-
-        function handleCardClick(event, id) {
-            // Don't expand if clicking on play button or iframe
-            if (event.target.closest('.youtube') || event.target.closest('iframe')) {
-                return;
-            }
-            
-            // Toggle expansion
-            if (expandedCardId === id) {
-                expandedCardId = null;
-            } else {
-                expandedCardId = id;
-            }
-            displayVideos();
-            
-            // Scroll to expanded card
-            if (expandedCardId) {
-                setTimeout(() => {
-                    const expandedCard = document.querySelector(`.video-card[data-id="${id}"]`);
-                    if (expandedCard) {
-                        expandedCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                }, 100);
-            }
         }
 
         function playVideo(videoId) {
-            const container = document.getElementById(`player-${videoId}`);
-            if (!container) return;
-            
-            // Mark as watched (but not fully, just started)
-            const lecture = lectures.find(l => l.id === videoId);
-            
-            // Stop current video if playing
-            if (activeVideoId && activeVideoId !== videoId && players[activeVideoId]) {
-                players[activeVideoId].pauseVideo();
-            }
-            
-            // Create player if it doesn't exist
-            if (!players[videoId]) {
-                // Clear container
-                container.innerHTML = '';
-                
-                // Create div for player
-                const playerDiv = document.createElement('div');
-                playerDiv.id = `yt-player-${videoId}`;
-                container.appendChild(playerDiv);
-                
-                // Create player
-                players[videoId] = new YT.Player(playerDiv.id, {
-                    height: '100%',
-                    width: '100%',
-                    videoId: videoId,
-                    playerVars: {
-                        'autoplay': 1,
-                        'controls': 1,
-                        'rel': 0,
-                        'modestbranding': 1,
-                        'enablejsapi': 1
-                    },
-                    events: {
-                        'onStateChange': onPlayerStateChange,
-                        'onError': onPlayerError,
-                        'onReady': (event) => {
-                            console.log('Player ready:', videoId);
-                            event.target.playVideo();
-                        }
-                    }
-                });
-            } else {
-                // Resume existing player
-                players[videoId].playVideo();
-            }
-            
-            activeVideoId = videoId;
+            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            videoModal.classList.add('active');
         }
 
-        function getSubjectIcon(subject) {
-            const icons = {
-                physics: '⚛️',
-                chemistry: '🧪',
-                maths: '📐'
-            };
-            return icons[subject] || '📚';
+        function closeVideoModal() {
+            videoModal.classList.remove('active');
+            youtubePlayer.src = '';
         }
 
         function updateStats() {
-            document.getElementById('totalVideos').textContent = lectures.length;
+            document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
+            document.getElementById('totalVideos').textContent = allVideos.length;
             
-            const totalHours = calculateTotalHours();
-            document.getElementById('totalHours').textContent = totalHours;
-            
-            const watchedCount = lectures.filter(l => l.watched).length;
-            const completion = lectures.length ? Math.round((watchedCount / lectures.length) * 100) : 0;
-            document.getElementById('completionRate').textContent = completion;
-            
-            // Update filter button counts
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                const filter = btn.dataset.filter;
-                if (filter === 'all') {
-                    btn.innerHTML = `<span>📋</span> All <span style="font-size:0.8rem; color:#2563eb;">(${lectures.length})</span>`;
-                } else {
-                    const count = lectures.filter(l => l.subject === filter).length;
-                    const icon = getSubjectIcon(filter);
-                    btn.innerHTML = `${btn.innerHTML.split('<span>')[0]}<span>${icon}</span> ${filter.charAt(0).toUpperCase() + filter.slice(1)} <span style="font-size:0.8rem; color:#2563eb;">(${count})</span>`;
+            let totalMinutes = 0;
+            allVideos.forEach(video => {
+                if (video.duration) {
+                    const parts = video.duration.split(':');
+                    if (parts.length === 2) {
+                        totalMinutes += parseInt(parts[0]) + (parseInt(parts[1]) / 60);
+                    }
                 }
             });
+            document.getElementById('totalHours').textContent = Math.round(totalMinutes / 60);
         }
 
-        // Search
         searchInput.addEventListener('input', (e) => {
             searchTerm = e.target.value;
-            expandedCardId = null; // Collapse expanded card when searching
             displayVideos();
         });
 
-        // Filter
         filterButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 currentFilter = btn.dataset.filter;
-                expandedCardId = null; // Collapse expanded card when filtering
                 displayVideos();
             });
         });
 
-        // Modal functions
-        function openModal() {
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            modal.classList.remove('active');
-            document.getElementById('videoUrl').value = '';
-            document.getElementById('videoTitle').value = '';
-            document.getElementById('videoNotes').value = '';
-        }
-
-        function addVideo() {
-            const url = document.getElementById('videoUrl').value;
-            const title = document.getElementById('videoTitle').value;
-            const subject = document.getElementById('videoSubject').value;
-            const notes = document.getElementById('videoNotes').value;
-
-            let videoId = url;
-            if (url.includes('youtube.com/watch?v=')) {
-                videoId = url.split('v=')[1]?.split('&')[0];
-            } else if (url.includes('youtu.be/')) {
-                videoId = url.split('youtu.be/')[1]?.split('?')[0];
-            }
-
-            if (videoId && videoId.length === 11) {
-                lectures.push({
-                    id: videoId,
-                    title: title || 'Untitled Lecture',
-                    subject: subject,
-                    duration: '—',
-                    notes: notes,
-                    watched: false,
-                    watchProgress: 0
-                });
-                displayVideos();
-                closeModal();
-            } else {
-                alert('Please enter a valid YouTube URL or 11-character video ID');
-            }
-        }
-
-        // Handle page visibility change
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                // Page hidden, stop tracking
-                if (isPlaying) {
-                    stopAndAccumulateWatchTime();
-                }
-            } else {
-                // Page visible again, resume tracking if playing
-                if (isPlaying && activeVideoId) {
-                    lastTrackedTime = Date.now();
-                }
-            }
-        });
-
-        // Handle before unload
-        window.addEventListener('beforeunload', () => {
-            stopWatchTimeTracking();
-            saveWatchTimeToStorage();
-        });
-
-        // Make functions globally available
         window.playVideo = playVideo;
-        window.handleCardClick = handleCardClick;
-        window.addVideo = addVideo;
-        window.closeModal = closeModal;
-        window.closeLoginPrompt = closeLoginPrompt;
-        window.handleLogin = handleLogin;
+        window.closeVideoModal = closeVideoModal;
 
-        document.getElementById('addVideoBtn').addEventListener('click', openModal);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // Load saved watch time
-        loadWatchTimeFromStorage();
-
-        // Initialize
-        displayVideos();
-
-        // Set initial player status
-        playerStatus.className = 'player-status status-stopped';
+        // Start loading
+        loadVideos();
     </script>
 </body>
 </html>
