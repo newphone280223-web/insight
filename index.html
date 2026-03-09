@@ -3,1568 +3,1418 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💙 JEE Complete Learning Suite • All Features</title>
+    <title>Duplex Steel Manufacturing | Startup by Chandan Sahu, Abhishek Singh, Netramani Sharma, Prajwal Bakal</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        /* ========== DARK MODE VARIABLES ========== */
-        :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
-            --bg-tertiary: #f1f5f9;
-            --text-primary: #1e293b;
-            --text-secondary: #4b5563;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --border: #e2e8f0;
-            --card-bg: #ffffff;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-tertiary: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --accent: #3b82f6;
-            --accent-hover: #60a5fa;
-            --border: #475569;
-            --card-bg: #1e293b;
-            --shadow: rgba(0, 0, 0, 0.5);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #1a2a3a;
+            color: white;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .logo span {
+            color: #e67e22;
+            font-size: 0.9rem;
+            display: block;
+            font-weight: 300;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        nav ul li a:hover {
+            color: #e67e22;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #e67e22;
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            margin: 0.5rem;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: #1a2a3a;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 5%;
         }
 
         .container {
-            max-width: 1600px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: var(--bg-primary);
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px var(--shadow);
-            color: var(--text-primary);
         }
 
-        /* ========== HEADER ========== */
-        .header {
-            background: var(--bg-primary);
-            padding: 20px 30px;
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
-        .header h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, var(--accent), #1e3a8a);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .section-title h3 {
+            font-size: 2.5rem;
+            color: #1a2a3a;
+            margin-bottom: 1rem;
         }
 
-        .header-right {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .dark-mode-btn {
-            padding: 8px 16px;
-            border: 2px solid var(--border);
-            border-radius: 40px;
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .dark-mode-btn:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        .stats-badge {
-            background: var(--bg-secondary);
-            padding: 8px 16px;
-            border-radius: 100px;
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-
-        .sheets-status {
-            background: #0f9d58;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-        }
-
-        /* ========== SEARCH SECTION ========== */
-        .search-section {
-            padding: 30px;
-            background: var(--bg-secondary);
-            position: relative;
-        }
-
-        .main-search-box {
-            max-width: 600px;
+        .section-title p {
+            color: #666;
+            max-width: 700px;
             margin: 0 auto;
-            position: relative;
         }
 
-        .main-search-box input {
-            width: 100%;
-            padding: 20px 30px 20px 60px;
-            border: 3px solid var(--border);
-            border-radius: 60px;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-        }
-
-        .main-search-box input:focus {
-            border-color: var(--accent);
-            outline: none;
-            box-shadow: 0 15px 30px -8px var(--accent);
-        }
-
-        .main-search-icon {
-            position: absolute;
-            left: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.5rem;
-            color: var(--accent);
-        }
-
-        /* Autocomplete Dropdown */
-        .autocomplete-dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: var(--bg-primary);
-            border: 2px solid var(--border);
-            border-top: none;
-            border-radius: 0 0 20px 20px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 100;
-            display: none;
-        }
-
-        .autocomplete-item {
-            padding: 15px 25px;
-            cursor: pointer;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .autocomplete-item:hover {
-            background: var(--bg-secondary);
-        }
-
-        .autocomplete-item .match-highlight {
-            color: var(--accent);
-            font-weight: bold;
-        }
-
-        .autocomplete-item .channel-tag {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .search-examples {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .example-tag {
-            background: var(--bg-primary);
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-        }
-
-        .example-tag:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        /* ========== MAIN CONTENT ========== */
-        .main-content {
-            padding: 30px;
-        }
-
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .results-info {
-            color: var(--accent);
-            font-weight: 500;
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--border);
-            border-radius: 40px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .filter-btn.active {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: white;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            background: var(--bg-secondary);
-            padding: 12px 20px;
-            border-radius: 40px;
-            width: fit-content;
-            margin-bottom: 25px;
-            color: var(--text-primary);
-        }
-
-        .video-grid {
+        /* About Section */
+        .about-content {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .video-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px var(--shadow);
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid var(--border);
-        }
-
-        .video-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px var(--accent);
-            border-color: var(--accent);
-        }
-
-        .thumbnail {
-            position: relative;
-            padding-top: 56.25%;
-            background: #000;
-        }
-
-        .thumbnail img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .play-badge {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--accent);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-        }
-
-        .video-info {
-            padding: 15px;
-        }
-
-        .video-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-primary);
-        }
-
-        .duration {
-            font-size: 0.8rem;
-            color: var(--accent);
-            background: var(--bg-secondary);
-            padding: 2px 6px;
-            border-radius: 12px;
-        }
-
-        .channel-name {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            display: flex;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
             align-items: center;
-            gap: 4px;
-            margin-top: 5px;
         }
 
-        /* ========== VIDEO PLAYER MODAL ========== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            padding: 20px;
+        .about-text p {
+            margin-bottom: 1rem;
+            color: #555;
         }
 
-        .modal.active {
-            display: block;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .close-modal {
-            font-size: 40px;
-            cursor: pointer;
-            color: white;
-            transition: color 0.3s;
-        }
-
-        .close-modal:hover {
-            color: var(--accent);
-        }
-
-        .player-container {
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 20px;
-            height: calc(100vh - 100px);
-        }
-
-        .video-player-section {
-            background: #000;
-            border-radius: 16px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        #youtubePlayer {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .pip-button {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            border: 1px solid white;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .pip-button:hover {
-            background: var(--accent);
-        }
-
-        .audio-mode {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            border: 1px solid white;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .audio-mode.active {
-            background: #4CAF50;
-        }
-
-        /* ========== SIDE PANEL ========== */
-        .side-panel {
-            background: var(--bg-primary);
-            border-radius: 16px;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            color: var(--text-primary);
-        }
-
-        .video-details {
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .video-details h2 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .meta-row {
-            display: flex;
-            gap: 15px;
-            margin: 15px 0;
-            color: var(--text-secondary);
-        }
-
-        .channel-card {
-            background: var(--bg-primary);
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .channel-icon-large {
-            width: 50px;
-            height: 50px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
-
-        /* ========== SPEED CONTROL ========== */
-        .speed-control {
-            background: var(--bg-secondary);
-            padding: 15px;
-            border-radius: 12px;
-        }
-
-        .speed-control h3 {
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .speed-buttons {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 5px;
-        }
-
-        .speed-btn {
-            padding: 8px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
-
-        .speed-btn.active {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-        }
-
-        /* ========== STUDY TOOLS ========== */
-        .study-tools {
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .tools-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tool-button {
-            padding: 12px;
-            border: none;
+        .team-names {
+            background: #f8f9fa;
+            padding: 1.5rem;
             border-radius: 8px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            justify-content: center;
-            border: 1px solid var(--border);
+            margin-top: 1.5rem;
         }
 
-        .tool-button:hover {
-            background: var(--accent);
-            color: white;
+        .team-names h4 {
+            color: #e67e22;
+            margin-bottom: 1rem;
         }
 
-        /* ========== PROGRESS TRACKING ========== */
-        .progress-section {
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 12px;
+        .team-names ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
         }
 
-        .progress-section h3 {
-            margin-bottom: 15px;
-            color: var(--text-primary);
+        .team-names li {
+            font-size: 0.95rem;
         }
 
-        .progress-bar {
-            height: 20px;
-            background: var(--bg-tertiary);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 10px;
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent), #4CAF50);
-            border-radius: 10px;
-            transition: width 0.3s;
+        .stat-box {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 8px;
         }
 
-        .subject-breakdown {
+        .stat-box h4 {
+            font-size: 2rem;
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+        }
+
+        /* What is Duplex Steel */
+        .duplex-info {
+            background-color: #f8f9fa;
+        }
+
+        .duplex-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 15px;
+            gap: 2rem;
         }
 
-        .subject-progress {
-            text-align: center;
+        .duplex-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
         }
 
-        .subject-progress .label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        .subject-progress .value {
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-
-        /* ========== FLASHCARDS ========== */
-        .flashcard-section {
-            background: var(--bg-secondary);
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .flashcard {
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 30px 20px;
-            text-align: center;
-            cursor: pointer;
-            margin: 15px 0;
-            border: 2px solid var(--border);
-            min-height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .flashcard:hover {
-            border-color: var(--accent);
-            transform: scale(1.02);
-        }
-
-        .flashcard-question {
+        .duplex-card h4 {
+            color: #e67e22;
+            margin-bottom: 1rem;
             font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
         }
 
-        .flashcard-answer {
+        /* Manufacturing Process */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .process-step {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-top: 3px solid #e67e22;
+        }
+
+        .process-step h5 {
+            color: #1a2a3a;
+            margin-bottom: 0.5rem;
             font-size: 1.1rem;
-            color: var(--accent);
         }
 
-        .flashcard-controls {
+        .process-step p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Products Section */
+        .products {
+            background-color: #f8f9fa;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-img {
+            height: 200px;
+            background-color: #ddd;
             display: flex;
-            gap: 10px;
+            align-items: center;
             justify-content: center;
-        }
-
-        .flashcard-btn {
-            padding: 8px 16px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            cursor: pointer;
-            color: var(--text-primary);
-        }
-
-        .flashcard-btn:hover {
-            background: var(--accent);
+            color: #666;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
             color: white;
         }
 
-        /* ========== NOTES & BOOKMARKS ========== */
-        .notes-section {
-            margin-top: 20px;
+        .product-info {
+            padding: 1.5rem;
         }
 
-        .notes-textarea {
-            width: 100%;
-            height: 150px;
-            padding: 12px;
-            border: 2px solid var(--border);
+        .product-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1a2a3a;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .grade {
+            color: #e67e22;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Value Proposition */
+        .value-prop {
+            background: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
+            color: white;
+        }
+
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.1);
             border-radius: 8px;
-            font-family: inherit;
-            resize: vertical;
-            margin-bottom: 10px;
-            background: var(--bg-primary);
-            color: var(--text-primary);
         }
 
-        .notes-textarea:focus {
-            border-color: var(--accent);
-            outline: none;
+        .value-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #e67e22;
         }
 
-        .notes-actions {
-            display: flex;
-            gap: 10px;
+        /* Industry Sector Table */
+        .sector-table {
+            overflow-x: auto;
+            margin: 2rem 0;
         }
 
-        .notes-actions button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            background: var(--accent);
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #1a2a3a;
             color: white;
-            cursor: pointer;
-            flex: 1;
+            padding: 1rem;
+            text-align: left;
         }
 
-        .bookmarks-list {
-            margin-top: 15px;
-            max-height: 200px;
-            overflow-y: auto;
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
         }
 
-        .bookmark-item {
-            background: var(--bg-primary);
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--border);
+        tr:hover {
+            background-color: #f8f9fa;
         }
 
-        .bookmark-time {
-            color: var(--accent);
+        /* Competitive Advantage */
+        .competitor-table {
+            overflow-x: auto;
+        }
+
+        /* Status Section */
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .status-box {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .status-box h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #1a2a3a;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 0.5rem;
+        }
+
+        .status-list {
+            list-style: none;
+        }
+
+        .status-list li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .status-list li:before {
+            content: "•";
+            color: #e67e22;
             font-weight: bold;
-            cursor: pointer;
+            position: absolute;
+            left: 0;
         }
 
-        /* ========== SCREENSHOT PREVIEW ========== */
-        .screenshot-preview {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--bg-primary);
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            z-index: 2000;
-            width: 320px;
-            border: 3px solid var(--accent);
-            display: none;
-            color: var(--text-primary);
+        /* Location Advantages */
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
         }
 
-        .screenshot-preview.active {
-            display: block;
-        }
-
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .preview-header h4 {
-            color: var(--accent);
-            margin: 0;
-        }
-
-        .screenshot-preview img {
-            width: 100%;
+        .location-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
             border-radius: 8px;
-            margin-bottom: 10px;
-            border: 2px solid var(--border);
         }
 
-        .preview-actions {
+        .location-item h5 {
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Key Metrics */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* Revenue Table */
+        .revenue-table {
+            overflow-x: auto;
+            margin: 2rem 0;
+        }
+
+        /* Funding Section */
+        .funding-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .funding-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+
+        .funding-card h5 {
+            color: #e67e22;
+            margin-bottom: 0.5rem;
+        }
+
+        .funding-card .amount {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1a2a3a;
+            margin: 0.5rem 0;
+        }
+
+        /* SWOT */
+        .swot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .swot-item {
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .swot-item h4 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .swot-item.strengths {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .swot-item.weaknesses {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .swot-item.opportunities {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .swot-item.threats {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .swot-list {
+            list-style: none;
+        }
+
+        .swot-list li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        .swot-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .contact-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: #1a2a3a;
+        }
+
+        .contact-detail {
+            margin-bottom: 1rem;
             display: flex;
-            gap: 10px;
+            align-items: center;
         }
 
-        .preview-actions button {
-            flex: 1;
-            padding: 8px;
-            background: var(--accent);
+        .contact-detail strong {
+            width: 80px;
+            color: #e67e22;
+        }
+
+        .contact-form input,
+        .contact-form select,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .contact-form textarea {
+            height: 120px;
+        }
+
+        .contact-form button {
+            background-color: #e67e22;
             color: white;
+            padding: 1rem 2rem;
             border: none;
-            border-radius: 6px;
+            border-radius: 5px;
             cursor: pointer;
+            font-weight: 600;
+            width: 100%;
         }
 
-        .welcome-screen {
-            text-align: center;
-            padding: 60px;
-            color: var(--text-secondary);
+        .contact-form button:hover {
+            background-color: #c0392b;
         }
 
-        .empty-state {
+        /* Footer */
+        footer {
+            background-color: #1a2a3a;
+            color: white;
+            padding: 3rem 5% 1rem;
             text-align: center;
-            padding: 60px;
-            color: var(--text-secondary);
-            grid-column: 1 / -1;
         }
 
-        .loading {
-            text-align: center;
-            padding: 60px;
-            color: var(--accent);
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            margin: 2rem 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .about-content,
+            .status-grid,
+            .contact-grid,
+            .swot-grid,
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-grid,
+            .value-grid,
+            .duplex-grid,
+            .process-steps,
+            .location-grid,
+            .funding-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #1a2a3a;
+                padding: 1rem 5%;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav ul li {
+                margin: 1rem 0;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .product-grid,
+            .value-grid,
+            .duplex-grid,
+            .process-steps,
+            .location-grid,
+            .funding-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-names ul {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>💙 JEE Complete Learning Suite</h1>
-            <div class="header-right">
-                <button class="dark-mode-btn" onclick="toggleDarkMode()">
-                    <span>🌙</span> Dark Mode
-                </button>
-                <span class="stats-badge" id="videoCount">Loading...</span>
-                <span class="sheets-status" id="sheetsStatus">📊 Google Sheets</span>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <h1>Duplex Steel Manufacturing</h1>
+                <span>Startup by CRS Group</span>
             </div>
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+            <nav id="navbar">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#duplex">What is Duplex</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#sectors">Sectors</a></li>
+                    <li><a href="#status">Status</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
+    </header>
 
-        <div class="search-section">
-            <div class="main-search-box">
-                <span class="main-search-icon">🔍</span>
-                <input type="text" id="mainSearchInput" placeholder="Search lectures, topics, or channels...">
-                <div id="autocompleteDropdown" class="autocomplete-dropdown"></div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Premium Duplex Stainless Steel Products</h2>
+            <p>Processing billets and blooms into high-quality bars, pipes, and industrial components for critical applications in Oil & Gas, Marine, Defense, and Chemical Processing</p>
+            <a href="#contact" class="btn">Request Quote</a>
+            <a href="#products" class="btn btn-outline">View Products</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h3>About Our Startup</h3>
+                <p>India's specialized Duplex Stainless Steel manufacturing venture</p>
             </div>
-            <div class="search-examples">
-                <span class="example-tag" onclick="searchExample('thermodynamics')">🔥 Thermodynamics</span>
-                <span class="example-tag" onclick="searchExample('calculus')">📐 Calculus</span>
-                <span class="example-tag" onclick="searchExample('organic chemistry')">🧪 Organic Chemistry</span>
-                <span class="example-tag" onclick="searchExample('mechanics')">⚙️ Mechanics</span>
-                <span class="example-tag" onclick="searchExample('physics wallah')">📺 Physics Wallah</span>
-            </div>
-        </div>
-
-        <!-- Welcome Screen -->
-        <div id="welcomeScreen" class="welcome-screen">
-            <h2>📚 Welcome to Your JEE Study Suite</h2>
-            <p>Start typing in the search box above to find lectures</p>
-     
-        </div>
-
-        <!-- Results Section -->
-        <div id="resultsSection" style="display: none;">
-            <div class="main-content">
-                <div class="controls">
-                    <div class="results-info" id="resultsInfo"></div>
-                    <div class="filter-buttons">
-                        <button class="filter-btn active" data-filter="all">📋 All</button>
-                        <button class="filter-btn" data-filter="physics">⚛️ Physics</button>
-                        <button class="filter-btn" data-filter="chemistry">🧪 Chemistry</button>
-                        <button class="filter-btn" data-filter="maths">📐 Maths</button>
-                    </div>
-                </div>
-
-                <div class="stats">
-                    <span>📺 <span id="totalVideos">0</span> lectures</span>
-                    <span>⏱️ <span id="totalHours">0</span> hours</span>
-                    <span>🎥 <span id="totalChannels">0</span> channels</span>
-                </div>
-
-                <div id="videoGrid" class="video-grid"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Enhanced Video Player Modal -->
-    <div class="modal" id="videoModal">
-        <div class="modal-header">
-            <h2 style="color: white;">🎓 Learning Mode</h2>
-            <span class="close-modal" onclick="closeVideoModal()">&times;</span>
-        </div>
-        
-        <div class="player-container">
-            <!-- Video Player Section -->
-            <div class="video-player-section">
-                <div class="video-wrapper">
-                    <iframe id="youtubePlayer" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>We are establishing a manufacturing unit dedicated to processing duplex stainless steel billets and blooms into finished and semi-finished products. India is the second-largest consumer and the third-largest producer of stainless steel globally, with estimated installed capacity between 6.6 to 6.8 million tons.</p>
+                    <p>Our vision aligns with India's target to reach 20 MTPA by 2047, with projected 5.5 million tons by 2030 at 6% CAGR. China currently accounts for 53.3% of global crude steel production, while India's share is approximately 7.9%, presenting significant growth opportunity.</p>
                     
-                    <div class="pip-button" onclick="togglePictureInPicture()">
-                        <span>📺</span> Picture in Picture
-                    </div>
-                    
-                    <div class="audio-mode" id="audioModeBtn" onclick="toggleAudioMode()">
-                        <span>🎧</span> Background Audio
-                    </div>
-                </div>
-            </div>
-
-            <!-- Side Panel -->
-            <div class="side-panel">
-                <!-- Video Details -->
-                <div class="video-details" id="currentVideoDetails">
-                    <h2 id="currentVideoTitle">Video Title</h2>
-                    <div class="meta-row">
-                        <span class="meta-item">⏱️ <span id="currentDuration">0:00</span></span>
-                        <span class="meta-item">📺 <span id="currentSubject">physics</span></span>
-                    </div>
-                    
-                    <div class="channel-card">
-                        <div class="channel-icon-large">📺</div>
-                        <div>
-                            <h3 id="currentChannel">Channel Name</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.9rem;">YouTube Channel</p>
-                        </div>
+                    <div class="team-names">
+                        <h4>Our Team</h4>
+                        <ul>
+                            <li><strong>Chandan Sahu</strong> (RN – 25M1867)</li>
+                            <li><strong>Abhishek Singh</strong> (RN – 25M1855)</li>
+                            <li><strong>Netramani Sharma</strong> (RN – 24M1826)</li>
+                            <li><strong>Prajwal Bakal</strong> (RN – 23M1588)</li>
+                        </ul>
                     </div>
                 </div>
-
-                <!-- Speed Control -->
-                <div class="speed-control">
-                    <h3>⏩ Playback Speed</h3>
-                    <div class="speed-buttons">
-                        <button class="speed-btn" onclick="setPlaybackSpeed(0.75)">0.75x</button>
-                        <button class="speed-btn active" onclick="setPlaybackSpeed(1.0)">1x</button>
-                        <button class="speed-btn" onclick="setPlaybackSpeed(1.25)">1.25x</button>
-                        <button class="speed-btn" onclick="setPlaybackSpeed(1.5)">1.5x</button>
-                        <button class="speed-btn" onclick="setPlaybackSpeed(2.0)">2x</button>
+                <div class="about-stats">
+                    <div class="stat-box">
+                        <h4>50/50</h4>
+                        <p>Microstructure<br>Ferrite/Austenite</p>
                     </div>
-                </div>
-
-                <!-- Progress Tracking -->
-                <div class="progress-section">
-                    <h3>📊 Your Progress</h3>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="overallProgress" style="width: 0%;"></div>
+                    <div class="stat-box">
+                        <h4>300°C</h4>
+                        <p>Temperature Limit</p>
                     </div>
-                    <p id="progressText">0% of JEE syllabus covered</p>
-                    <div class="subject-breakdown" id="subjectBreakdown">
-                        <div class="subject-progress">
-                            <div class="label">Physics</div>
-                            <div class="value" id="physicsProgress">0/0</div>
-                        </div>
-                        <div class="subject-progress">
-                            <div class="label">Chemistry</div>
-                            <div class="value" id="chemistryProgress">0/0</div>
-                        </div>
-                        <div class="subject-progress">
-                            <div class="label">Maths</div>
-                            <div class="value" id="mathsProgress">0/0</div>
-                        </div>
+                    <div class="stat-box">
+                        <h4>6.6-6.8M</h4>
+                        <p>India Installed Capacity (Tons)</p>
                     </div>
-                </div>
-
-                <!-- Flashcards -->
-                <div class="flashcard-section">
-                    <h3>🎴 Quick Revision Flashcards</h3>
-                    <div class="flashcard" onclick="flipFlashcard()">
-                        <div id="flashcardContent" class="flashcard-question">What is the formula for Kinetic Energy?</div>
-                    </div>
-                    <div class="flashcard-controls">
-                        <button class="flashcard-btn" onclick="prevFlashcard()">← Previous</button>
-                        <button class="flashcard-btn" onclick="nextFlashcard()">Next →</button>
-                    </div>
-                </div>
-
-                <!-- Study Tools -->
-                <div class="study-tools">
-                    <div class="tools-header">
-                        <h3>📝 Study Tools</h3>
-                    </div>
-                    
-                    <div class="tools-grid">
-                        <button class="tool-button" onclick="takeScreenshot()">
-                            <span>📸</span> Screenshot
-                        </button>
-                        <button class="tool-button" onclick="addBookmark()">
-                            <span>🔖</span> Bookmark
-                        </button>
-                        <button class="tool-button" onclick="saveNote()">
-                            <span>📝</span> Save Note
-                        </button>
-                        <button class="tool-button" onclick="exportNotes()">
-                            <span>📥</span> Export
-                        </button>
-                    </div>
-
-                    <!-- Notes Section -->
-                    <div class="notes-section">
-                        <h4>📋 Your Notes</h4>
-                        <textarea id="videoNotes" class="notes-textarea" placeholder="Type your notes here while watching..."></textarea>
-                        <div class="notes-actions">
-                            <button onclick="saveNote()">💾 Save Note</button>
-                            <button onclick="clearNote()">🗑️ Clear</button>
-                        </div>
-                    </div>
-
-                    <!-- Bookmarks List -->
-                    <div class="bookmarks-section">
-                        <h4>🔖 Bookmarks</h4>
-                        <div id="bookmarksList" class="bookmarks-list"></div>
+                    <div class="stat-box">
+                        <h4>20 MTPA</h4>
+                        <p>India Vision 2047</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Screenshot Preview -->
-    <div id="screenshotPreview" class="screenshot-preview">
-        <div class="preview-header">
-            <h4>Screenshot Captured!</h4>
-            <button onclick="closeScreenshotPreview()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer;">✕</button>
+    <!-- What is Duplex Steel -->
+    <section id="duplex" class="duplex-info">
+        <div class="container">
+            <div class="section-title">
+                <h3>What is Duplex Steel?</h3>
+                <p>50% Austenite and 50% Ferrite microstructure</p>
+            </div>
+            <div class="duplex-grid">
+                <div class="duplex-card">
+                    <h4>Corrosion Resistance</h4>
+                    <p>Better resistance to SCC (Stress Corrosion Cracking) and Pitting compared to standard stainless steel</p>
+                </div>
+                <div class="duplex-card">
+                    <h4>Strength & Toughness</h4>
+                    <p>Double yield strength and better toughness than standard stainless steel</p>
+                </div>
+                <div class="duplex-card">
+                    <h4>Composition</h4>
+                    <p>Higher chromium (20-28%) and molybdenum with lower nickel content than stainless steel</p>
+                </div>
+            </div>
         </div>
-        <img id="screenshotImg" src="" alt="Screenshot">
-        <div class="preview-actions">
-            <button onclick="downloadScreenshot()">💾 Download</button>
-            <button onclick="copyScreenshotToClipboard()">📋 Copy</button>
-        </div>
-    </div>
+    </section>
 
+    <!-- Manufacturing Process -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h3>Manufacturing Process</h3>
+                <p>From raw material to finished product</p>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <h5>1. Melting & Refining</h5>
+                    <p>EAF/AOD process: Scrap & alloys melted; Nitrogen precisely injected. Ultra-low Carbon (<0.03%) and balanced chemistry.</p>
+                </div>
+                <div class="process-step">
+                    <h5>2. Casting & Hot Working</h5>
+                    <p>Continuous casting into slabs/billets followed by hot rolling to create elongated "stringers" of Ferrite and Austenite.</p>
+                </div>
+                <div class="process-step">
+                    <h5>3. Solution Annealing</h5>
+                    <p>Rapid heating (1040-1100°C) followed by immediate water quench to freeze 50/50 phase balance and prevent Sigma Phase.</p>
+                </div>
+                <div class="process-step">
+                    <h5>4. Finishing & QC</h5>
+                    <p>Pickling (acid bath) and NDT (Ultrasonic/Eddy Current) testing for surface passivity and structural integrity.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h3>Our Product Portfolio</h3>
+                <p>Standard and On-Demand duplex steel products</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-img">Grade 2205 Pipes</div>
+                    <div class="product-info">
+                        <h4>Standard Products</h4>
+                        <p>Grade 2205 pipes and plates, Bright Bars, Blocks, Flat Products</p>
+                        <p class="grade">Duplex 2205</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">Defense & Aero</div>
+                    <div class="product-info">
+                        <h4>On-Demand Products</h4>
+                        <p>Defense and Aerospace sector components, Custom forgings</p>
+                        <p class="grade">Super Duplex 2507</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">Heat Exchanger Tubing</div>
+                    <div class="product-info">
+                        <h4>Specialized Components</h4>
+                        <p>Forgings, Heavy Wall Pipe, Large Diameter Welded Pipe</p>
+                        <p class="grade">As per specifications</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Sectors -->
+    <section id="sectors">
+        <div class="container">
+            <div class="section-title">
+                <h3>Sectors & Clients</h3>
+                <p>Serving critical industries with specialized duplex steel grades</p>
+            </div>
+            <div class="sector-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Industry Segment</th>
+                            <th>Recommended Grade</th>
+                            <th>Primary Product Form</th>
+                            <th>Key Benefit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Offshore Energy</td>
+                            <td>Super Duplex 2507</td>
+                            <td>Forgings & Heavy Wall Pipe</td>
+                            <td>Pitting resistance (PREN > 40)</td>
+                        </tr>
+                        <tr>
+                            <td>Refineries</td>
+                            <td>Standard 2205</td>
+                            <td>Heat Exchanger Tubing</td>
+                            <td>Thermal fatigue resistance</td>
+                        </tr>
+                        <tr>
+                            <td>Infrastructure</td>
+                            <td>Lean Duplex 2101</td>
+                            <td>Rebar & Structural Sections</td>
+                            <td>Cost-to-strength ratio</td>
+                        </tr>
+                        <tr>
+                            <td>Pulp & Paper</td>
+                            <td>Standard 2205</td>
+                            <td>Large Diameter Welded Pipe</td>
+                            <td>Resistance to bleaching liquors</td>
+                        </tr>
+                        <tr>
+                            <td>Defense</td>
+                            <td>2205</td>
+                            <td>Forging, Pipes</td>
+                            <td>High Corrosion Resistance</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Analysis -->
+    <section class="products">
+        <div class="container">
+            <div class="section-title">
+                <h3>Industrial Analysis & Market Outlook</h3>
+                <p>2025-2035 Growth Projections</p>
+            </div>
+            <div class="value-grid">
+                <div class="value-item" style="background: #1a2a3a; color: white;">
+                    <h4>5-8% CAGR</h4>
+                    <p>Projected Market Growth (2025-2035)</p>
+                </div>
+                <div class="value-item" style="background: #1a2a3a; color: white;">
+                    <h4>47%</h4>
+                    <p>Asia-Pacific Market Share by 2035</p>
+                </div>
+                <div class="value-item" style="background: #1a2a3a; color: white;">
+                    <h4>$4B+</h4>
+                    <p>Global Duplex Stainless Steel Market</p>
+                </div>
+            </div>
+            <div style="margin-top: 2rem; text-align: center;">
+                <p><strong>Key Market Drivers:</strong> Offshore Oil & Gas, Desalination, Chemical Processing</p>
+                <p><strong>Key Players:</strong> Sandvik, Jindal Stainless, POSCO</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem & Opportunity -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h3>Market Gap & Opportunity</h3>
+            </div>
+            <div class="status-grid">
+                <div class="status-box">
+                    <h4>Industry Challenges</h4>
+                    <ul class="status-list">
+                        <li>Limited availability of processed duplex steel products</li>
+                        <li>Long lead times for specialized steel components</li>
+                        <li>Lack of customization from large producers</li>
+                        <li>High logistics and import costs</li>
+                    </ul>
+                </div>
+                <div class="status-box">
+                    <h4>Our Solution</h4>
+                    <ul class="status-list">
+                        <li>Purchase billets/blooms from established manufacturers</li>
+                        <li>Convert through: Hot rolling, Forging, Machining, Heat treatment</li>
+                        <li>Deliver customized products with shorter lead times</li>
+                        <li>Cost-efficient local manufacturing</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Proposition -->
+    <section class="value-prop">
+        <div class="container">
+            <div class="section-title">
+                <h3 style="color: white;">Our Value Proposition</h3>
+            </div>
+            <div class="value-grid">
+                <div class="value-item">
+                    <h4>Reliable Supply</h4>
+                    <p>Corrosion-resistant duplex stainless steel</p>
+                </div>
+                <div class="value-item">
+                    <h4>Customized Components</h4>
+                    <p>Tailored to specific requirements</p>
+                </div>
+                <div class="value-item">
+                    <h4>On-Demand Manufacturing</h4>
+                    <p>Flexible order quantities</p>
+                </div>
+                <div class="value-item">
+                    <h4>Faster Delivery</h4>
+                    <p>Than traditional mill lead times</p>
+                </div>
+                <div class="value-item">
+                    <h4>Cost-Efficient</h4>
+                    <p>Value-added processing</p>
+                </div>
+                <div class="value-item">
+                    <h4>Local Supply</h4>
+                    <p>Reducing import dependence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Competitive Advantage -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h3>Competitive Advantage</h3>
+            </div>
+            <div class="competitor-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Parameters</th>
+                            <th>Our Startup</th>
+                            <th>Large Steel Mill</th>
+                            <th>Import Suppliers</th>
+                            <th>Local Fabricators</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Customization Capability</strong></td>
+                            <td>High – custom sizes</td>
+                            <td>Low – standard products</td>
+                            <td>Low</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>On-Demand Production</strong></td>
+                            <td>Yes – small/medium batches</td>
+                            <td>No – large batches</td>
+                            <td>No</td>
+                            <td>Limited</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Delivery Time</strong></td>
+                            <td>Fast – local production</td>
+                            <td>Medium</td>
+                            <td>Slow (shipping)</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost Efficiency for Small Orders</strong></td>
+                            <td>Competitive</td>
+                            <td>High cost for small orders</td>
+                            <td>High (import duties)</td>
+                            <td>Variable</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Current Status -->
+    <section id="status" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h3>Current Status / Stage</h3>
+                <p>Where we stand today</p>
+            </div>
+            <div class="status-grid">
+                <div class="status-box">
+                    <h4>Completed Milestones</h4>
+                    <ul class="status-list">
+                        <li>Identified opportunity in duplex steel manufacturing</li>
+                        <li>Secured land for the facility</li>
+                        <li>Arranged initial capital to begin project</li>
+                        <li>Completed preliminary market research</li>
+                        <li>Interest confirmed from oil & gas, marine, chemical industries</li>
+                    </ul>
+                </div>
+                <div class="status-box">
+                    <h4>Next Steps</h4>
+                    <ul class="status-list">
+                        <li>Finalizing plant design and machinery selection</li>
+                        <li>Setting up supply agreements with billet/bloom producers</li>
+                        <li>Beginning construction of manufacturing facility</li>
+                        <li>Developing and testing first prototype products</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem; font-size: 1.2rem; font-weight: 600;">
+                <p>Objective: Move from planning to prototype and pilot production in next phase</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Advantages -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h3>Location Advantages</h3>
+                <p>Strategic location near Mumbai</p>
+            </div>
+            <div class="location-grid">
+                <div class="location-item">
+                    <h5>Proximity to Customers</h5>
+                    <p>Close to major naval, marine, and oil & gas industries</p>
+                </div>
+                <div class="location-item">
+                    <h5>Near JNPT Port</h5>
+                    <p>Efficient transportation of raw materials and finished products</p>
+                </div>
+                <div class="location-item">
+                    <h5>Access to Refineries</h5>
+                    <p>Close to western coast oil & gas operations</p>
+                </div>
+                <div class="location-item">
+                    <h5>Industrial Ecosystem</h5>
+                    <p>Connected to Mumbai and Pune industrial hubs</p>
+                </div>
+                <div class="location-item">
+                    <h5>NH-66 Connectivity</h5>
+                    <p>Strong road connectivity via Mumbai-Goa Highway</p>
+                </div>
+                <div class="location-item">
+                    <h5>Skilled Workforce</h5>
+                    <p>Access to engineering talent and suppliers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Metrics -->
+    <section class="products">
+        <div class="container">
+            <div class="section-title">
+                <h3>Key Metrics & Financials</h3>
+                <p>10,000 tons annual capacity at 80% utilization</p>
+            </div>
+            
+            <h4 style="margin: 2rem 0 1rem;">Facility Area</h4>
+            <div class="sector-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Facility</th>
+                            <th>Area (sqm)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>EAF / Steel Melting Shop</td><td>6,000-10,000</td></tr>
+                        <tr><td>Rolling / Finishing Mill</td><td>10,000-15,000</td></tr>
+                        <tr><td>Raw Material Storage</td><td>2,000-4,000</td></tr>
+                        <tr><td>Utilities</td><td>2,000-3,000</td></tr>
+                        <tr><td>Admin / Warehouse</td><td>1,000-2,000</td></tr>
+                        <tr><td><strong>Total Built-up</strong></td><td><strong>15,000-25,000</strong></td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 style="margin: 2rem 0 1rem;">Capacity & Pricing</h4>
+            <div class="status-grid">
+                <div class="status-box">
+                    <p><strong>Annual Capacity:</strong> 10,000 tons</p>
+                    <p><strong>Utilization:</strong> 80% (8,000 tons output)</p>
+                </div>
+                <div class="status-box">
+                    <p><strong>Selling Price:</strong> ₹450/kg (current market)</p>
+                    <p><strong>Total Capex:</strong> ₹220-225 Cr</p>
+                </div>
+            </div>
+
+            <h4 style="margin: 2rem 0 1rem;">Revenue Projections</h4>
+            <div class="revenue-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Scenario</th>
+                            <th>Output (tons)</th>
+                            <th>Revenue (₹)</th>
+                            <th>Gross Profit (₹)</th>
+                            <th>EBITDA (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Yr1 Startup</td><td>8,000</td><td>360 Cr</td><td>16 Cr</td><td>-7.15 Cr</td></tr>
+                        <tr><td>Yr2 Steady</td><td>8,500</td><td>382.5 Cr</td><td>17 Cr</td><td>-6.15 Cr</td></tr>
+                        <tr><td>Yr3 Peak</td><td>9,000</td><td>418.5 Cr</td><td>31.5 Cr</td><td>8.35 Cr</td></tr>
+                        <tr><td>Yr4 Growth</td><td>9,900</td><td>483.4 Cr</td><td>40.6 Cr</td><td>17.5 Cr</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funding Sources -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h3>Funding Sources</h3>
+            </div>
+            <div class="funding-grid">
+                <div class="funding-card">
+                    <h5>Govt Grants/PLI</h5>
+                    <div class="amount">₹25-50 Cr</div>
+                    <p>Subsidy for specialty steel</p>
+                </div>
+                <div class="funding-card">
+                    <h5>Bank Term Loans</h5>
+                    <div class="amount">₹80-130 Cr</div>
+                    <p>8-12% interest</p>
+                </div>
+                <div class="funding-card">
+                    <h5>Investors</h5>
+                    <div class="amount">₹20-30 Cr</div>
+                    <p>Part ownership</p>
+                </div>
+                <div class="funding-card">
+                    <h5>Angel/Bootstrapping</h5>
+                    <div class="amount">₹5-20 Cr</div>
+                    <p>Friends/family</p>
+                </div>
+            </div>
+
+            <h4 style="margin: 2rem 0 1rem;">Repayment Scheme</h4>
+            <div class="revenue-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>EBITDA</th>
+                            <th>Payment to Bank</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Yr1</td><td>-₹7 Cr</td><td>₹0</td><td>₹130 Cr</td></tr>
+                        <tr><td>Yr2</td><td>-₹6 Cr</td><td>₹25 Cr</td><td>₹112 Cr</td></tr>
+                        <tr><td>Yr3</td><td>+₹8 Cr</td><td>₹24 Cr</td><td>₹94 Cr</td></tr>
+                        <tr><td>Yr4</td><td>+₹17 Cr</td><td>₹23 Cr</td><td>₹76 Cr</td></tr>
+                        <tr><td colspan="4">Zero by Yr8</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- SWOT Analysis -->
+    <section class="products">
+        <div class="container">
+            <div class="section-title">
+                <h3>SWOT Analysis</h3>
+            </div>
+            <div class="swot-grid">
+                <div class="swot-item strengths">
+                    <h4>Strengths</h4>
+                    <ul class="swot-list">
+                        <li>Focused on Duplex SS Manufacturing</li>
+                        <li>Integrated on-demand manufacturing facility</li>
+                        <li>10+ stainless steel grades for specialized uses</li>
+                    </ul>
+                </div>
+                <div class="swot-item weaknesses">
+                    <h4>Weaknesses</h4>
+                    <ul class="swot-list">
+                        <li>High dependence on top 10 customers</li>
+                        <li>Revenue concentrated in few sectors</li>
+                    </ul>
+                </div>
+                <div class="swot-item opportunities">
+                    <h4>Opportunities</h4>
+                    <ul class="swot-list">
+                        <li>Expansion into stainless steel seamless pipes</li>
+                        <li>Rising stainless steel demand in India (6.6% CAGR)</li>
+                        <li>Vision 2047 industry target of 20 MTPA</li>
+                    </ul>
+                </div>
+                <div class="swot-item threats">
+                    <h4>Threats</h4>
+                    <ul class="swot-list">
+                        <li>Potential financial risk from contingent liabilities</li>
+                        <li>Strong global competition, especially China</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sales Channels -->
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h3>Sales Channels</h3>
+            </div>
+            <div class="value-grid">
+                <div class="value-item" style="background: #f8f9fa; color: #333;">
+                    <h4>Direct Sales</h4>
+                    <p>Oil & gas, chemical, marine, power companies</p>
+                </div>
+                <div class="value-item" style="background: #f8f9fa; color: #333;">
+                    <h4>Distributors</h4>
+                    <p>Steel traders and industrial suppliers</p>
+                </div>
+                <div class="value-item" style="background: #f8f9fa; color: #333;">
+                    <h4>Procurement Portals</h4>
+                    <p>Vendor registration with corporate buyers</p>
+                </div>
+                <div class="value-item" style="background: #f8f9fa; color: #333;">
+                    <h4>Digital</h4>
+                    <p>Website catalog and quote requests</p>
+                </div>
+                <div class="value-item" style="background: #f8f9fa; color: #333;">
+                    <h4>Exhibitions</h4>
+                    <p>Industry trade fairs and conferences</p>
+                </div>
+                <div class="value-item" style="background: #f8f9fa; color: #333;">
+                    <h4>Networking</h4>
+                    <p>Engineers, consultants, procurement managers</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="products">
+        <div class="container">
+            <div class="section-title">
+                <h3>Contact Us</h3>
+                <p>Get in touch for quotes, technical information, or partnerships</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h4>Reach Us</h4>
+                    <div class="contact-detail">
+                        <strong>Address:</strong>
+                        <span>Industrial Area near Mumbai, Maharashtra</span>
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Team:</strong>
+                        <span>Chandan, Abhishek, Netramani, Prajwal</span>
+                    </div>
+                    <div class="contact-detail">
+                        <strong>Email:</strong>
+                        <span>contact@duplexsteel.in</span>
+                    </div>
+                    <div style="margin-top: 2rem;">
+                        <h4>Location Advantage</h4>
+                        <p>Near JNPT Port | NH-66 Connectivity | Close to Refineries</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h4>Request a Quote</h4>
+                    <form>
+                        <input type="text" placeholder="Your Name *" required>
+                        <input type="text" placeholder="Company Name *" required>
+                        <input type="email" placeholder="Email *" required>
+                        <input type="tel" placeholder="Phone *" required>
+                        <select>
+                            <option>Select Product</option>
+                            <option>Duplex 2205 Pipes/Plates</option>
+                            <option>Super Duplex 2507</option>
+                            <option>Bars/Blocks</option>
+                            <option>Defense/Aerospace Components</option>
+                        </select>
+                        <textarea placeholder="Tell us about your requirements, quantity, and specifications"></textarea>
+                        <button type="submit">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="logo">
+                <h2>Duplex Steel Manufacturing</h2>
+                <p style="opacity: 0.7;">Startup by CRS Group</p>
+            </div>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#duplex">Duplex Steel</a>
+                <a href="#products">Products</a>
+                <a href="#sectors">Sectors</a>
+                <a href="#status">Status</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Duplex Steel Manufacturing. All rights reserved.</p>
+                <p>Team: Chandan Sahu (25M1867) | Abhishek Singh (25M1855) | Netramani Sharma (24M1826) | Prajwal Bakal (23M1588)</p>
+                <p>India's second-largest consumer and third-largest producer of stainless steel globally</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu -->
     <script>
-        // ========== CONFIGURATION ==========
-        const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTOtCn2wNDwJahM8yPjAKnDfaB3DDHoNHOxylyq9mtC6nN59y4ES07jd2MFjmqYm9ml750slTZc_JAh/pub?output=csv";
-
-        // Global variables
-        let allVideos = [];
-        let currentFilter = 'all';
-        let searchTerm = '';
-        let currentVideoId = '';
-        let currentVideoDetails = {};
-        let bookmarks = JSON.parse(localStorage.getItem('jeeBookmarks') || '[]');
-        let audioModeActive = false;
-        let watchedVideos = JSON.parse(localStorage.getItem('jeeWatchedVideos') || '{}');
-        let flashcards = [
-            { q: "What is the formula for Kinetic Energy?", a: "KE = ½ mv²" },
-            { q: "What is Newton's Second Law?", a: "F = ma" },
-            { q: "What is the value of Avogadro's Number?", a: "6.022 × 10²³" },
-            { q: "What is the formula for Potential Energy?", a: "PE = mgh" },
-            { q: "What is the Pythagorean Theorem?", a: "a² + b² = c²" }
-        ];
-        let currentFlashcardIndex = 0;
-        let showAnswer = false;
-
-        // DOM Elements
-        const videoGrid = document.getElementById('videoGrid');
-        const mainSearchInput = document.getElementById('mainSearchInput');
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const resultsSection = document.getElementById('resultsSection');
-        const videoModal = document.getElementById('videoModal');
-        const youtubePlayer = document.getElementById('youtubePlayer');
-        const autocompleteDropdown = document.getElementById('autocompleteDropdown');
-
-        // ========== LOAD VIDEOS ==========
-        async function loadVideos() {
-            try {
-                const response = await fetch(SHEET_URL);
-                const csvText = await response.text();
-                
-                const rows = csvText.split('\n').map(row => 
-                    row.split(',').map(cell => cell.replace(/^"|"$/g, '').trim())
-                );
-                
-                allVideos = rows.slice(1).map((row, index) => {
-                    if (row.length < 6) return null;
-                    return {
-                        id: row[0],
-                        title: row[1],
-                        channel: row[2],
-                        duration: row[3],
-                        order: parseInt(row[4]) || index + 1,
-                        subject: (row[5] || '').toLowerCase()
-                    };
-                }).filter(v => v && v.id);
-                
-                allVideos.sort((a, b) => a.order - b.order);
-                document.getElementById('videoCount').textContent = `${allVideos.length} lectures`;
-                document.getElementById('sheetsStatus').textContent = `✅ ${allVideos.length} videos`;
-                updateProgressStats();
-                
-            } catch (error) {
-                console.error('Error:', error);
-            }
+        function toggleMenu() {
+            var nav = document.getElementById('navbar');
+            nav.classList.toggle('active');
         }
 
-        // ========== DARK MODE ==========
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            const btn = document.querySelector('.dark-mode-btn');
-            const isDark = document.body.classList.contains('dark-mode');
-            btn.innerHTML = isDark ? '<span>☀️</span> Light Mode' : '<span>🌙</span> Dark Mode';
-            localStorage.setItem('darkMode', isDark);
-        }
-
-        // Load dark mode preference
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-            document.querySelector('.dark-mode-btn').innerHTML = '<span>☀️</span> Light Mode';
-        }
-
-        // ========== AUTOCOMPLETE ==========
-        function setupAutocomplete() {
-            mainSearchInput.addEventListener('input', () => {
-                const term = mainSearchInput.value.toLowerCase();
-                if (term.length < 2) {
-                    autocompleteDropdown.style.display = 'none';
-                    return;
-                }
-                
-                const matches = allVideos
-                    .filter(v => v.title.toLowerCase().includes(term) || 
-                                (v.channel && v.channel.toLowerCase().includes(term)))
-                    .slice(0, 5);
-                
-                if (matches.length > 0) {
-                    autocompleteDropdown.innerHTML = matches.map(v => `
-                        <div class="autocomplete-item" onclick="selectAutocomplete('${v.id}')">
-                            <span>
-                                <span class="match-highlight">${v.title.substring(0, term.length)}</span>
-                                ${v.title.substring(term.length)}
-                            </span>
-                            <span class="channel-tag">${v.channel || ''}</span>
-                        </div>
-                    `).join('');
-                    autocompleteDropdown.style.display = 'block';
-                } else {
-                    autocompleteDropdown.style.display = 'none';
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!autocompleteDropdown.contains(e.target) && e.target !== mainSearchInput) {
-                    autocompleteDropdown.style.display = 'none';
-                }
-            });
-        }
-
-        function selectAutocomplete(videoId) {
-            const video = allVideos.find(v => v.id === videoId);
-            if (video) {
-                mainSearchInput.value = video.title;
-                autocompleteDropdown.style.display = 'none';
-                performSearch();
-            }
-        }
-
-        // ========== SEARCH FUNCTION ==========
-        function performSearch() {
-            searchTerm = mainSearchInput.value.trim();
-            
-            if (searchTerm === '') {
-                welcomeScreen.style.display = 'block';
-                resultsSection.style.display = 'none';
-                return;
-            }
-            
-            let results = allVideos.filter(video => {
-                const term = searchTerm.toLowerCase();
-                return video.title.toLowerCase().includes(term) || 
-                       (video.channel && video.channel.toLowerCase().includes(term));
-            });
-            
-            if (currentFilter !== 'all') {
-                results = results.filter(v => v.subject === currentFilter);
-            }
-            
-            welcomeScreen.style.display = 'none';
-            resultsSection.style.display = 'block';
-            
-            document.getElementById('resultsInfo').textContent = `Found ${results.length} results for "${searchTerm}"`;
-            updateStats(results);
-            displayVideos(results);
-        }
-
-        function displayVideos(videos) {
-            if (videos.length === 0) {
-                videoGrid.innerHTML = '<div class="empty-state">No videos found</div>';
-                return;
-            }
-
-            videoGrid.innerHTML = videos.map(video => `
-                <div class="video-card" onclick="openVideoPlayer('${video.id}', '${video.title.replace(/'/g, "\\'")}', '${video.channel.replace(/'/g, "\\'")}', '${video.duration}', '${video.subject}')">
-                    <div class="thumbnail">
-                        <img src="https://img.youtube.com/vi/${video.id}/sddefault.jpg" 
-                             onerror="this.src='https://img.youtube.com/vi/${video.id}/hqdefault.jpg'">
-                        <span class="play-badge">▶ Play</span>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">
-                            ${video.title}
-                            <span class="duration">${video.duration}</span>
-                        </div>
-                        <div class="channel-name">
-                            <span>📺</span> ${video.channel || 'Unknown'}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateStats(videos) {
-            document.getElementById('totalVideos').textContent = videos.length;
-            
-            let totalMinutes = 0;
-            videos.forEach(v => {
-                if (v.duration) {
-                    const parts = v.duration.split(':');
-                    if (parts.length === 2) {
-                        totalMinutes += parseInt(parts[0]) * 60 + parseInt(parts[1]);
-                    }
-                }
-            });
-            document.getElementById('totalHours').textContent = Math.round(totalMinutes / 60);
-            
-            const uniqueChannels = new Set(videos.map(v => v.channel).filter(c => c));
-            document.getElementById('totalChannels').textContent = uniqueChannels.size;
-        }
-
-        // ========== VIDEO PLAYER ==========
-        function openVideoPlayer(videoId, title, channel, duration, subject) {
-            currentVideoId = videoId;
-            currentVideoDetails = { title, channel, duration, subject };
-            
-            youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
-            
-            document.getElementById('currentVideoTitle').textContent = title;
-            document.getElementById('currentChannel').textContent = channel;
-            document.getElementById('currentDuration').textContent = duration;
-            document.getElementById('currentSubject').textContent = subject;
-            
-            videoModal.classList.add('active');
-            loadBookmarksForVideo(videoId);
-            
-            // Mark as watched for progress tracking
-            markVideoWatched(videoId, subject);
-        }
-
-        function closeVideoModal() {
-            videoModal.classList.remove('active');
-            youtubePlayer.src = '';
-            if (audioModeActive) {
-                toggleAudioMode();
-            }
-        }
-
-        // ========== PICTURE-IN-PICTURE ==========
-        async function togglePictureInPicture() {
-            try {
-                if (document.pictureInPictureElement) {
-                    await document.exitPictureInPicture();
-                } else {
-                    const video = document.querySelector('video');
-                    if (video) {
-                        await video.requestPictureInPicture();
-                    }
-                }
-            } catch (error) {
-                console.error('PiP error:', error);
-            }
-        }
-
-        // ========== AUDIO MODE ==========
-        function toggleAudioMode() {
-            audioModeActive = !audioModeActive;
-            const btn = document.getElementById('audioModeBtn');
-            
-            if (audioModeActive) {
-                btn.classList.add('active');
-                btn.innerHTML = '<span>🎧</span> Audio Mode ON';
-            } else {
-                btn.classList.remove('active');
-                btn.innerHTML = '<span>🎧</span> Background Audio';
-            }
-        }
-
-        // ========== SPEED CONTROL ==========
-        function setPlaybackSpeed(speed) {
-            const video = document.querySelector('video');
-            if (video) {
-                video.playbackRate = speed;
-                document.querySelectorAll('.speed-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                    if (btn.textContent.includes(speed + 'x')) {
-                        btn.classList.add('active');
-                    }
-                });
-            }
-        }
-
-        // ========== PROGRESS TRACKING ==========
-        function markVideoWatched(videoId, subject) {
-            watchedVideos[videoId] = { watched: true, subject, timestamp: Date.now() };
-            localStorage.setItem('jeeWatchedVideos', JSON.stringify(watchedVideos));
-            updateProgressStats();
-        }
-
-        function updateProgressStats() {
-            const physicsVideos = allVideos.filter(v => v.subject === 'physics').length;
-            const chemistryVideos = allVideos.filter(v => v.subject === 'chemistry').length;
-            const mathsVideos = allVideos.filter(v => v.subject === 'maths').length;
-            
-            const physicsWatched = Object.keys(watchedVideos).filter(id => 
-                allVideos.find(v => v.id === id)?.subject === 'physics'
-            ).length;
-            const chemistryWatched = Object.keys(watchedVideos).filter(id => 
-                allVideos.find(v => v.id === id)?.subject === 'chemistry'
-            ).length;
-            const mathsWatched = Object.keys(watchedVideos).filter(id => 
-                allVideos.find(v => v.id === id)?.subject === 'maths'
-            ).length;
-            
-            const totalVideos = allVideos.length;
-            const totalWatched = Object.keys(watchedVideos).length;
-            
-            document.getElementById('overallProgress').style.width = totalVideos ? 
-                `${(totalWatched / totalVideos) * 100}%` : '0%';
-            document.getElementById('progressText').textContent = 
-                `${Math.round((totalWatched / totalVideos) * 100)}% of JEE syllabus covered`;
-            
-            document.getElementById('physicsProgress').textContent = 
-                `${physicsWatched}/${physicsVideos}`;
-            document.getElementById('chemistryProgress').textContent = 
-                `${chemistryWatched}/${chemistryVideos}`;
-            document.getElementById('mathsProgress').textContent = 
-                `${mathsWatched}/${mathsVideos}`;
-        }
-
-        // ========== FLASHCARDS ==========
-        function flipFlashcard() {
-            const content = document.getElementById('flashcardContent');
-            if (!showAnswer) {
-                content.textContent = flashcards[currentFlashcardIndex].a;
-                content.className = 'flashcard-answer';
-            } else {
-                content.textContent = flashcards[currentFlashcardIndex].q;
-                content.className = 'flashcard-question';
-            }
-            showAnswer = !showAnswer;
-        }
-
-        function nextFlashcard() {
-            currentFlashcardIndex = (currentFlashcardIndex + 1) % flashcards.length;
-            showAnswer = false;
-            document.getElementById('flashcardContent').textContent = 
-                flashcards[currentFlashcardIndex].q;
-            document.getElementById('flashcardContent').className = 'flashcard-question';
-        }
-
-        function prevFlashcard() {
-            currentFlashcardIndex = (currentFlashcardIndex - 1 + flashcards.length) % flashcards.length;
-            showAnswer = false;
-            document.getElementById('flashcardContent').textContent = 
-                flashcards[currentFlashcardIndex].q;
-            document.getElementById('flashcardContent').className = 'flashcard-question';
-        }
-
-        // ========== SCREENSHOT ==========
-        function takeScreenshot() {
-            const videoElement = document.querySelector('video');
-            if (!videoElement) {
-                alert('⏳ Please wait for the video to load first');
-                return;
-            }
-
-            const canvas = document.createElement('canvas');
-            canvas.width = videoElement.videoWidth;
-            canvas.height = videoElement.videoHeight;
-            
-            try {
-                const ctx = canvas.getContext('2d');
-                ctx.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
-                
-                const screenshotUrl = canvas.toDataURL('image/png');
-                
-                const preview = document.getElementById('screenshotPreview');
-                const img = document.getElementById('screenshotImg');
-                img.src = screenshotUrl;
-                preview.style.display = 'block';
-                
-                window.lastScreenshot = screenshotUrl;
-                
-                setTimeout(() => {
-                    if (preview.style.display === 'block') {
-                        preview.style.display = 'none';
-                    }
-                }, 5000);
-                
-            } catch (error) {
-                alert('❌ Could not take screenshot. Try using browser\'s built-in screenshot (Ctrl+Shift+S)');
-            }
-        }
-
-        function downloadScreenshot() {
-            if (!window.lastScreenshot) return;
-            const link = document.createElement('a');
-            link.download = `jee-screenshot-${Date.now()}.png`;
-            link.href = window.lastScreenshot;
-            link.click();
-        }
-
-        function copyScreenshotToClipboard() {
-            if (!window.lastScreenshot) return;
-            fetch(window.lastScreenshot)
-                .then(res => res.blob())
-                .then(blob => {
-                    navigator.clipboard.write([
-                        new ClipboardItem({ [blob.type]: blob })
-                    ]).then(() => alert('✅ Copied to clipboard!'));
-                });
-        }
-
-        function closeScreenshotPreview() {
-            document.getElementById('screenshotPreview').style.display = 'none';
-        }
-
-        // ========== BOOKMARKS ==========
-        function addBookmark() {
-            const videoElement = document.querySelector('video');
-            const currentTime = videoElement ? videoElement.currentTime : 0;
-            const minutes = Math.floor(currentTime / 60);
-            const seconds = Math.floor(currentTime % 60);
-            const timeStr = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-            
-            const bookmark = {
-                videoId: currentVideoId,
-                videoTitle: currentVideoDetails.title,
-                time: currentTime,
-                timeStr: timeStr,
-                note: '',
-                timestamp: Date.now()
-            };
-            
-            bookmarks.push(bookmark);
-            localStorage.setItem('jeeBookmarks', JSON.stringify(bookmarks));
-            loadBookmarksForVideo(currentVideoId);
-        }
-
-        function loadBookmarksForVideo(videoId) {
-            const videoBookmarks = bookmarks.filter(b => b.videoId === videoId);
-            const list = document.getElementById('bookmarksList');
-            
-            if (videoBookmarks.length === 0) {
-                list.innerHTML = '<p style="color: var(--text-secondary);">No bookmarks yet</p>';
-                return;
-            }
-            
-            list.innerHTML = videoBookmarks.map((b, index) => `
-                <div class="bookmark-item">
-                    <span class="bookmark-time" onclick="seekToTime(${b.time})">⏱️ ${b.timeStr}</span>
-                    <span class="delete-bookmark" onclick="deleteBookmark(${index})" style="cursor: pointer;">✕</span>
-                </div>
-            `).join('');
-        }
-
-        function seekToTime(seconds) {
-            const video = document.querySelector('video');
-            if (video) {
-                video.currentTime = seconds;
-            }
-        }
-
-        function deleteBookmark(index) {
-            bookmarks.splice(index, 1);
-            localStorage.setItem('jeeBookmarks', JSON.stringify(bookmarks));
-            loadBookmarksForVideo(currentVideoId);
-        }
-
-        // ========== NOTES ==========
-        function saveNote() {
-            const noteText = document.getElementById('videoNotes').value;
-            if (!noteText.trim()) return;
-            
-            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
-            notes[currentVideoId] = {
-                text: noteText,
-                videoTitle: currentVideoDetails.title,
-                timestamp: Date.now()
-            };
-            localStorage.setItem('jeeNotes', JSON.stringify(notes));
-            alert('Note saved!');
-        }
-
-        function clearNote() {
-            document.getElementById('videoNotes').value = '';
-            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
-            delete notes[currentVideoId];
-            localStorage.setItem('jeeNotes', JSON.stringify(notes));
-        }
-
-        function exportNotes() {
-            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
-            const exportData = {
-                notes: notes,
-                bookmarks: bookmarks,
-                watchedVideos: watchedVideos,
-                exportDate: new Date().toISOString()
-            };
-            
-            const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `jee-study-data-${Date.now()}.json`;
-            a.click();
-        }
-
-        // ========== UTILITY FUNCTIONS ==========
-        function searchExample(term) {
-            mainSearchInput.value = term;
-            performSearch();
-        }
-
-        // Event Listeners
-        mainSearchInput.addEventListener('input', performSearch);
-
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                if (mainSearchInput.value.trim() !== '') {
-                    performSearch();
-                }
+        document.querySelectorAll('#navbar a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navbar').classList.remove('active');
             });
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
-                closeVideoModal();
-            }
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
         });
-
-        // Initialize
-        loadVideos();
-        setupAutocomplete();
-        updateProgressStats();
-
-        // Load saved notes when opening video
-        document.getElementById('videoModal').addEventListener('transitionend', () => {
-            const notes = JSON.parse(localStorage.getItem('jeeNotes') || '{}');
-            if (notes[currentVideoId]) {
-                document.getElementById('videoNotes').value = notes[currentVideoId].text;
-            } else {
-                document.getElementById('videoNotes').value = '';
-            }
-        });
-
-        // Expose functions to global scope
-        window.toggleDarkMode = toggleDarkMode;
-        window.openVideoPlayer = openVideoPlayer;
-        window.closeVideoModal = closeVideoModal;
-        window.searchExample = searchExample;
-        window.togglePictureInPicture = togglePictureInPicture;
-        window.toggleAudioMode = toggleAudioMode;
-        window.setPlaybackSpeed = setPlaybackSpeed;
-        window.takeScreenshot = takeScreenshot;
-        window.downloadScreenshot = downloadScreenshot;
-        window.copyScreenshotToClipboard = copyScreenshotToClipboard;
-        window.closeScreenshotPreview = closeScreenshotPreview;
-        window.addBookmark = addBookmark;
-        window.seekToTime = seekToTime;
-        window.deleteBookmark = deleteBookmark;
-        window.saveNote = saveNote;
-        window.clearNote = clearNote;
-        window.exportNotes = exportNotes;
-        window.flipFlashcard = flipFlashcard;
-        window.nextFlashcard = nextFlashcard;
-        window.prevFlashcard = prevFlashcard;
-        window.selectAutocomplete = selectAutocomplete;
     </script>
 </body>
 </html>
-
